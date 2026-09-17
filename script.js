@@ -32,6 +32,15 @@ const CONFIG = {
   nombreComplejo: "Cabañas El Jardín",
 
   /* -----------------------------------------------------------------------
+     PROPIETARIO Y CONTACTO DIRECTO
+     ----------------------------------------------------------------------- */
+  propietario: "Ignacio Posada",
+  telefonoPrincipal: "(011) 15-3261-8849",
+  telefonoSecundario: "(011) 15-3261-6765",
+  whatsappSecundario: "5491132616765",
+  facebook: "https://facebook.com/eljardi",
+
+  /* -----------------------------------------------------------------------
      WHATSAPP
      Número en formato internacional, SOLO NÚMEROS (sin +, espacios ni guiones).
      Para celulares de Argentina: 54 + 9 + código de área sin 0 + número sin 15.
@@ -47,7 +56,7 @@ const CONFIG = {
     general: "Hola! Quisiera consultar disponibilidad y precios de las cabañas.",
     cabana: "Hola! Quisiera consultar disponibilidad y precios de la {cabana}.",
     reserva: "Hola! Quisiera consultar/reservar la {cabana} desde el {entrada} hasta el {salida} para {personas}. Mi nombre es {nombre}.",
-    directo: "Hola! Vi la web de Cabañas El Jardín y quería consultar disponibilidad para las siguientes fechas..."
+    directo: "Hola Ignacio, te escribo desde la web de Cabañas El Jardín. Quería consultar disponibilidad para [indicar fechas] para [cantidad] pasajeros."
   },
 
   /* -----------------------------------------------------------------------
@@ -506,6 +515,10 @@ function aplicarDatosGenerales() {
 
   $$("[data-instagram]").forEach((enlace) => {
     if (CONFIG.instagram) enlace.href = CONFIG.instagram;
+  });
+
+  $$("[data-facebook]").forEach((enlace) => {
+    if (CONFIG.facebook) enlace.href = CONFIG.facebook;
   });
 
   $$("[data-maps]").forEach((enlace) => {

@@ -3199,149 +3199,414 @@ select.field__control {
 
 
 /* =========================================================================
-   13. BANNER DE CONTACTO CON SELLO HUMANO
+   13. BLOQUE DE CONVERSIÓN: CÓMO RESERVAR Y CONTACTO DIRECTO
    ========================================================================= */
-.contact {
+.booking-contact {
   padding: clamp(64px, 8vw, 96px) 0;
   background: var(--bg-base);
 }
 
-.trust-banner {
-  max-width: 900px;
-  margin-inline: auto;
-  padding: clamp(36px, 5.5vw, 64px) clamp(22px, 4.5vw, 56px);
-  border-radius: var(--radio-lg);
-  background: var(--bg-surface);
-  border: 1px solid var(--borde);
-  box-shadow: var(--sombra);
-  text-align: center;
-}
-
-.trust-banner__badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 18px;
-  border-radius: var(--radio-full);
-  background: rgba(36, 64, 51, 0.08);
+/* Bloque 'Cómo Reservar' */
+.how-to-book {
+  background: var(--bg-surface); /* Arena suave #EFE9DE */
   border: 1px solid rgba(36, 64, 51, 0.12);
+  border-radius: 12px;
+  padding: clamp(28px, 4.5vw, 48px);
+  margin-bottom: clamp(32px, 4vw, 48px);
+  box-shadow: 0 6px 24px rgba(36, 64, 51, 0.04);
+}
+
+.how-to-book__header {
+  text-align: center;
+  margin-bottom: clamp(24px, 3.5vw, 36px);
+}
+
+.how-to-book__badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px;
+  border-radius: 6px;
+  background: rgba(36, 64, 51, 0.08);
   color: var(--brand-forest);
   font-family: var(--font-sans);
-  font-size: 0.86rem;
-  font-weight: 600;
-  line-height: 1.35;
-  margin-bottom: 22px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
 }
 
-.trust-banner__badge-icon {
-  width: 16px;
-  height: 16px;
-  color: var(--brand-forest);
-  flex: none;
-}
-
-.trust-banner__title {
+.how-to-book__title {
   font-family: var(--font-serif);
-  font-size: clamp(2rem, 3.8vw, 2.8rem);
+  font-size: clamp(28px, 3.5vw, 36px);
   font-weight: 600;
   color: var(--brand-forest);
-  letter-spacing: -0.015em;
-  margin: 0 0 16px;
+  margin: 0 0 10px;
+  line-height: 1.15;
 }
 
-.trust-banner__text {
-  max-width: 660px;
-  margin: 0 auto 32px;
+.how-to-book__subtitle {
   font-family: var(--font-sans);
-  font-size: clamp(1rem, 1.25vw, 1.12rem);
-  line-height: 1.65;
+  font-size: clamp(14px, 1.25vw, 16px);
   color: var(--text-muted);
+  margin: 0 auto;
+  max-width: 580px;
+  line-height: 1.55;
 }
 
-.trust-banner__action {
-  margin-bottom: 28px;
+/* Esquema de reserva: 2 Pasos */
+.booking-steps {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(16px, 2.5vw, 24px);
+  margin-bottom: clamp(24px, 3.5vw, 36px);
 }
 
-.trust-banner__btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  min-height: 52px;
-  padding: 14px 32px;
+.booking-step {
+  background: #FFFFFF;
+  border: 1px solid rgba(36, 64, 51, 0.1);
   border-radius: 10px;
-  background-color: var(--brand-forest);
-  color: #FAF8F5;
-  font-family: var(--font-sans);
-  font-size: 1.05rem;
-  font-weight: 600;
-  text-decoration: none;
-  box-shadow: 0 8px 24px rgba(36, 64, 51, 0.22);
-  transition: background-color 0.3s var(--ease), transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
-}
-
-.trust-banner__btn:hover {
-  background-color: #1A3026;
-  color: #FAF8F5;
-  transform: translateY(-3px);
-  box-shadow: 0 12px 30px rgba(36, 64, 51, 0.3);
-}
-
-.trust-banner__btn-icon {
-  width: 22px;
-  height: 22px;
-  flex: none;
-  color: #FAF8F5;
-}
-
-.trust-banner__secondary-links {
+  padding: clamp(20px, 2.8vw, 28px);
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 12px;
-  padding-top: 24px;
-  border-top: 1px solid var(--borde);
+  flex-direction: column;
+  transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
 }
 
-.trust-pill {
-  display: inline-flex;
+.booking-step:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(36, 64, 51, 0.06);
+}
+
+.booking-step__header {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 8px;
-  padding: 10px 18px;
-  border-radius: var(--radio-full);
-  background: var(--bg-base);
-  border: 1px solid var(--borde);
+  margin-bottom: 14px;
+}
+
+.booking-step__badge {
   font-family: var(--font-sans);
-  font-size: 0.88rem;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #FAF8F5;
+  background: var(--brand-forest);
+  padding: 4px 10px;
+  border-radius: 5px;
+}
+
+.booking-step__pct {
+  font-family: var(--font-serif);
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--cta-terracotta);
+}
+
+.booking-step__title {
+  font-family: var(--font-serif);
+  font-size: clamp(19px, 2.2vw, 22px);
+  font-weight: 600;
+  color: var(--brand-forest);
+  margin: 0 0 8px;
+  line-height: 1.25;
+}
+
+.booking-step__desc {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* Medios de pago */
+.payment-box {
+  background: #FAF8F5;
+  border: 1px solid rgba(36, 64, 51, 0.1);
+  border-radius: 10px;
+  padding: clamp(18px, 2.5vw, 24px);
+}
+
+.payment-box__title {
+  font-family: var(--font-sans);
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--brand-forest);
+  margin: 0 0 14px;
+  letter-spacing: 0.02em;
+}
+
+.payment-methods {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.payment-method {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #FFFFFF;
+  border: 1px solid rgba(36, 64, 51, 0.08);
+  border-radius: 8px;
+  padding: 12px 16px;
+  box-shadow: 0 2px 6px rgba(36, 64, 51, 0.02);
+}
+
+.payment-method__icon {
+  font-size: 22px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.payment-method__text {
+  font-family: var(--font-sans);
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text-main);
+  line-height: 1.35;
+}
+
+.payment-method__tag {
+  font-size: 12px;
   font-weight: 500;
   color: var(--text-muted);
-  transition: all 0.3s ease;
 }
 
-.trust-pill:hover {
-  background: var(--bg-surface);
-  border-color: var(--cta-terracotta);
-  color: var(--cta-terracotta);
-  transform: translateY(-2px);
+/* Tarjeta de Contacto Directo y Dueño */
+.owner-card {
+  background: #FFFFFF;
+  border: 1px solid rgba(36, 64, 51, 0.14);
+  border-radius: 12px;
+  padding: clamp(28px, 4vw, 44px);
+  box-shadow: 0 8px 30px rgba(36, 64, 51, 0.06);
 }
 
-.trust-pill .icon {
-  width: 16px;
-  height: 16px;
+.owner-card__inner {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: clamp(24px, 4vw, 48px);
+  align-items: center;
+}
+
+.owner-card__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: var(--radio-full);
+  background: rgba(36, 64, 51, 0.08);
+  color: var(--brand-forest);
+  font-family: var(--font-sans);
+  font-size: 11.5px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.owner-card__badge .icon {
+  width: 14px;
+  height: 14px;
+}
+
+.owner-card__name {
+  font-family: var(--font-serif);
+  font-size: clamp(24px, 2.8vw, 30px);
+  font-weight: 600;
+  color: var(--brand-forest);
+  margin: 0 0 10px;
+  line-height: 1.2;
+}
+
+.owner-card__desc {
+  font-family: var(--font-sans);
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin: 0 0 22px;
+}
+
+.owner-card__details {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.owner-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.owner-item__icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(36, 64, 51, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
   color: var(--brand-forest);
 }
 
-@media (max-width: 640px) {
-  .trust-banner__btn {
-    width: 100%;
-    padding: 14px 20px;
-    font-size: 0.98rem;
+.owner-item__icon .icon {
+  width: 16px;
+  height: 16px;
+}
+
+.owner-item__content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.owner-item__label {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+}
+
+.owner-item__links {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.owner-item__links a,
+.owner-item__link {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--brand-forest);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.owner-item__links a:hover,
+.owner-item__link:hover {
+  color: var(--cta-terracotta);
+  text-decoration: underline;
+}
+
+.owner-item__sep {
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.owner-item__val {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  color: var(--text-main);
+  line-height: 1.45;
+}
+
+/* Caja de Acción Lateral en la tarjeta de dueño */
+.owner-cta-box {
+  background: var(--bg-surface); /* #EFE9DE */
+  border: 1px solid rgba(36, 64, 51, 0.1);
+  border-radius: 10px;
+  padding: clamp(22px, 3vw, 32px);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.owner-cta-box__badge {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--brand-forest);
+  background: rgba(36, 64, 51, 0.08);
+  padding: 4px 10px;
+  border-radius: 4px;
+  margin-bottom: 12px;
+}
+
+.owner-cta-box__title {
+  font-family: var(--font-serif);
+  font-size: clamp(20px, 2.2vw, 24px);
+  font-weight: 600;
+  color: var(--brand-forest);
+  margin: 0 0 6px;
+}
+
+.owner-cta-box__subtitle {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--text-muted);
+  margin: 0 0 20px;
+}
+
+.owner-cta-box__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 24px;
+  border-radius: 8px;
+  background-color: var(--cta-terracotta);
+  color: #FAF8F5;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 6px 18px rgba(184, 92, 56, 0.28);
+  transition: background-color 0.25s, transform 0.2s, box-shadow 0.25s;
+}
+
+.owner-cta-box__btn:hover {
+  background-color: #9C4B2C;
+  color: #FAF8F5;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(184, 92, 56, 0.35);
+}
+
+.owner-cta-box__btn-icon {
+  width: 20px;
+  height: 20px;
+  color: #FAF8F5;
+}
+
+.owner-cta-box__note {
+  font-family: var(--font-sans);
+  font-size: 11.5px;
+  color: var(--text-muted);
+  margin-top: 10px;
+}
+
+.footer__contact-owner {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: #EFE9DE;
+  opacity: 0.9;
+  margin: -4px 0 12px;
+  font-weight: 500;
+}
+
+@media (max-width: 860px) {
+  .owner-card__inner {
+    grid-template-columns: 1fr;
+    gap: 28px;
   }
-  .trust-banner__secondary-links {
-    flex-direction: column;
+  .payment-methods {
+    grid-template-columns: 1fr;
   }
-  .trust-pill {
-    justify-content: center;
+}
+
+@media (max-width: 680px) {
+  .booking-steps {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -3595,9 +3860,10 @@ select.field__control {
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    gap: 6px;
     flex: none;
     min-height: 44px;
-    padding: 10px 20px;
+    padding: 10px 18px;
     border-radius: 8px;
     background-color: #B85C38;
     color: #FAF8F5;
@@ -3608,6 +3874,13 @@ select.field__control {
     text-decoration: none;
     box-shadow: 0 4px 12px rgba(184, 92, 56, 0.28);
     transition: background-color 0.25s, transform 0.2s;
+  }
+
+  .mobile-sticky-bar__btn-icon {
+    width: 17px;
+    height: 17px;
+    flex: none;
+    color: #FAF8F5;
   }
 
   .mobile-sticky-bar__btn:active {

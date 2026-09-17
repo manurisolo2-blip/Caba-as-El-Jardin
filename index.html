@@ -82,6 +82,7 @@
     <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
     <symbol id="i-chat" viewBox="0 0 24 24"><path d="M3.5 20.5l1.2-3.9A8.5 8.5 0 1 1 8 19.7z"/><path d="M9.2 8.6c-.4 2.9 2.2 5.9 5.4 6l1-1.3-1.8-1-1 .7a3.6 3.6 0 0 1-2-2l.7-1-1-1.8z"/></symbol>
     <symbol id="i-instagram" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></symbol>
+    <symbol id="i-facebook" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></symbol>
     <symbol id="i-route" viewBox="0 0 24 24"><path d="M3 11 21 3l-8 18-2-8z"/></symbol>
     <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
     <symbol id="i-arrow-down" viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></symbol>
@@ -1117,44 +1118,131 @@
     </section>
 
     <!-- =====================================================================
-         10. BANNER DE CONTACTO CON SELLO HUMANO
+         10. BLOQUE FINAL DE CONVERSIÓN, CÓMO RESERVAR Y CONTACTO DIRECTO
          ===================================================================== -->
-    <section class="section contact" id="contacto">
+    <section class="section booking-contact" id="contacto">
       <div class="container">
-        <div class="trust-banner reveal">
-          <div class="trust-banner__badge">
-            <svg class="icon trust-banner__badge-icon" aria-hidden="true"><use href="#i-check"></use></svg>
-            <span>Trato directo con los dueños · Sin gastos ni comisiones de intermediarios.</span>
+
+        <!-- Bloque 'Cómo Reservar' -->
+        <div class="how-to-book reveal">
+          <div class="how-to-book__header">
+            <span class="how-to-book__badge">Reserva directa · Sin intermediarios</span>
+            <h2 class="how-to-book__title">Cómo Reservar</h2>
+            <p class="how-to-book__subtitle">Condiciones claras y transparentes para asegurar tu estadía con total tranquilidad.</p>
           </div>
 
-          <h2 class="trust-banner__title">¿Querés consultar disponibilidad o tarifas?</h2>
-          <p class="trust-banner__text">
-            Te respondemos con atención personalizada, sin intermediarios ni costos extras. Escribinos para reservar tus fechas o sacarte cualquier duda sobre los departamentos.
-          </p>
+          <!-- Pasos del esquema de reserva -->
+          <div class="booking-steps">
+            <div class="booking-step">
+              <div class="booking-step__header">
+                <span class="booking-step__badge">Paso 1</span>
+                <span class="booking-step__pct">50%</span>
+              </div>
+              <h3 class="booking-step__title">Seña del 50% por adelantado</h3>
+              <p class="booking-step__desc">Congelás la fecha y el valor de tu departamento de forma inmediata para asegurar tu reserva.</p>
+            </div>
 
-          <div class="trust-banner__action">
-            <a class="trust-banner__btn"
-               href="https://wa.me/5491132618849?text=Hola!%20Vi%20la%20web%20de%20Caba%C3%B1as%20El%20Jard%C3%ADn%20y%20quer%C3%ADa%20consultar%20disponibilidad%20para%20las%20siguientes%20fechas..."
-               data-whatsapp="directo"
-               target="_blank"
-               rel="noopener"
-               aria-label="Escribinos por WhatsApp al (011) 15-3261-8849">
-              <svg class="icon trust-banner__btn-icon" aria-hidden="true"><use href="#i-chat"></use></svg>
-              <span>Escribinos por WhatsApp al (011) 15-3261-8849</span>
-            </a>
+            <div class="booking-step">
+              <div class="booking-step__header">
+                <span class="booking-step__badge">Paso 2</span>
+                <span class="booking-step__pct">50%</span>
+              </div>
+              <h3 class="booking-step__title">Cancelación del 50% restante</h3>
+              <p class="booking-step__desc">Abonás el saldo final al momento de ingresar a la unidad durante la bienvenida con los dueños.</p>
+            </div>
           </div>
 
-          <div class="trust-banner__secondary-links">
-            <a class="trust-pill" href="https://www.google.com/maps/dir/?api=1&destination=Granville+122%2C+Valeria+del+Mar%2C+Argentina%2C+7167" data-maps="comoLlegar" target="_blank" rel="noopener">
-              <svg class="icon" aria-hidden="true"><use href="#i-route"></use></svg>
-              <span>Cómo llegar: Granville 122</span>
-            </a>
-            <a class="trust-pill" href="#" data-instagram target="_blank" rel="noopener">
-              <svg class="icon" aria-hidden="true"><use href="#i-instagram"></use></svg>
-              <span>Seguinos en Instagram</span>
-            </a>
+          <!-- Medios de pago aceptados para la seña -->
+          <div class="payment-box">
+            <h4 class="payment-box__title">Medios de pago aceptados para la seña:</h4>
+            <div class="payment-methods">
+              <div class="payment-method">
+                <span class="payment-method__icon" aria-hidden="true">💵</span>
+                <span class="payment-method__text">Efectivo</span>
+              </div>
+              <div class="payment-method">
+                <span class="payment-method__icon" aria-hidden="true">🏦</span>
+                <span class="payment-method__text">Depósito o Transferencia bancaria</span>
+              </div>
+              <div class="payment-method">
+                <span class="payment-method__icon" aria-hidden="true">🪙</span>
+                <span class="payment-method__text">Criptomonedas <span class="payment-method__tag">(consultar)</span></span>
+              </div>
+            </div>
           </div>
         </div>
+
+        <!-- Tarjeta de Contacto Directo y Dueño -->
+        <div class="owner-card reveal">
+          <div class="owner-card__inner">
+            <div class="owner-card__info">
+              <div class="owner-card__badge">
+                <svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>
+                <span>Trato directo con los dueños · Sin comisiones de intermediarios</span>
+              </div>
+
+              <h3 class="owner-card__name">Ignacio Posada · Cabañas El Jardín</h3>
+              <p class="owner-card__desc">
+                Te atendemos personalmente para coordinar tus fechas, responder cualquier consulta y garantizar que tu llegada sea impecable.
+              </p>
+
+              <div class="owner-card__details">
+                <div class="owner-item">
+                  <span class="owner-item__icon" aria-hidden="true">
+                    <svg class="icon"><use href="#i-chat"></use></svg>
+                  </span>
+                  <div class="owner-item__content">
+                    <span class="owner-item__label">Teléfonos directos:</span>
+                    <div class="owner-item__links">
+                      <a href="https://wa.me/5491132618849?text=Hola%20Ignacio%2C%20te%20escribo%20desde%20la%20web%20de%20Caba%C3%B1as%20El%20Jard%C3%ADn.%20Quer%C3%ADa%20consultar%20disponibilidad%20para%20%5Bindicar%20fechas%5D%20para%20%5Bcantidad%5D%20pasajeros." data-whatsapp="directo" target="_blank" rel="noopener">(011) 15-3261-8849</a>
+                      <span class="owner-item__sep">/</span>
+                      <a href="https://wa.me/5491132616765?text=Hola%20Ignacio%2C%20te%20escribo%20desde%20la%20web%20de%20Caba%C3%B1as%20El%20Jard%C3%ADn.%20Quer%C3%ADa%20consultar%20disponibilidad%20para%20%5Bindicar%20fechas%5D%20para%20%5Bcantidad%5D%20pasajeros." target="_blank" rel="noopener">(011) 15-3261-6765</a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="owner-item">
+                  <span class="owner-item__icon" aria-hidden="true">
+                    <svg class="icon"><use href="#i-facebook"></use></svg>
+                  </span>
+                  <div class="owner-item__content">
+                    <span class="owner-item__label">Redes:</span>
+                    <a href="https://facebook.com/eljardi" data-facebook target="_blank" rel="noopener" class="owner-item__link">facebook.com/eljardi</a>
+                  </div>
+                </div>
+
+                <div class="owner-item">
+                  <span class="owner-item__icon" aria-hidden="true">
+                    <svg class="icon"><use href="#i-pin"></use></svg>
+                  </span>
+                  <div class="owner-item__content">
+                    <span class="owner-item__label">Ubicación:</span>
+                    <span class="owner-item__val">Valeria del Mar, Buenos Aires (a 1/2 cuadra de Hemingway, 4 del centro).</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="owner-card__cta">
+              <div class="owner-cta-box">
+                <span class="owner-cta-box__badge">Respuesta rápida</span>
+                <h4 class="owner-cta-box__title">Consultá disponibilidad y tarifas</h4>
+                <p class="owner-cta-box__subtitle">Escribinos directamente a WhatsApp para cotizar tu estadía en minutos.</p>
+                <a class="owner-cta-box__btn"
+                   href="https://wa.me/5491132618849?text=Hola%20Ignacio%2C%20te%20escribo%20desde%20la%20web%20de%20Caba%C3%B1as%20El%20Jard%C3%ADn.%20Quer%C3%ADa%20consultar%20disponibilidad%20para%20%5Bindicar%20fechas%5D%20para%20%5Bcantidad%5D%20pasajeros."
+                   data-whatsapp="directo"
+                   target="_blank"
+                   rel="noopener"
+                   aria-label="Escribinos por WhatsApp al (011) 15-3261-8849">
+                  <svg class="icon owner-cta-box__btn-icon" aria-hidden="true"><use href="#i-chat"></use></svg>
+                  <span>Escribinos por WhatsApp</span>
+                </a>
+                <span class="owner-cta-box__note">Atención personalizada con Ignacio Posada</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
 
@@ -1194,23 +1282,30 @@
       <!-- Columna 3: Contacto Directo -->
       <div class="footer__col footer__col--contact">
         <h4>Contacto Directo</h4>
+        <p class="footer__contact-owner">Ignacio Posada · Propietario</p>
         <ul class="footer__contact-list">
           <li>
-            <a href="https://wa.me/5491132618849?text=Hola!%20Vi%20la%20web%20de%20Caba%C3%B1as%20El%20Jard%C3%ADn%20y%20quer%C3%ADa%20consultar%20disponibilidad%20para%20las%20siguientes%20fechas..." data-whatsapp="directo" target="_blank" rel="noopener">
+            <a href="https://wa.me/5491132618849?text=Hola%20Ignacio%2C%20te%20escribo%20desde%20la%20web%20de%20Caba%C3%B1as%20El%20Jard%C3%ADn.%20Quer%C3%ADa%20consultar%20disponibilidad%20para%20%5Bindicar%20fechas%5D%20para%20%5Bcantidad%5D%20pasajeros." data-whatsapp="directo" target="_blank" rel="noopener">
               <svg class="icon" aria-hidden="true"><use href="#i-chat"></use></svg>
               <span>(011) 15-3261-8849</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://wa.me/5491132616765?text=Hola%20Ignacio%2C%20te%20escribo%20desde%20la%20web%20de%20Caba%C3%B1as%20El%20Jard%C3%ADn.%20Quer%C3%ADa%20consultar%20disponibilidad%20para%20%5Bindicar%20fechas%5D%20para%20%5Bcantidad%5D%20pasajeros." target="_blank" rel="noopener">
+              <svg class="icon" aria-hidden="true"><use href="#i-chat"></use></svg>
+              <span>(011) 15-3261-6765</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://facebook.com/eljardi" data-facebook target="_blank" rel="noopener">
+              <svg class="icon" aria-hidden="true"><use href="#i-facebook"></use></svg>
+              <span>facebook.com/eljardi</span>
             </a>
           </li>
           <li>
             <a href="https://www.google.com/maps/place/Caba%C3%B1as+El+Jard%C3%ADn/@-37.1483308,-56.8809734,17z/data=!4m18!1m8!3m7!1s0x959c9db3efef09a7:0x5b7071194a60d4c3!2sCap.+de+Marina+Granville+122,+B7167+Pinamar,+Provincia+de+Buenos+Aires!3b1!8m2!3d-37.1483308!4d-56.8809734!16s%2Fg%2F11sv0v_vkh!3m8!1s0x959c9db3e66a0615:0x2c2860a44822b237!5m2!4m1!1i2!8m2!3d-37.1483308!4d-56.8809734!16s%2Fg%2F1hc0x8_w3?entry=ttu" data-maps="ver" target="_blank" rel="noopener">
               <svg class="icon" aria-hidden="true"><use href="#i-pin"></use></svg>
               <span>Granville 122, Valeria del Mar</span>
-            </a>
-          </li>
-          <li>
-            <a href="#" data-instagram target="_blank" rel="noopener">
-              <svg class="icon" aria-hidden="true"><use href="#i-instagram"></use></svg>
-              <span>Instagram</span>
             </a>
           </li>
         </ul>
@@ -1246,10 +1341,18 @@
        BARRA FIJA INFERIOR EN MOBILE (STICKY BOTTOM BAR)
        Visible solo en pantallas menores a 768px para alta conversión
        ===================================================================== -->
-  <aside class="mobile-sticky-bar" id="mobile-sticky-bar" aria-label="Consulta rápida mobile">
+  <aside class="mobile-sticky-bar" id="mobile-sticky-bar" aria-label="Consulta directa por WhatsApp con el dueño">
     <div class="mobile-sticky-bar__inner">
-      <p class="mobile-sticky-bar__text">Temporada 2026 / Consultá tarifas y fechas</p>
-      <a class="mobile-sticky-bar__btn" href="#disponibilidad">Consultar ahora</a>
+      <p class="mobile-sticky-bar__text">Depto 2 amb (4 pers) · Trato directo con dueño</p>
+      <a class="mobile-sticky-bar__btn"
+         href="https://wa.me/5491132618849?text=Hola%20Ignacio%2C%20te%20escribo%20desde%20la%20web%20de%20Caba%C3%B1as%20El%20Jard%C3%ADn.%20Quer%C3%ADa%20consultar%20disponibilidad%20para%20%5Bindicar%20fechas%5D%20para%20%5Bcantidad%5D%20pasajeros."
+         data-whatsapp="directo"
+         target="_blank"
+         rel="noopener"
+         aria-label="Consultar por WhatsApp con Ignacio Posada">
+        <svg class="icon mobile-sticky-bar__btn-icon" aria-hidden="true"><use href="#i-chat"></use></svg>
+        <span>Consultar</span>
+      </a>
     </div>
   </aside>
 

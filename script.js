@@ -46,7 +46,8 @@ const CONFIG = {
   mensajesWhatsapp: {
     general: "Hola! Quisiera consultar disponibilidad y precios de las cabañas.",
     cabana: "Hola! Quisiera consultar disponibilidad y precios de la {cabana}.",
-    reserva: "Hola! Quisiera consultar/reservar la {cabana} desde el {entrada} hasta el {salida} para {personas}. Mi nombre es {nombre}."
+    reserva: "Hola! Quisiera consultar/reservar la {cabana} desde el {entrada} hasta el {salida} para {personas}. Mi nombre es {nombre}.",
+    directo: "Hola! Vi la web de Cabañas El Jardín y quería consultar disponibilidad para las siguientes fechas..."
   },
 
   /* -----------------------------------------------------------------------
@@ -503,6 +504,10 @@ function aplicarDatosGenerales() {
     enlace.href = enlaceWhatsApp(CONFIG.mensajesWhatsapp.general);
   });
 
+  $$('[data-whatsapp="directo"]').forEach((enlace) => {
+    enlace.href = enlaceWhatsApp(CONFIG.mensajesWhatsapp.directo);
+  });
+
   $$("[data-instagram]").forEach((enlace) => {
     if (CONFIG.instagram) enlace.href = CONFIG.instagram;
   });
@@ -616,7 +621,7 @@ function iniciarNavegacion() {
     pendiente = false;
     const y = window.scrollY;
     header.classList.toggle("is-scrolled", y > 50);
-    botonFlotante.classList.toggle("is-visible", y > hero.offsetHeight * 0.6);
+    if (botonFlotante) botonFlotante.classList.toggle("is-visible", y > hero.offsetHeight * 0.6);
   };
   window.addEventListener("scroll", () => {
     if (!pendiente) {

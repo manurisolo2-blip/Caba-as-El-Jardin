@@ -883,43 +883,41 @@
     </section>
 
     <!-- =====================================================================
-         9. CONTACTO
-         WhatsApp: script.js > CONFIG.whatsapp
-         Instagram: script.js > CONFIG.instagram
-         Cómo llegar: script.js > CONFIG.googleMaps.comoLlegar
+         9. BANNER DE CONTACTO CON SELLO HUMANO
          ===================================================================== -->
     <section class="section contact" id="contacto">
-      <div class="contact__bg" aria-hidden="true">
-        <!-- FOTO: FONDO DE CONTACTO -->
-        <img src="images/exterior-1.jpg" alt="Cabañas El Jardín" loading="lazy">
-      </div>
       <div class="container">
-        <div class="contact__card reveal">
-          <span class="eyebrow">Contacto</span>
-          <h2 class="section-title">¿Tenés alguna consulta?</h2>
-          <p>Escribinos y con gusto te ayudamos a planificar tu estadía.</p>
+        <div class="trust-banner reveal">
+          <div class="trust-banner__badge">
+            <svg class="icon trust-banner__badge-icon" aria-hidden="true"><use href="#i-check"></use></svg>
+            <span>Trato directo con los dueños · Sin gastos ni comisiones de intermediarios.</span>
+          </div>
 
-          <div class="contact__actions">
-            <a class="contact-btn" href="https://wa.me/5491132616765?text=Hola!%20Quisiera%20consultar%20disponibilidad%20y%20precios%20de%20las%20caba%C3%B1as." data-whatsapp="general" target="_blank" rel="noopener">
-              <span class="contact-btn__icon"><svg class="icon" aria-hidden="true"><use href="#i-chat"></use></svg></span>
-              <span class="contact-btn__text">
-                <strong>WhatsApp</strong>
-                <small>+54 9 11 3261-6765</small>
-              </span>
+          <h2 class="trust-banner__title">¿Querés consultar disponibilidad o tarifas?</h2>
+          <p class="trust-banner__text">
+            Te respondemos con atención personalizada, sin intermediarios ni costos extras. Escribinos para reservar tus fechas o sacarte cualquier duda sobre las cabañas.
+          </p>
+
+          <div class="trust-banner__action">
+            <a class="trust-banner__btn"
+               href="https://wa.me/5491132616765?text=Hola!%20Vi%20la%20web%20de%20Caba%C3%B1as%20El%20Jard%C3%ADn%20y%20quer%C3%ADa%20consultar%20disponibilidad%20para%20las%20siguientes%20fechas..."
+               data-whatsapp="directo"
+               target="_blank"
+               rel="noopener"
+               aria-label="Escribinos por WhatsApp al +54 9 11 3261-6765">
+              <svg class="icon trust-banner__btn-icon" aria-hidden="true"><use href="#i-chat"></use></svg>
+              <span>Escribinos por WhatsApp al +54 9 11 3261-6765</span>
             </a>
-            <a class="contact-btn" href="#" data-instagram target="_blank" rel="noopener">
-              <span class="contact-btn__icon"><svg class="icon" aria-hidden="true"><use href="#i-instagram"></use></svg></span>
-              <span class="contact-btn__text">
-                <strong>Instagram</strong>
-                <small>Seguinos y mirá más fotos</small>
-              </span>
+          </div>
+
+          <div class="trust-banner__secondary-links">
+            <a class="trust-pill" href="https://www.google.com/maps/dir/?api=1&destination=Granville+122%2C+Valeria+del+Mar%2C+Argentina%2C+7167" data-maps="comoLlegar" target="_blank" rel="noopener">
+              <svg class="icon" aria-hidden="true"><use href="#i-route"></use></svg>
+              <span>Cómo llegar: Granville 122</span>
             </a>
-            <a class="contact-btn" href="https://www.google.com/maps/dir/?api=1&destination=Granville+122%2C+Valeria+del+Mar%2C+Argentina%2C+7167" data-maps="comoLlegar" target="_blank" rel="noopener">
-              <span class="contact-btn__icon"><svg class="icon" aria-hidden="true"><use href="#i-route"></use></svg></span>
-              <span class="contact-btn__text">
-                <strong>Cómo llegar</strong>
-                <small>Granville 122, Valeria del Mar</small>
-              </span>
+            <a class="trust-pill" href="#" data-instagram target="_blank" rel="noopener">
+              <svg class="icon" aria-hidden="true"><use href="#i-instagram"></use></svg>
+              <span>Seguinos en Instagram</span>
             </a>
           </div>
         </div>
@@ -933,47 +931,71 @@
        ===================================================================== -->
   <footer class="footer">
     <div class="container footer__grid">
+      <!-- Columna 1: Marca y descripción -->
       <div class="footer__brand">
         <a href="#inicio" class="brand brand--footer">
           <svg class="brand__mark" aria-hidden="true"><use href="#i-cabin"></use></svg>
           <span class="brand__name" data-nombre-complejo>Cabañas El Jardín</span>
         </a>
-        <p>Cabañas para descansar y disfrutar del mar y el bosque en Valeria del Mar, Buenos Aires.</p>
+        <p>Cabañas para descansar y disfrutar del mar y el bosque en Valeria del Mar, Provincia de Buenos Aires.</p>
+        <p class="footer__highlight">Trato directo con los dueños · A 50 metros de la playa</p>
       </div>
 
-      <div class="footer__col">
-        <h4>Navegación</h4>
-        <ul>
-          <li><a href="#cabanas">Cabañas</a></li>
-          <li><a href="#servicios">Servicios</a></li>
-          <li><a href="#galeria">Galería</a></li>
-          <li><a href="#disponibilidad">Disponibilidad</a></li>
-          <li><a href="#ubicacion">Ubicación</a></li>
-        </ul>
-      </div>
-
-      <div class="footer__col">
-        <h4>Dirección</h4>
-        <ul>
-          <li><a href="https://www.google.com/maps/search/Granville+122,+Valeria+del+Mar,+Argentina,+7167" data-maps="ver" target="_blank" rel="noopener">Granville 122</a></li>
-          <li><a href="https://www.google.com/maps/search/Granville+122,+Valeria+del+Mar,+Argentina,+7167" data-maps="ver" target="_blank" rel="noopener">Valeria del Mar, Buenos Aires (CP 7167)</a></li>
-        </ul>
-      </div>
-
-      <div class="footer__col">
-        <h4>Contacto</h4>
-        <ul>
+      <!-- Columna 2: Horarios de Estadía -->
+      <div class="footer__col footer__col--hours">
+        <h4>Horarios de estadía</h4>
+        <ul class="footer__hours-list">
           <li>
-            <a href="https://wa.me/5491132616765?text=Hola!%20Quisiera%20consultar%20disponibilidad%20y%20precios%20de%20las%20caba%C3%B1as." data-whatsapp="general" target="_blank" rel="noopener">
-              <svg class="icon" aria-hidden="true"><use href="#i-chat"></use></svg>WhatsApp (+54 9 11 3261-6765)
+            <span class="footer__hour-label">Check-in:</span>
+            <strong class="footer__hour-val">15:00 hs</strong>
+          </li>
+          <li>
+            <span class="footer__hour-label">Check-out:</span>
+            <strong class="footer__hour-val">10:00 hs</strong>
+          </li>
+        </ul>
+        <p class="footer__hours-note">Ingreso y salida coordinados directamente con los dueños. Consultar por flexibilidad horaria según disponibilidad.</p>
+      </div>
+
+      <!-- Columna 3: Contacto Directo -->
+      <div class="footer__col footer__col--contact">
+        <h4>Contacto Directo</h4>
+        <ul class="footer__contact-list">
+          <li>
+            <a href="https://wa.me/5491132616765?text=Hola!%20Vi%20la%20web%20de%20Caba%C3%B1as%20El%20Jard%C3%ADn%20y%20quer%C3%ADa%20consultar%20disponibilidad%20para%20las%20siguientes%20fechas..." data-whatsapp="directo" target="_blank" rel="noopener">
+              <svg class="icon" aria-hidden="true"><use href="#i-chat"></use></svg>
+              <span>+54 9 11 3261-6765</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.google.com/maps/place/Caba%C3%B1as+El+Jard%C3%ADn/@-37.1483308,-56.8809734,17z/data=!4m18!1m8!3m7!1s0x959c9db3efef09a7:0x5b7071194a60d4c3!2sCap.+de+Marina+Granville+122,+B7167+Pinamar,+Provincia+de+Buenos+Aires!3b1!8m2!3d-37.1483308!4d-56.8809734!16s%2Fg%2F11sv0v_vkh!3m8!1s0x959c9db3e66a0615:0x2c2860a44822b237!5m2!4m1!1i2!8m2!3d-37.1483308!4d-56.8809734!16s%2Fg%2F1hc0x8_w3?entry=ttu" data-maps="ver" target="_blank" rel="noopener">
+              <svg class="icon" aria-hidden="true"><use href="#i-pin"></use></svg>
+              <span>Granville 122, Valeria del Mar</span>
             </a>
           </li>
           <li>
             <a href="#" data-instagram target="_blank" rel="noopener">
-              <svg class="icon" aria-hidden="true"><use href="#i-instagram"></use></svg>Instagram
+              <svg class="icon" aria-hidden="true"><use href="#i-instagram"></use></svg>
+              <span>Instagram</span>
             </a>
           </li>
         </ul>
+      </div>
+
+      <!-- Columna 4: Dirección y Mapa Embebido Estilizado -->
+      <div class="footer__col footer__col--map">
+        <h4>Ubicación exacta</h4>
+        <p class="footer__address-line">
+          Granville 122, Valeria del Mar, Argentina (CP 7167)
+        </p>
+        <div class="footer__map-frame">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3180.18362663613!2d-56.88097339999999!3d-37.1483308!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x959c9db3e66a0615%3A0x2c2860a44822b237!2sCaba%C3%B1as%20El%20Jard%C3%ADn!5e0!3m2!1ses!2sar!4v1710600000000!5m2!1ses!2sar"
+            title="Mapa embebido en footer - Cabañas El Jardín"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen></iframe>
+        </div>
       </div>
     </div>
 
@@ -986,11 +1008,16 @@
     </div>
   </footer>
 
-  <!-- Botón flotante de WhatsApp -->
-  <a class="wa-float" href="https://wa.me/5491132616765?text=Hola!%20Quisiera%20consultar%20disponibilidad%20y%20precios%20de%20las%20caba%C3%B1as." data-whatsapp="general" target="_blank" rel="noopener" aria-label="Consultar por WhatsApp">
-    <svg class="icon" aria-hidden="true"><use href="#i-chat"></use></svg>
-    <span class="wa-float__label">¿Consultas? Escribinos</span>
-  </a>
+  <!-- =====================================================================
+       BARRA FIJA INFERIOR EN MOBILE (STICKY BOTTOM BAR)
+       Visible solo en pantallas menores a 768px para alta conversión
+       ===================================================================== -->
+  <aside class="mobile-sticky-bar" id="mobile-sticky-bar" aria-label="Consulta rápida mobile">
+    <div class="mobile-sticky-bar__inner">
+      <p class="mobile-sticky-bar__text">Temporada 2026 / Consultá tarifas y fechas</p>
+      <a class="mobile-sticky-bar__btn" href="#disponibilidad">Consultar ahora</a>
+    </div>
+  </aside>
 
   <!-- Ventana con el detalle de cada cabaña -->
   <div class="modal" id="cabin-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>

@@ -65,7 +65,7 @@ const CONFIG = {
      y pegalo en "ver". El mapa insertado se cambia en index.html (buscar "GOOGLE MAPS").
      ----------------------------------------------------------------------- */
   googleMaps: {
-    ver: "https://www.google.com/maps/search/Granville+122,+Valeria+del+Mar,+Argentina,+7167",
+    ver: "https://www.google.com/maps/place/Caba%C3%B1as+El+Jard%C3%ADn/@-37.1483308,-56.8809734,17z/data=!4m18!1m8!3m7!1s0x959c9db3efef09a7:0x5b7071194a60d4c3!2sCap.+de+Marina+Granville+122,+B7167+Pinamar,+Provincia+de+Buenos+Aires!3b1!8m2!3d-37.1483308!4d-56.8809734!16s%2Fg%2F11sv0v_vkh!3m8!1s0x959c9db3e66a0615:0x2c2860a44822b237!5m2!4m1!1i2!8m2!3d-37.1483308!4d-56.8809734!16s%2Fg%2F1hc0x8_w3?entry=ttu",
     comoLlegar: "https://www.google.com/maps/dir/?api=1&destination=Granville+122%2C+Valeria+del+Mar%2C+Argentina%2C+7167"
   },
 

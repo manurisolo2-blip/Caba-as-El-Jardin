@@ -1909,7 +1909,7 @@ select.field__control {
 
 
 /* =========================================================================
-   11. UBICACIÓN
+   11. UBICACIÓN Y RESEÑAS
    ========================================================================= */
 .location { background: var(--beige); }
 
@@ -1921,10 +1921,78 @@ select.field__control {
 }
 .location__info > p { color: var(--texto-suave); }
 
+/* Badge de Google en Ubicación */
+.google-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  margin: 20px 0 10px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: var(--blanco);
+  border: 1px solid var(--borde-suave);
+  box-shadow: var(--sombra-sm);
+}
+.google-badge__icon {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #F8F9FA;
+  flex: none;
+}
+.google-badge__icon .icon {
+  width: 18px;
+  height: 18px;
+}
+.google-badge__content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.google-badge__top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.google-badge__score {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--texto);
+  line-height: 1;
+}
+.google-badge__stars,
+.rating-box__stars,
+.review-card__stars {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  color: #F5A623;
+}
+.google-badge__stars .icon,
+.rating-box__stars .icon,
+.review-card__stars .icon {
+  width: 15px;
+  height: 15px;
+}
+.star-fill {
+  fill: #F5A623;
+  color: #F5A623;
+}
+.google-badge__text {
+  font-size: .8rem;
+  color: var(--texto-suave);
+}
+.google-badge__text strong {
+  color: var(--texto);
+  font-weight: 600;
+}
+
 .location__address {
   display: flex;
   gap: 18px;
-  margin: 30px 0 34px;
+  margin: 24px 0 32px;
   font-style: normal;
   font-size: 1.1rem;
   line-height: 1.8;
@@ -1959,7 +2027,166 @@ select.field__control {
   width: 100%;
   height: 100%;
   border: 0;
-  filter: saturate(.75) sepia(.08);
+  filter: saturate(.8) contrast(1.02);
+}
+
+/* Sección de Reseñas de Google Maps */
+.location__reviews {
+  margin-top: clamp(48px, 6vw, 76px);
+  padding-top: clamp(40px, 5vw, 60px);
+  border-top: 1px solid rgba(125, 89, 57, 0.16);
+}
+
+.reviews-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+  margin-bottom: 36px;
+}
+.reviews-header__left {
+  max-width: 560px;
+}
+.reviews-header__title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.8rem, 3.2vw, 2.3rem);
+  font-weight: 600;
+  color: var(--texto);
+  margin: 6px 0 8px;
+}
+.reviews-header__subtitle {
+  font-size: 1rem;
+  color: var(--texto-suave);
+  margin: 0;
+}
+
+.reviews-header__summary {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+}
+@media (max-width: 768px) {
+  .reviews-header__summary {
+    align-items: flex-start;
+  }
+}
+
+.rating-box {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 18px;
+  background: var(--blanco);
+  border: 1px solid var(--borde-suave);
+  border-radius: var(--radio-md);
+  box-shadow: var(--sombra-sm);
+}
+.rating-box__score {
+  font-family: var(--font-serif);
+  font-size: 2.3rem;
+  font-weight: 700;
+  color: var(--marron-oscuro);
+  line-height: 1;
+}
+.rating-box__details {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.rating-box__count {
+  font-size: .8rem;
+  font-weight: 500;
+  color: var(--texto-suave);
+}
+
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 22px;
+}
+
+.review-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 26px 24px;
+  border-radius: var(--radio-md);
+  background: var(--blanco);
+  border: 1px solid var(--borde-suave);
+  box-shadow: var(--sombra-sm);
+  transition: transform .3s var(--ease), box-shadow .3s var(--ease);
+}
+.review-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--sombra);
+}
+
+.review-card__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.review-card__user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.review-card__avatar {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--arena);
+  color: var(--marron-oscuro);
+  font-weight: 600;
+  font-size: 1.05rem;
+  flex: none;
+}
+.review-card__name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--texto);
+  margin: 0;
+}
+.review-card__meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: .75rem;
+  color: var(--texto-suave);
+  margin-top: 2px;
+}
+.review-card__meta .icon {
+  width: 13px;
+  height: 13px;
+}
+
+.review-card__body {
+  margin: 0;
+  font-size: .92rem;
+  line-height: 1.6;
+  color: var(--texto);
+  font-style: italic;
+}
+
+.reviews-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 28px;
+  padding: 16px 24px;
+  background: rgba(255, 255, 255, .65);
+  border: 1px dashed var(--arena-oscura);
+  border-radius: var(--radio-md);
+  font-size: .9rem;
+  color: var(--texto-suave);
 }
 
 @media (max-width: 900px) {

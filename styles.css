@@ -472,6 +472,56 @@ main[id] { scroll-margin-top: calc(var(--header-h) - 10px); }
 
 .nav__cta { display: none; }
 
+.header__actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  position: relative;
+  z-index: 2;
+}
+
+.header__wa-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  border-radius: var(--radio-full);
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  background-color: var(--cta-terracotta);
+  color: #FFFFFF;
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 14px rgba(184, 92, 56, 0.3);
+  transition: all 0.3s var(--ease);
+  white-space: nowrap;
+}
+.header__wa-btn:hover {
+  background-color: var(--cta-terracotta-hover);
+  color: #FFFFFF;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(184, 92, 56, 0.45);
+}
+.header__wa-btn .icon {
+  width: 1.15em;
+  height: 1.15em;
+}
+
+.header.is-scrolled .header__wa-btn {
+  background-color: var(--cta-terracotta);
+  color: #FFFFFF;
+  border-color: transparent;
+  box-shadow: 0 4px 12px rgba(184, 92, 56, 0.25);
+}
+
+@media (max-width: 768px) {
+  .header__wa-btn {
+    display: none;
+  }
+}
+
 .nav-toggle {
   display: none;
   position: relative;
@@ -597,7 +647,7 @@ main[id] { scroll-margin-top: calc(var(--header-h) - 10px); }
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: linear-gradient(180deg, rgba(28, 42, 36, 0.35) 0%, rgba(28, 42, 36, 0.70) 100%);
+  background: linear-gradient(180deg, rgba(28, 42, 36, 0.4) 0%, rgba(28, 42, 36, 0.75) 100%);
 }
 
 .hero__content {
@@ -631,20 +681,20 @@ main[id] { scroll-margin-top: calc(var(--header-h) - 10px); }
 
 .hero__title {
   font-family: var(--font-serif);
-  font-weight: 500;
+  font-weight: 600;
   color: #FFFFFF;
-  font-size: clamp(36px, 4.8vw, 56px);
-  line-height: 1.08;
+  font-size: 52px;
+  line-height: 1.1;
   letter-spacing: -0.015em;
   margin: 0 0 1.15rem;
-  max-width: 22ch;
+  max-width: 24ch;
   text-wrap: balance;
   text-shadow: 0 4px 28px rgba(0, 0, 0, 0.45);
 }
 
 .hero__lead {
   font-family: var(--font-sans);
-  font-size: clamp(1.05rem, 1.5vw, 1.22rem);
+  font-size: 16px;
   font-weight: 400;
   line-height: 1.6;
   color: #FAF8F5;
@@ -757,7 +807,8 @@ main[id] { scroll-margin-top: calc(var(--header-h) - 10px); }
     padding-block: calc(var(--header-h) + 24px) 50px;
   }
   .hero__title {
-    font-size: 36px;
+    font-size: 34px;
+    line-height: 1.15;
   }
   .hero__context-ribbon {
     flex-direction: column;
@@ -2722,6 +2773,72 @@ select.field__control {
   .town__grid { grid-template-columns: 1fr; }
   .town-card--wide { grid-column: auto; }
   .town-card { min-height: 320px; }
+}
+
+
+/* =========================================================================
+   12.B CONDICIONES DE ESTADÍA
+   ========================================================================= */
+.conditions {
+  padding: clamp(64px, 8vw, 96px) 0;
+  background: var(--bg-base);
+  border-top: 1px solid var(--borde);
+}
+
+.conditions__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(20px, 3vw, 28px);
+}
+
+.conditions__card {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-surface);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio-md);
+  padding: clamp(24px, 3.5vw, 32px);
+  box-shadow: var(--sombra-xs);
+  transition: transform .3s var(--ease), box-shadow .3s var(--ease), border-color .3s var(--ease);
+}
+.conditions__card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(36, 64, 51, 0.2);
+  box-shadow: var(--sombra-sm);
+}
+
+.conditions__icon {
+  font-size: 2.2rem;
+  line-height: 1;
+  margin-bottom: 16px;
+}
+
+.conditions__card-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.3rem, 2.2vw, 1.55rem);
+  font-weight: 600;
+  color: var(--brand-forest);
+  margin: 0 0 10px;
+  line-height: 1.2;
+}
+
+.conditions__card-text {
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin: 0;
+}
+.conditions__card-text strong {
+  color: var(--text-main);
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .conditions__grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
 }
 
 

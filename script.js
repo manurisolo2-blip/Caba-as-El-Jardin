@@ -119,10 +119,10 @@ const CONFIG = {
       capacidadMaxima: 4,                      // EDITAR: número máximo de huéspedes
       precio: "",                              // EDITAR: precio. Ej: "$ 00.000 por noche"
       descripcionCorta:                        // EDITAR: descripción de la tarjeta
-        "Dormitorio principal con cama doble, estar comedor con cama marinera, cocina completa y baño. Con deck individual, asador propio y acceso al parque con piscina.",
+        "Dormitorio principal con cama doble, estar comedor con cama marinera, cocina completa y baño. Con deck individual, asador propio y acceso al parque arbolado.",
       descripcion: [                           // EDITAR: descripción completa
         "Una cabaña cómoda y acogedora para disfrutar de Valeria del Mar. Cuenta con un dormitorio con cama doble, comedor con cama marinera, cocina comedor y baño completo.",
-        "Afuera te esperan el espacio al aire libre, el asador y la piscina, ideales para aprovechar los días de descanso y playa. También dispone de cochera."
+        "Afuera te esperan el parque arbolado, el asador individual y la ducha de playa, ideales para aprovechar los días de descanso a pasos del mar. También dispone de cochera."
       ],
       destacados: [
         { icono: "grill", texto: "Parrilla individual" },
@@ -130,7 +130,7 @@ const CONFIG = {
         { icono: "wifi", texto: "Wi-Fi fibra óptica" },
         { icono: "utensils", texto: "Cocina equipada" },
         { icono: "car", texto: "Estacionamiento en predio" },
-        { icono: "ac", texto: "Aire acondicionado" }
+        { icono: "tv", texto: "Smart TV" }
       ],
       caracteristicas: "comunes",              // Para datos propios, reemplazar "comunes" por una lista [ { icono, texto }, ... ]
       equipamiento: "comun",                   // Para datos propios, reemplazar "comun" por una lista [ { icono, texto }, ... ]
@@ -170,7 +170,7 @@ const CONFIG = {
         "Unidad independiente rodeada de bosque, con dormitorio matrimonial, cocina equipada, baño completo, deck propio con parrilla y cochera techada.",
       descripcion: [                           // EDITAR: descripción completa
         "Una cabaña cómoda y acogedora para disfrutar de Valeria del Mar. Cuenta con un dormitorio con cama doble, comedor con cama marinera, cocina comedor y baño completo.",
-        "Afuera te esperan el espacio al aire libre, el asador y la piscina, ideales para aprovechar los días de descanso y playa. También dispone de cochera."
+        "Afuera te esperan el parque arbolado, el asador y el deck individual, ideales para aprovechar los días de descanso y playa. También dispone de cochera."
       ],
       destacados: [
         { icono: "grill", texto: "Parrilla individual" },
@@ -178,7 +178,7 @@ const CONFIG = {
         { icono: "wifi", texto: "Wi-Fi fibra óptica" },
         { icono: "utensils", texto: "Cocina equipada" },
         { icono: "car", texto: "Estacionamiento en predio" },
-        { icono: "ac", texto: "Aire acondicionado" }
+        { icono: "tv", texto: "Smart TV" }
       ],
       caracteristicas: "comunes",
       equipamiento: "comun",
@@ -211,7 +211,7 @@ const CONFIG = {
         "Ambiente sereno con galería privada hacia el parque arbolado, cocina comedor, dormitorio confortable, parrilla exclusiva y estacionamiento interior.",
       descripcion: [                           // EDITAR: descripción completa
         "Una cabaña cómoda y acogedora para disfrutar de Valeria del Mar. Cuenta con un dormitorio con cama doble, comedor con cama marinera, cocina comedor y baño completo.",
-        "Afuera te esperan el espacio al aire libre, el asador y la piscina, ideales para aprovechar los días de descanso y playa. También dispone de cochera."
+        "Afuera te esperan el parque arbolado, el asador y la tranquilidad del entorno, ideales para aprovechar los días de descanso y playa. También dispone de cochera."
       ],
       destacados: [
         { icono: "grill", texto: "Parrilla individual" },
@@ -219,7 +219,7 @@ const CONFIG = {
         { icono: "wifi", texto: "Wi-Fi fibra óptica" },
         { icono: "utensils", texto: "Cocina equipada" },
         { icono: "car", texto: "Estacionamiento en predio" },
-        { icono: "ac", texto: "Aire acondicionado" }
+        { icono: "tv", texto: "Smart TV" }
       ],
       caracteristicas: "comunes",
       equipamiento: "comun",
@@ -250,22 +250,18 @@ const CARACTERISTICAS_COMUNES = [
   { icono: "bunk", texto: "Comedor con cama marinera" },
   { icono: "utensils", texto: "Cocina comedor" },
   { icono: "bath", texto: "Baño completo" },
-  { icono: "car", texto: "Cochera" },
-  { icono: "grill", texto: "Asador" },
-  { icono: "tree", texto: "Espacio al aire libre" },
-  { icono: "pool", texto: "Piscina" }
+  { icono: "car", texto: "Cochera dentro del predio" },
+  { icono: "grill", texto: "Asador y parrilla propia" },
+  { icono: "tree", texto: "Parque arbolado" }
 ];
 
 const EQUIPAMIENTO_COMUN = [
-  { icono: "tv", texto: "TV Smart de 32\"" },
-  { icono: "ac", texto: "Aire acondicionado" },
-  { icono: "heater", texto: "Estufa garrafera" },
-  { icono: "fan", texto: "Ventilador" },
-  { icono: "boiler", texto: "Termotanque" },
-  { icono: "fridge", texto: "Heladera" },
+  { icono: "tv", texto: "TV Smart en sala principal" },
+  { icono: "fan", texto: "Ventilador y ventilación cruzada" },
+  { icono: "fridge", texto: "Heladera con freezer" },
   { icono: "microwave", texto: "Microondas" },
-  { icono: "cooktop", texto: "Anafe eléctrico" },
-  { icono: "flame", texto: "Anafe a gas" },
+  { icono: "cooktop", texto: "Anafe y cocina completa" },
+  { icono: "boiler", texto: "Termotanque (agua caliente)" },
   { icono: "kettle", texto: "Pava eléctrica" },
   { icono: "toaster", texto: "Tostadora" }
 ];

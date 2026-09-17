@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Imagen de ejemplo (placeholder). Reemplazar por una fotografia real. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+<defs>
+  <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#F5EEE3"/><stop offset="1" stop-color="#EADFCD"/>
+  </linearGradient>
+  <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#C9DBD6"/><stop offset="1" stop-color="#9EBDB7"/>
+  </linearGradient>
+  <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#F4EDE2"/><stop offset="1" stop-color="#EADFCE"/>
+  </linearGradient></defs>
+<rect width="1200" height="800" fill="url(#sky)"/><circle cx="885" cy="215" r="62" fill="#FBF5EB"/><path d="M0,430 C120,360 220,300 340,350 C440,392 520,280 640,300 C760,320 820,382 940,340 C1040,305 1120,330 1200,310 L1200,800 L0,800 Z" fill="#DDCFB9"/>
+    <rect y="610" width="1200" height="190" fill="#E3D6C2"/>
+    <g>
+      <rect x="40" y="440" width="170" height="172" fill="#F2EADF"/><rect x="30" y="428" width="190" height="16" fill="#B08A6C"/>
+      <rect x="230" y="480" width="150" height="132" fill="#E3D5C1"/><rect x="222" y="468" width="166" height="16" fill="#A58262"/>
+      <rect x="560" y="320" width="80" height="292" fill="#F5EEE3"/><path d="M548,322 L600,240 L652,322 Z" fill="#A58262"/>
+      <path d="M584,380 a16,16 0 0 1 32,0 V410 H584 Z" fill="#CDBB9F"/>
+      <rect x="400" y="460" width="150" height="152" fill="#EFE5D6"/><rect x="392" y="448" width="166" height="16" fill="#B08A6C"/>
+      <rect x="650" y="470" width="170" height="142" fill="#E7DBC9"/><rect x="642" y="458" width="186" height="16" fill="#A58262"/>
+      <rect x="840" y="430" width="160" height="182" fill="#F2EADF"/><rect x="832" y="418" width="176" height="16" fill="#B08A6C"/>
+      <rect x="1020" y="490" width="150" height="122" fill="#E3D5C1"/><rect x="1012" y="478" width="166" height="16" fill="#A58262"/>
+      <path d="M80,480 h30 v40 h-30z M150,480 h30 v40 h-30z M270,520 h30 v36 h-30z M320,520 h30 v36 h-30z M440,500 h30 v40 h-30z M690,510 h30 v40 h-30z M760,510 h30 v40 h-30z M880,470 h30 v40 h-30z M940,470 h30 v40 h-30z M1060,530 h30 v36 h-30z M1110,530 h30 v36 h-30z" fill="#CDBB9F"/>
+    </g>
+    <g transform="translate(320,680) scale(0.9)"><rect x="-5" y="-40" width="10" height="40" fill="#7A6250"/><circle cx="0" cy="-70" r="42" fill="#8C9D80"/><circle cx="-26" cy="-52" r="26" fill="#8C9D80"/><circle cx="26" cy="-50" r="28" fill="#8C9D80"/></g><g transform="translate(880,680) scale(0.9)"><rect x="-5" y="-40" width="10" height="40" fill="#7A6250"/><circle cx="0" cy="-70" r="42" fill="#8C9D80"/><circle cx="-26" cy="-52" r="26" fill="#8C9D80"/><circle cx="26" cy="-50" r="28" fill="#8C9D80"/></g><g transform="translate(610,690) scale(0.7)"><rect x="-5" y="-40" width="10" height="40" fill="#7A6250"/><circle cx="0" cy="-70" r="42" fill="#9EAC91"/><circle cx="-26" cy="-52" r="26" fill="#9EAC91"/><circle cx="26" cy="-50" r="28" fill="#9EAC91"/></g>
+<g transform="translate(600,655)">
+  <rect x="-225" y="-62" width="450" height="124" rx="62" fill="#FFFFFF" fill-opacity="0.88"/>
+  <text y="-14" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="18" letter-spacing="5" fill="#8B6A4F">FOTO DE EJEMPLO</text>
+  <text y="34" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="40" fill="#3A2F28">Centro</text>
+</g>
+</svg>

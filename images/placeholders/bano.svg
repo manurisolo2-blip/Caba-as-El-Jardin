@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Imagen de ejemplo (placeholder). Reemplazar por una fotografia real. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+<defs>
+  <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#F5EEE3"/><stop offset="1" stop-color="#EADFCD"/>
+  </linearGradient>
+  <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#C9DBD6"/><stop offset="1" stop-color="#9EBDB7"/>
+  </linearGradient>
+  <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#F4EDE2"/><stop offset="1" stop-color="#EADFCE"/>
+  </linearGradient></defs>
+<rect width="1200" height="800" fill="url(#wall)"/>
+  <g>
+  <rect x="140" y="160" width="320" height="280" rx="10" fill="#FFFFFF"/>
+  <svg x="156" y="176" width="288" height="248" viewBox="0 280 1200 520" preserveAspectRatio="xMidYMid slice"><rect width="1200" height="800" fill="url(#sky)"/><circle cx="885" cy="215" r="62" fill="#FBF5EB"/><path d="M0,430 C120,360 220,300 340,350 C440,392 520,280 640,300 C760,320 820,382 940,340 C1040,305 1120,330 1200,310 L1200,800 L0,800 Z" fill="#DDCFB9"/><path d="M0,520 C140,450 260,420 380,470 C500,520 600,430 720,440 C860,452 940,520 1060,480 C1120,460 1170,468 1200,475 L1200,800 L0,800 Z" fill="#BCC5AD"/><path d="M0,610 C160,570 300,590 460,600 C640,612 780,560 940,575 C1060,586 1140,600 1200,590 L1200,800 L0,800 Z" fill="#9EAC91"/></svg>
+  <path d="M300,176 V424 M156,300 H444" stroke="#FFFFFF" stroke-width="10"/>
+  <rect x="126" y="436" width="348" height="16" rx="4" fill="#E2D5C2"/>
+</g>
+  <rect y="592" width="1200" height="12" fill="#E7DCCB"/>
+  <rect y="604" width="1200" height="196" fill="#D9C7AC"/>
+  <path d="M0,660 H1200 M0,722 H1200 M0,780 H1200" stroke="#CDB99C" stroke-width="3"/>
+  
+  <rect x="0" y="330" width="1200" height="262" fill="#EDE6DA"/>
+  <path d="M0,400 H1200 M0,470 H1200 M0,540 H1200 M520,330 V592 M620,330 V592 M720,330 V592 M820,330 V592 M920,330 V592 M1020,330 V592 M1120,330 V592" stroke="#E2D8C9" stroke-width="3"/>
+  <rect x="728" y="120" width="244" height="270" rx="122" fill="#E4EBE3" stroke="#CDBB9F" stroke-width="10"/>
+  <rect x="650" y="430" width="400" height="20" rx="6" fill="#F7F2EA"/>
+  <rect x="670" y="450" width="360" height="146" rx="6" fill="#B09274"/>
+  <path d="M770,520 H930" stroke="#9A7C60" stroke-width="5" stroke-linecap="round"/>
+  <path d="M850,430 V402 H874" stroke="#B7AEA6" stroke-width="10" fill="none" stroke-linecap="round"/>
+  <rect x="540" y="330" width="16" height="16" rx="8" fill="#A58262"/>
+  <rect x="520" y="346" width="56" height="130" rx="10" fill="#B7C2A8"/>
+<g transform="translate(600,655)">
+  <rect x="-225" y="-62" width="450" height="124" rx="62" fill="#FFFFFF" fill-opacity="0.88"/>
+  <text y="-14" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="18" letter-spacing="5" fill="#8B6A4F">FOTO DE EJEMPLO</text>
+  <text y="34" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="40" fill="#3A2F28">Baño</text>
+</g>
+</svg>

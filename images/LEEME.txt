@@ -1,0 +1,64 @@
+CARPETA DE FOTOGRAFÍAS
+======================
+
+Por ahora la página usa fotos de ejemplo (Unsplash) solo como relleno.
+Copiá acá las fotos reales del complejo y reemplazá las rutas en el código.
+
+ESTRUCTURA SUGERIDA
+-------------------
+images/
+  portada.jpg                 -> Foto grande de inicio (index.html, sección INICIO)
+  nosotros-1.jpg              -> Sección SOBRE NOSOTROS (foto principal)
+  nosotros-2.jpg              -> Sección SOBRE NOSOTROS (foto secundaria)
+  contacto-fondo.jpg          -> Fondo de la sección CONTACTO
+
+  cabana-1/                   -> Fotos de la Cabaña 1 (se editan en script.js > CONFIG.cabanas)
+    frente.jpg
+    dormitorio.jpg
+    cama.jpg
+    comedor.jpg
+    cocina.jpg
+    bano.jpg
+    asador.jpg
+    piscina.jpg
+  cabana-2/                   -> Igual que cabana-1
+  cabana-3/                   -> Igual que cabana-1
+
+  galeria/                    -> Sección GALERÍA (index.html)
+    frente.jpg
+    dormitorio.jpg
+    cama.jpg
+    comedor.jpg
+    cocina.jpg
+    bano.jpg
+    cochera.jpg
+    asador.jpg
+    piscina.jpg
+    exterior.jpg
+    naturaleza.jpg
+    entorno.jpg
+
+  santa-rosa/                 -> Sección SANTA ROSA DE CALAMUCHITA (index.html)
+    naturaleza.jpg
+    rio.jpg
+    balnearios.jpg
+    sierras.jpg
+    centro.jpg
+    gastronomia.jpg
+    paseos.jpg
+
+CÓMO REEMPLAZAR UNA FOTO
+------------------------
+1. Copiá la foto a la carpeta correspondiente (ej: images/galeria/piscina.jpg).
+2. Buscá en index.html o script.js el comentario "REEMPLAZAR FOTO" de esa imagen.
+3. Cambiá la dirección que empieza con https://images.unsplash.com/... por la ruta
+   local, por ejemplo:  src="images/galeria/piscina.jpg"
+
+RECOMENDACIONES
+---------------
+- Nombres de archivo en minúsculas, sin espacios, sin tildes ni ñ
+  (ej: "bano.jpg" y no "Baño.JPG"). GitHub Pages distingue mayúsculas.
+- Formato JPG o WEBP.
+- Tamaño recomendado: 1600 a 2000 px de ancho para la portada,
+  1200 a 1400 px para el resto. Idealmente menos de 400 KB por foto.
+- Fotos horizontales para portada, galería y cabañas.

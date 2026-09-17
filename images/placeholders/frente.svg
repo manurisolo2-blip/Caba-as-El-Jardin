@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Imagen de ejemplo (placeholder). Reemplazar por una fotografia real. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+<defs>
+  <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#F5EEE3"/><stop offset="1" stop-color="#EADFCD"/>
+  </linearGradient>
+  <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#C9DBD6"/><stop offset="1" stop-color="#9EBDB7"/>
+  </linearGradient>
+  <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#F4EDE2"/><stop offset="1" stop-color="#EADFCE"/>
+  </linearGradient></defs>
+<rect width="1200" height="800" fill="url(#sky)"/><circle cx="885" cy="215" r="62" fill="#FBF5EB"/><path d="M0,430 C120,360 220,300 340,350 C440,392 520,280 640,300 C760,320 820,382 940,340 C1040,305 1120,330 1200,310 L1200,800 L0,800 Z" fill="#DDCFB9"/><path d="M0,520 C140,450 260,420 380,470 C500,520 600,430 720,440 C860,452 940,520 1060,480 C1120,460 1170,468 1200,475 L1200,800 L0,800 Z" fill="#BCC5AD"/><path d="M0,592 C300,570 900,575 1200,594 L1200,800 L0,800 Z" fill="#AFBA9F"/>
+    <g transform="translate(120,600) scale(1.1)"><rect x="-4" y="-18" width="8" height="18" fill="#7A6250"/><path d="M0,-110 L32,-18 L-32,-18 Z" fill="#7F9074"/></g><g transform="translate(1080,600) scale(1.1)"><rect x="-5" y="-40" width="10" height="40" fill="#7A6250"/><circle cx="0" cy="-70" r="42" fill="#8C9D80"/><circle cx="-26" cy="-52" r="26" fill="#8C9D80"/><circle cx="26" cy="-50" r="28" fill="#8C9D80"/></g><g transform="translate(1000,595) scale(0.8)"><rect x="-4" y="-18" width="8" height="18" fill="#7A6250"/><path d="M0,-110 L32,-18 L-32,-18 Z" fill="#8C9D80"/></g>
+    <g transform="translate(300,632) scale(0.62)">
+  <rect x="-140" y="-140" width="280" height="140" fill="#A58262"/>
+  <path d="M-140,-105 H140 M-140,-70 H140 M-140,-35 H140" stroke="#937256" stroke-width="3"/>
+  <path d="M-168,-128 L0,-242 L168,-128 Z" fill="#6F5641"/>
+  <rect x="-22" y="-92" width="44" height="92" fill="#5E4735"/>
+  <rect x="-112" y="-102" width="60" height="46" rx="3" fill="#F4E6CC"/>
+  <rect x="52" y="-102" width="60" height="46" rx="3" fill="#F4E6CC"/>
+</g><g transform="translate(600,622) scale(0.74)">
+  <rect x="-140" y="-140" width="280" height="140" fill="#A58262"/>
+  <path d="M-140,-105 H140 M-140,-70 H140 M-140,-35 H140" stroke="#937256" stroke-width="3"/>
+  <path d="M-168,-128 L0,-242 L168,-128 Z" fill="#6F5641"/>
+  <rect x="-22" y="-92" width="44" height="92" fill="#5E4735"/>
+  <rect x="-112" y="-102" width="60" height="46" rx="3" fill="#F4E6CC"/>
+  <rect x="52" y="-102" width="60" height="46" rx="3" fill="#F4E6CC"/>
+</g><g transform="translate(900,632) scale(0.62)">
+  <rect x="-140" y="-140" width="280" height="140" fill="#A58262"/>
+  <path d="M-140,-105 H140 M-140,-70 H140 M-140,-35 H140" stroke="#937256" stroke-width="3"/>
+  <path d="M-168,-128 L0,-242 L168,-128 Z" fill="#6F5641"/>
+  <rect x="-22" y="-92" width="44" height="92" fill="#5E4735"/>
+  <rect x="-112" y="-102" width="60" height="46" rx="3" fill="#F4E6CC"/>
+  <rect x="52" y="-102" width="60" height="46" rx="3" fill="#F4E6CC"/>
+</g>
+    <path d="M0,705 C400,680 800,694 1200,672 L1200,800 L0,800 Z" fill="#98A78B"/>
+<g transform="translate(600,655)">
+  <rect x="-278.4" y="-62" width="556.8" height="124" rx="62" fill="#FFFFFF" fill-opacity="0.88"/>
+  <text y="-14" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="18" letter-spacing="5" fill="#8B6A4F">FOTO DE EJEMPLO</text>
+  <text y="34" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="40" fill="#3A2F28">Frente de las cabañas</text>
+</g>
+</svg>

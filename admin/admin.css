@@ -1,0 +1,396 @@
+/* =========================================================================
+   admin.css | Panel de administración de reservas
+   Usa las variables, botones y campos de ../styles.css
+   ========================================================================= */
+
+[hidden] { display: none !important; }
+
+body.admin {
+  min-height: 100vh;
+  background: var(--blanco-roto);
+}
+
+code {
+  padding: .1em .4em;
+  border-radius: 6px;
+  background: var(--beige);
+  font-size: .88em;
+}
+
+/* ---------- Vistas de carga, login y avisos ---------- */
+.admin-cargando {
+  min-height: 100vh;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 14px;
+  color: var(--texto-suave);
+}
+.admin-spinner {
+  width: 34px;
+  height: 34px;
+  border: 2px solid var(--arena);
+  border-top-color: var(--marron);
+  border-radius: 50%;
+  animation: girar .8s linear infinite;
+}
+
+.login {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 32px 20px;
+  background:
+    radial-gradient(ellipse at top, var(--beige) 0%, transparent 60%),
+    var(--blanco-roto);
+}
+.login__card {
+  width: min(430px, 100%);
+  padding: clamp(28px, 6vw, 44px);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio-lg);
+  background: var(--blanco);
+  box-shadow: var(--sombra);
+  text-align: center;
+}
+.login__card > p { color: var(--texto-suave); font-size: .96rem; }
+.login__card .reserva-form { margin-top: 24px; text-align: left; }
+.login__brand {
+  justify-content: center;
+  margin-bottom: 26px;
+  color: var(--texto);
+  font-size: 1.35rem;
+}
+.login__title {
+  margin-bottom: .35em;
+  font-family: var(--font-serif);
+  font-size: 2.2rem;
+}
+.login__icon {
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  margin: 0 auto 18px;
+  border-radius: 50%;
+  background: var(--salvia-suave);
+  color: var(--salvia-oscura);
+}
+.login__icon .icon { width: 26px; height: 26px; }
+.login__error {
+  margin: 0;
+  padding: 10px 14px;
+  border-radius: var(--radio-sm);
+  background: #F6E9E1;
+  color: var(--marron-oscuro);
+  font-size: .9rem;
+}
+.login__volver {
+  display: inline-block;
+  margin-top: 20px;
+  font-size: .9rem;
+  color: var(--texto-suave);
+  border-bottom: 1px solid transparent;
+  transition: color .3s, border-color .3s;
+}
+.login__volver:hover { color: var(--marron); border-color: currentColor; }
+.login .btn--block { margin-top: 10px; }
+
+/* ---------- Cabecera ---------- */
+.admin-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(250, 247, 242, .92);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 1px 0 var(--borde);
+}
+.admin-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 70px;
+}
+.admin-header__brand { color: var(--texto); font-size: 1.4rem; }
+.admin-header__acciones { display: flex; align-items: center; gap: 8px; }
+.admin-header__usuario {
+  max-width: 220px;
+  margin-right: 6px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: .86rem;
+  color: var(--texto-suave);
+}
+
+.admin-main { padding-block: 32px 80px; }
+
+/* ---------- Resumen ---------- */
+.admin-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 30px;
+}
+.admin-stat {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 22px;
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  background: var(--blanco);
+  text-align: left;
+  cursor: pointer;
+  box-shadow: var(--sombra-xs);
+  transition: transform .35s var(--ease), box-shadow .35s var(--ease), border-color .35s;
+}
+.admin-stat:hover { transform: translateY(-3px); box-shadow: var(--sombra-sm); border-color: var(--arena); }
+.admin-stat strong {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 2.1rem;
+  font-weight: 500;
+  line-height: 1;
+}
+.admin-stat small { font-size: .86rem; color: var(--texto-suave); }
+.admin-stat__icon {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--beige);
+  color: var(--marron);
+}
+.admin-stat__icon--pendiente { background: #F4E7D3; color: #8A6232; }
+.admin-stat__icon--confirmada { background: var(--salvia-suave); color: var(--salvia-oscura); }
+
+/* ---------- Pestañas ---------- */
+.admin-tabs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 22px;
+  border-bottom: 1px solid var(--borde);
+}
+.admin-tab {
+  position: relative;
+  padding: 12px 18px;
+  border: 0;
+  background: none;
+  font-size: .98rem;
+  color: var(--texto-suave);
+  cursor: pointer;
+  transition: color .3s;
+}
+.admin-tab::after {
+  content: "";
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: -1px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--marron);
+  transform: scaleX(0);
+  transition: transform .35s var(--ease);
+}
+.admin-tab:hover { color: var(--texto); }
+.admin-tab.is-active { color: var(--texto); font-weight: 500; }
+.admin-tab.is-active::after { transform: scaleX(1); }
+.admin-tabs__refresh { margin-left: auto; margin-bottom: 6px; width: 40px; height: 40px; }
+.admin-tabs__refresh.is-girando .icon { animation: girar .8s linear infinite; }
+
+/* ---------- Filtros ---------- */
+.admin-filtros {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) auto auto;
+  align-items: end;
+  gap: 14px;
+  margin-bottom: 18px;
+  padding: 18px 20px;
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  background: var(--blanco);
+}
+.admin-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 46px;
+  font-size: .9rem;
+  color: var(--texto-suave);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.admin-check input { width: 18px; height: 18px; accent-color: var(--marron); }
+
+.admin-contador { margin: 0 0 12px; font-size: .9rem; color: var(--texto-suave); }
+
+/* ---------- Lista de reservas ---------- */
+.admin-lista { display: grid; gap: 12px; }
+
+.admin-grupo {
+  margin: 18px 0 2px;
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+}
+.admin-grupo:first-child { margin-top: 0; }
+
+.reserva {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 16px 24px;
+  padding: 20px 22px;
+  border: 1px solid var(--borde);
+  border-left: 4px solid var(--arena-oscura);
+  border-radius: var(--radio);
+  background: var(--blanco);
+  box-shadow: var(--sombra-xs);
+  transition: transform .3s var(--ease), box-shadow .3s var(--ease), border-color .3s;
+}
+.reserva:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--sombra-sm);
+}
+.reserva--confirmada { border-left-color: var(--salvia-oscura); }
+.reserva--cancelada { border-left-color: #D8CEC6; background: #FCFAF8; }
+.reserva--cancelada .reserva__nombre,
+.reserva--cancelada .reserva__fechas { color: var(--texto-suave); }
+
+.reserva__cabana {
+  font-size: .74rem;
+  font-weight: 500;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--marron);
+}
+.reserva__nombre {
+  margin: 2px 0 8px;
+  font-family: var(--font-serif);
+  font-size: 1.55rem;
+  overflow-wrap: anywhere;
+}
+.reserva__dato {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+  margin: 0 0 4px;
+  font-size: .94rem;
+}
+.reserva__dato .icon { width: 18px; height: 18px; color: var(--texto-suave); }
+.reserva__dato--suave { font-size: .86rem; color: var(--texto-suave); }
+.reserva__mensaje {
+  display: flex;
+  gap: 8px;
+  margin: 10px 0 0;
+  padding: 10px 14px;
+  border-radius: var(--radio-sm);
+  background: var(--blanco-roto);
+  font-size: .92rem;
+  color: var(--texto);
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+.reserva__mensaje .icon { width: 18px; height: 18px; margin-top: 3px; color: var(--texto-suave); }
+
+.reserva__lateral {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 14px;
+}
+.reserva__acciones { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 6px; }
+.reserva__acciones .btn { padding: .6em 1em; font-size: .85rem; }
+
+.btn--peligro { color: #9A4F35; }
+.btn--peligro:hover { color: #7A3B25; background: #F6E9E1; }
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: .4em;
+  padding: .35em .9em;
+  border-radius: 999px;
+  font-size: .8rem;
+  font-weight: 500;
+}
+.badge::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.badge--pendiente { background: #F4E7D3; color: #8A6232; }
+.badge--confirmada { background: var(--salvia-suave); color: var(--salvia-oscura); }
+.badge--cancelada { background: #EFE9E5; color: #8C8079; }
+
+.admin-vacio {
+  padding: 42px 20px;
+  border: 1px dashed var(--arena);
+  border-radius: var(--radio);
+  text-align: center;
+  color: var(--texto-suave);
+}
+
+/* ---------- Bloqueos ---------- */
+.admin-bloqueos {
+  display: grid;
+  grid-template-columns: minmax(0, 380px) minmax(0, 1fr);
+  align-items: start;
+  gap: 20px;
+}
+.admin-card {
+  padding: 24px;
+  border: 1px solid var(--borde);
+  border-radius: var(--radio-lg);
+  background: var(--blanco);
+}
+.admin-card__cabecera {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.admin-card__title { font-family: var(--font-serif); font-size: 1.7rem; }
+.admin-card__texto { margin: 0; font-size: .9rem; color: var(--texto-suave); }
+.admin-fila { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+.bloqueo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 16px;
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  background: var(--blanco-roto);
+}
+.bloqueo__info { min-width: 0; }
+.bloqueo__info strong { display: block; font-weight: 500; }
+.bloqueo__info span { font-size: .88rem; color: var(--texto-suave); overflow-wrap: anywhere; }
+.bloqueo .btn { flex: none; padding: .6em 1em; font-size: .85rem; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1023px) {
+  .admin-filtros { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .admin-bloqueos { grid-template-columns: 1fr; }
+}
+@media (max-width: 720px) {
+  .admin-header__usuario { display: none; }
+  .admin-stats { grid-template-columns: 1fr; gap: 10px; }
+  .admin-stat { padding: 14px 18px; }
+  .admin-stat strong { font-size: 1.7rem; }
+  .admin-filtros { grid-template-columns: 1fr 1fr; }
+  .reserva { grid-template-columns: 1fr; }
+  .reserva__lateral { flex-direction: row; align-items: center; flex-wrap: wrap; }
+  .reserva__acciones { justify-content: flex-start; }
+}
+@media (max-width: 480px) {
+  .admin-header__brand span { display: none; }
+  .admin-filtros { grid-template-columns: 1fr; }
+  .admin-fila { grid-template-columns: 1fr; }
+  .bloqueo { flex-direction: column; align-items: flex-start; }
+}

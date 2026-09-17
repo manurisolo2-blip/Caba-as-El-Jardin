@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Imagen de ejemplo (placeholder). Reemplazar por una fotografia real. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+<defs>
+  <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#F5EEE3"/><stop offset="1" stop-color="#EADFCD"/>
+  </linearGradient>
+  <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#C9DBD6"/><stop offset="1" stop-color="#9EBDB7"/>
+  </linearGradient>
+  <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#F4EDE2"/><stop offset="1" stop-color="#EADFCE"/>
+  </linearGradient></defs>
+<rect width="1200" height="800" fill="url(#sky)"/><circle cx="885" cy="215" r="62" fill="#FBF5EB"/><path d="M0,430 C120,360 220,300 340,350 C440,392 520,280 640,300 C760,320 820,382 940,340 C1040,305 1120,330 1200,310 L1200,800 L0,800 Z" fill="#DDCFB9"/><path d="M0,520 C140,450 260,420 380,470 C500,520 600,430 720,440 C860,452 940,520 1060,480 C1120,460 1170,468 1200,475 L1200,800 L0,800 Z" fill="#BCC5AD"/>
+    <g transform="translate(140,585) scale(0.5)"><rect x="-4" y="-18" width="8" height="18" fill="#7A6250"/><path d="M0,-110 L32,-18 L-32,-18 Z" fill="#7F9074"/></g><g transform="translate(180,582) scale(0.4)"><rect x="-4" y="-18" width="8" height="18" fill="#7A6250"/><path d="M0,-110 L32,-18 L-32,-18 Z" fill="#7F9074"/></g><g transform="translate(1020,578) scale(0.6)"><rect x="-5" y="-40" width="10" height="40" fill="#7A6250"/><circle cx="0" cy="-70" r="42" fill="#8C9D80"/><circle cx="-26" cy="-52" r="26" fill="#8C9D80"/><circle cx="26" cy="-50" r="28" fill="#8C9D80"/></g>
+    <path d="M0,580 C300,560 700,610 1200,570 L1200,670 C800,700 400,650 0,690 Z" fill="url(#water)"/>
+    <path d="M200,615 q40,-10 80,0 M760,610 q40,-10 80,0 M480,640 q40,-10 80,0" stroke="#FFFFFF" stroke-opacity="0.6" stroke-width="4" fill="none"/>
+    <path d="M0,690 C400,650 800,700 1200,668 L1200,800 L0,800 Z" fill="#E9D9BF"/>
+    <g transform="translate(250,730)"><rect x="-3" y="-90" width="6" height="90" fill="#8B6A4F"/><path d="M-70,-80 Q0,-140 70,-80 Z" fill="#D8BC9F"/></g>
+         <g transform="translate(960,715)"><rect x="-3" y="-90" width="6" height="90" fill="#8B6A4F"/><path d="M-70,-80 Q0,-140 70,-80 Z" fill="#B9C2A9"/></g>
+<g transform="translate(600,655)">
+  <rect x="-225" y="-62" width="450" height="124" rx="62" fill="#FFFFFF" fill-opacity="0.88"/>
+  <text y="-14" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="18" letter-spacing="5" fill="#8B6A4F">FOTO DE EJEMPLO</text>
+  <text y="34" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="40" fill="#3A2F28">Balnearios</text>
+</g>
+</svg>

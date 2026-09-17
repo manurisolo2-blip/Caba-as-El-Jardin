@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- =====================================================================
+       GUÍA RÁPIDA DE EDICIÓN
+       ---------------------------------------------------------------------
+       La mayoría de los datos se editan en UN SOLO LUGAR:
+       script.js > sección "1. CONFIGURACIÓN" (objeto CONFIG):
+         - Nombre del complejo
+         - WhatsApp
+         - Instagram
+         - Enlaces de Google Maps
+         - Nombre, capacidad, precio, descripciones y fotos de cada cabaña
+         - Fechas ocupadas (disponibilidad)
+
+       En este archivo (index.html) se editan:
+         - <title> y etiquetas <meta> (buscar "NOMBRE DEL COMPLEJO")
+         - Textos de cada sección
+         - Fotos de portada, sobre nosotros, galería, Santa Rosa y contacto
+           (buscar "REEMPLAZAR FOTO")
+         - Mapa de Google Maps (buscar "GOOGLE MAPS")
+       ===================================================================== -->
+
+  <!-- EDITAR: NOMBRE DEL COMPLEJO (título de la pestaña y resultados de Google) -->
+  <title>Cabañas El Jardin | Cabañas en Santa Rosa de Calamuchita, Córdoba</title>
+  <meta name="description" content="Complejo de 3 cabañas en Santa Rosa de Calamuchita, Córdoba. Tranquilidad, naturaleza, piscina, asador y cochera. Consultá disponibilidad por WhatsApp.">
+
+  <!-- EDITAR: NOMBRE DEL COMPLEJO (vista previa al compartir el enlace en redes y WhatsApp) -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Cabañas El Jardin | Cabañas en Santa Rosa de Calamuchita">
+  <meta property="og:description" content="Un lugar para descansar y disfrutar de las sierras.">
+  <meta property="og:locale" content="es_AR">
+  <!-- Opcional: imagen al compartir. Requiere la dirección completa, ej:
+       <meta property="og:image" content="https://TU-USUARIO.github.io/TU-SITIO/images/portada.jpg"> -->
+
+  <meta name="theme-color" content="#FAF7F2">
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script>document.documentElement.classList.add("js");</script>
+</head>
+<body>
+
+  <!-- =====================================================================
+       ÍCONOS (no hace falta editar)
+       Se usan en toda la página con: <svg class="icon"><use href="#i-nombre"></use></svg>
+       ===================================================================== -->
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+    <symbol id="i-cabin" viewBox="0 0 24 24"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 9.5V20h13V9.5"/><path d="M10 20v-5h4v5"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></symbol>
+    <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M5 19c0-8 5-14 15-15-1 10-7 15-15 15z"/><path d="M5 19l8-8"/></symbol>
+    <symbol id="i-sofa" viewBox="0 0 24 24"><path d="M5 11V8a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3v3"/><path d="M3 13a2 2 0 0 1 4 0v2h10v-2a2 2 0 0 1 4 0v5H3z"/><path d="M6 20v1.5M18 20v1.5"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol>
+    <symbol id="i-tree" viewBox="0 0 24 24"><path d="M12 3 6.5 10.5h3L5 17h14l-4.5-6.5h3z"/><path d="M12 17v4"/></symbol>
+    <symbol id="i-pool" viewBox="0 0 24 24"><path d="M7 13V5.5a2 2 0 0 1 4 0"/><path d="M15 13V5.5a2 2 0 0 1 4 0"/><path d="M7 8.5h8M7 11.5h8"/><path d="M2 17c2 0 2-1.5 4-1.5s2 1.5 4 1.5 2-1.5 4-1.5 2 1.5 4 1.5 2-1.5 4-1.5"/><path d="M2 21c2 0 2-1.5 4-1.5s2 1.5 4 1.5 2-1.5 4-1.5 2 1.5 4 1.5 2-1.5 4-1.5"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+    <symbol id="i-bed" viewBox="0 0 24 24"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8"/><path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"/><path d="M12 4v6"/><path d="M2 17h20"/></symbol>
+    <symbol id="i-bunk" viewBox="0 0 24 24"><path d="M4 3v18M20 3v18M4 11h16M4 19h16"/><rect x="6" y="7" width="5" height="4" rx="1"/><rect x="6" y="15" width="5" height="4" rx="1"/></symbol>
+    <symbol id="i-utensils" viewBox="0 0 24 24"><path d="M6 3v6a3 3 0 0 0 6 0V3M9 3v18"/><path d="M18 21V3c-2.5 1.5-3.5 4-3.5 7.5V13H18"/></symbol>
+    <symbol id="i-bath" viewBox="0 0 24 24"><path d="M4 12h16v3a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M6 12V5.5a2 2 0 0 1 3.6-1.2"/><path d="M8 20l-1 2M16 20l1 2"/></symbol>
+    <symbol id="i-car" viewBox="0 0 24 24"><path d="M5.5 18H4a1 1 0 0 1-1-1v-4l2.2-5.2A2 2 0 0 1 7 6.5h10a2 2 0 0 1 1.8 1.3L21 13v4a1 1 0 0 1-1 1h-1.5"/><path d="M3 13h18"/><circle cx="7.5" cy="18" r="1.8"/><circle cx="16.5" cy="18" r="1.8"/><path d="M9.3 18h5.4"/></symbol>
+    <symbol id="i-grill" viewBox="0 0 24 24"><path d="M4 10h16a8 7 0 0 1-16 0z"/><path d="M8 16.5 6 21M16 16.5l2 4.5M12 17v4"/><path d="M9 3c-.8 1 .8 2 0 3.5M13 3c-.8 1 .8 2 0 3.5M17 3c-.8 1 .8 2 0 3.5"/></symbol>
+    <symbol id="i-tv" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></symbol>
+    <symbol id="i-kettle" viewBox="0 0 24 24"><path d="M5 20h14"/><path d="M7 20l1-9h8l1 9"/><path d="M8.5 11c0-3 1.6-5 3.5-5s3.5 2 3.5 5"/><path d="M16.5 13h1.2a2 2 0 0 1 0 4h-.8"/><path d="M7.8 13.5 4.5 11"/><path d="M12 6V4.5"/></symbol>
+    <symbol id="i-cooktop" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="12" r="2.5"/><circle cx="15.5" cy="12" r="2.5"/></symbol>
+    <symbol id="i-flame" viewBox="0 0 24 24"><path d="M12 21a6 6 0 0 0 6-6c0-4-3-6-4-10-2 2-3 3.5-3 6-1-1-1.5-2-1.5-3C7.5 10 6 12.5 6 15a6 6 0 0 0 6 6z"/></symbol>
+    <symbol id="i-boiler" viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="20" rx="3"/><path d="M12 8c-1.2 1.6-2 2.7-2 3.7a2 2 0 0 0 4 0c0-1-.8-2.1-2-3.7z"/><path d="M9.5 18h5"/></symbol>
+    <symbol id="i-fridge" viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M6 10h12M9 5.5v2M9 13v3"/></symbol>
+    <symbol id="i-microwave" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><rect x="5" y="8" width="10" height="8" rx="1"/><path d="M18.5 9h.01M18.5 12h.01M18.5 15h.01"/></symbol>
+    <symbol id="i-toaster" viewBox="0 0 24 24"><path d="M4 20v-7a5 5 0 0 1 5-5h6a5 5 0 0 1 5 5v7z"/><path d="M9 8V4.5h2V8M13 8V4.5h2V8"/><path d="M17 13v3"/></symbol>
+    <symbol id="i-ac" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="9" rx="2"/><path d="M6 10h12"/><path d="M7 16.5c0 1.5 1 2 1 3.5M12 16v5M17 16.5c0 1.5-1 2-1 3.5"/></symbol>
+    <symbol id="i-heater" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="15" rx="2"/><path d="M12 7c-1.5 2-2.5 3.3-2.5 4.6a2.5 2.5 0 0 0 5 0C14.5 10.3 13.5 9 12 7z"/><path d="M7 18v3M17 18v3"/></symbol>
+    <symbol id="i-fan" viewBox="0 0 24 24"><circle cx="12" cy="10" r="8"/><circle cx="12" cy="10" r="1.3"/><path d="M12 8.7c-.6-2.6.1-4.2 1.6-4.2 1.6 0 2 2.4-1.6 4.2zM13.2 10.6c2.4.9 3.3 2.4 2.5 3.7-.8 1.3-3 .7-2.5-3.7zM10.8 10.6c-2 1.6-3.8 1.7-4.5.4-.8-1.4.9-3 4.5-.4z"/><path d="M12 18v3M8.5 21h7"/></symbol>
+    <symbol id="i-plug" viewBox="0 0 24 24"><path d="M9 2v5M15 2v5"/><path d="M6 7h12v4a6 6 0 0 1-12 0z"/><path d="M12 17v5"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8M18 14a6.5 6.5 0 0 1 3.5 6"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M3.5 20.5l1.2-3.9A8.5 8.5 0 1 1 8 19.7z"/><path d="M9.2 8.6c-.4 2.9 2.2 5.9 5.4 6l1-1.3-1.8-1-1 .7a3.6 3.6 0 0 1-2-2l.7-1-1-1.8z"/></symbol>
+    <symbol id="i-instagram" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></symbol>
+    <symbol id="i-route" viewBox="0 0 24 24"><path d="M3 11 21 3l-8 18-2-8z"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-arrow-down" viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></symbol>
+    <symbol id="i-chev-left" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+    <symbol id="i-chev-right" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+    <symbol id="i-mountain" viewBox="0 0 24 24"><path d="M2 20 9 8l4 6 3-4 6 10z"/></symbol>
+    <symbol id="i-river" viewBox="0 0 24 24"><path d="M2 8c2.5 0 2.5-2 5-2s2.5 2 5 2 2.5-2 5-2 2.5 2 5 2M2 13c2.5 0 2.5-2 5-2s2.5 2 5 2 2.5-2 5-2 2.5 2 5 2M2 18c2.5 0 2.5-2 5-2s2.5 2 5 2 2.5-2 5-2 2.5 2 5 2"/></symbol>
+    <symbol id="i-umbrella" viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 1 9 9H3a9 9 0 0 1 9-9z"/><path d="M12 12v7a2 2 0 0 1-4 0"/></symbol>
+    <symbol id="i-store" viewBox="0 0 24 24"><path d="M4 11v9h16v-9"/><path d="M3 10l1.5-6h15L21 10a3 3 0 0 1-6 0 3 3 0 0 1-6 0 3 3 0 0 1-6 0z"/><path d="M10 20v-5h4v5"/></symbol>
+    <symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+    <symbol id="i-tag" viewBox="0 0 24 24"><path d="M3 12V4a1 1 0 0 1 1-1h8l9 9-9 9z"/><circle cx="8" cy="8" r="1.5"/></symbol>
+    <symbol id="i-expand" viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></symbol>
+  </svg>
+
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+  <!-- =====================================================================
+       BARRA DE NAVEGACIÓN
+       ===================================================================== -->
+  <header class="header" id="header">
+    <div class="container header__inner">
+      <a href="#inicio" class="brand" aria-label="Ir al inicio">
+        <svg class="brand__mark" aria-hidden="true"><use href="#i-cabin"></use></svg>
+        <!-- El nombre se completa automáticamente desde script.js > CONFIG.nombreComplejo -->
+        <span class="brand__name" data-nombre-complejo>Cabañas El Jardin</span>
+      </a>
+
+      <nav class="nav" id="nav" aria-label="Navegación principal">
+        <ul class="nav__list">
+          <li><a class="nav__link" href="#inicio">Inicio</a></li>
+          <li><a class="nav__link" href="#cabanas">Cabañas</a></li>
+          <li><a class="nav__link" href="#servicios">Servicios</a></li>
+          <li><a class="nav__link" href="#galeria">Galería</a></li>
+          <li><a class="nav__link" href="#disponibilidad">Disponibilidad</a></li>
+          <li><a class="nav__link" href="#ubicacion">Ubicación</a></li>
+          <li><a class="nav__link" href="#contacto">Contacto</a></li>
+        </ul>
+        <a class="btn btn--primary nav__cta" href="#" data-whatsapp="general" target="_blank" rel="noopener">
+          <svg class="icon" aria-hidden="true"><use href="#i-chat"></use></svg>
+          Consultar por WhatsApp
+        </a>
+      </nav>
+
+      <button class="nav-toggle" id="nav-toggle" type="button" aria-controls="nav" aria-expanded="false" aria-label="Abrir menú">
+        <span class="nav-toggle__bar"></span>
+        <span class="nav-toggle__bar"></span>
+        <span class="nav-toggle__bar"></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="contenido">
+
+    <!-- =====================================================================
+         1. INICIO
+         ===================================================================== -->
+    <section class="hero" id="inicio">
+      <div class="hero__media">
+        <!-- REEMPLAZAR FOTO: PORTADA (cabañas o naturaleza). Ej: src="images/portada.jpg" -->
+        <img class="hero__img"
+             src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=2000&q=80"
+             alt="Paisaje de las sierras de Córdoba"
+             data-placeholder="Foto de portada"
+             fetchpriority="high">
+      </div>
+      <div class="hero__overlay" aria-hidden="true"></div>
+
+      <div class="container hero__content">
+        <!-- El nombre se completa automáticamente desde script.js > CONFIG.nombreComplejo -->
+        <h1 class="hero__title" data-nombre-complejo>Cabañas El Jardin</h1>
+        <p class="hero__subtitle">El descanso de las sierras, el murmullo del río y el tiempo a tu propio ritmo.</p>
+        <p class="hero__location">
+          <svg class="icon" aria-hidden="true"><use href="#i-pin"></use></svg>
+          Santa Rosa de Calamuchita, Córdoba
+        </p>
+
+        <div class="hero__actions">
+          <a href="#cabanas" class="btn btn--light">Conocé nuestras cabañas</a>
+          <a href="#disponibilidad" class="btn btn--ghost-light">Consultar disponibilidad</a>
+        </div>
+
+        <!-- WhatsApp con mensaje predeterminado (el número se configura en script.js > CONFIG.whatsapp) -->
+        <a href="#" class="hero__wa" data-whatsapp="general" target="_blank" rel="noopener">
+          <svg class="icon" aria-hidden="true"><use href="#i-chat"></use></svg>
+          Escribinos por WhatsApp
+        </a>
+
+        <ul class="hero__facts" aria-label="Lo que ofrecemos">
+          <li><svg class="icon" aria-hidden="true"><use href="#i-cabin"></use></svg>3 cabañas</li>
+          <li><svg class="icon" aria-hidden="true"><use href="#i-pool"></use></svg>Piscina</li>
+          <li><svg class="icon" aria-hidden="true"><use href="#i-grill"></use></svg>Asador</li>
+          <li><svg class="icon" aria-hidden="true"><use href="#i-car"></use></svg>Cochera</li>
+        </ul>
+      </div>
+
+      <a href="#nosotros" class="hero__scroll" aria-label="Ver más">
+        <svg class="icon" aria-hidden="true"><use href="#i-arrow-down"></use></svg>
+      </a>
+    </section>
+
+    <!-- =====================================================================
+         2. SOBRE NOSOTROS
+         (Textos editables libremente)
+         ===================================================================== -->
+    <section class="section about" id="nosotros">
+      <div class="container about__grid">
+        <div class="about__media reveal">
+          <figure class="about__img about__img--main">
+            <!-- REEMPLAZAR FOTO: SOBRE NOSOTROS (principal). Ej: src="images/nosotros-1.jpg" -->
+            <img src="https://images.unsplash.com/photo-1449158743715-0a90ebb6d2d8?auto=format&fit=crop&w=1200&q=80"
+                 alt="Cabaña rodeada de naturaleza" data-placeholder="Foto de las cabañas" loading="lazy">
+          </figure>
+          <figure class="about__img about__img--secondary">
+            <!-- REEMPLAZAR FOTO: SOBRE NOSOTROS (secundaria). Ej: src="images/nosotros-2.jpg" -->
+            <img src="https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&w=800&q=80"
+                 alt="Piscina al aire libre" data-placeholder="Foto de la piscina" loading="lazy">
+          </figure>
+          <div class="about__badge">
+            <strong>3</strong>
+            <span>cabañas</span>
+          </div>
+        </div>
+
+        <div class="about__text reveal">
+          <span class="eyebrow">Sobre nosotros</span>
+          <h2 class="section-title">Un refugio sereno en las sierras de Córdoba</h2>
+          <p class="lead">
+            Somos un complejo de tres cabañas en Santa Rosa de Calamuchita, pensado para que descanses,
+            te desconectes de la rutina y disfrutes de las sierras a tu ritmo.
+          </p>
+          <p>
+            Cada cabaña está equipada para que te sientas como en casa, con espacio al aire libre,
+            asador individual y piscina para aprovechar los días de sol. Un lugar ideal tanto para vacaciones en familia
+            como para una escapada de fin de semana.
+          </p>
+          <div class="about__actions">
+            <a href="#cabanas" class="btn btn--primary">
+              Ver las cabañas
+              <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Elemento insignia: El Ritmo de las Sierras -->
+      <div class="container sierras-rhythm reveal">
+        <header class="sierras-rhythm__head">
+          <span class="eyebrow">La experiencia en Calamuchita</span>
+          <h3 class="sierras-rhythm__title">El ritmo pausado de las sierras</h3>
+          <p class="sierras-rhythm__lead">Tres momentos que hacen única tu estadía en nuestro complejo.</p>
+        </header>
+
+        <div class="sierras-rhythm__grid">
+          <article class="rhythm-card">
+            <span class="rhythm-card__num">01</span>
+            <span class="rhythm-card__icon"><svg class="icon" aria-hidden="true"><use href="#i-sun"></use></svg></span>
+            <h4>Amaneceres con aire serrano</h4>
+            <p>El despertar con el canto de los pájaros, aroma a pinos y los primeros mates en la galería privada de tu cabaña.</p>
+          </article>
+
+          <article class="rhythm-card">
+            <span class="rhythm-card__num">02</span>
+            <span class="rhythm-card__icon"><svg class="icon" aria-hidden="true"><use href="#i-pool"></use></svg></span>
+            <h4>Tardes de piscina y río</h4>
+            <p>Un chapuzón para refrescarse, reposeras bajo la arboleda y el río Santa Rosa a minutos para disfrutar las tardes de sol.</p>
+          </article>
+
+          <article class="rhythm-card">
+            <span class="rhythm-card__num">03</span>
+            <span class="rhythm-card__icon"><svg class="icon" aria-hidden="true"><use href="#i-flame"></use></svg></span>
+            <h4>Noches de asador y estrellas</h4>
+            <p>El fuego encendido en tu asador individual, la brisa fresca que baja de las sierras y sobremesas sin apuro.</p>
+          </article>
+        </div>
+      </div>
+
+      <!-- Cinta de comodidades clave -->
+      <div class="container amenity-ribbon reveal" aria-label="Comodidades principales">
+        <div class="amenity-ribbon__item">
+          <span class="amenity-ribbon__icon"><svg class="icon" aria-hidden="true"><use href="#i-cabin"></use></svg></span>
+          <div class="amenity-ribbon__text">
+            <strong>Solo 3 cabañas</strong>
+            <small>Tranquilidad y privacidad absoluta</small>
+          </div>
+        </div>
+        <div class="amenity-ribbon__item">
+          <span class="amenity-ribbon__icon"><svg class="icon" aria-hidden="true"><use href="#i-pool"></use></svg></span>
+          <div class="amenity-ribbon__text">
+            <strong>Piscina con parque</strong>
+            <small>Solárium cercado para descansar</small>
+          </div>
+        </div>
+        <div class="amenity-ribbon__item">
+          <span class="amenity-ribbon__icon"><svg class="icon" aria-hidden="true"><use href="#i-grill"></use></svg></span>
+          <div class="amenity-ribbon__text">
+            <strong>Asador y cochera</strong>
+            <small>Exclusivos para cada unidad</small>
+          </div>
+        </div>
+        <div class="amenity-ribbon__item">
+          <span class="amenity-ribbon__icon"><svg class="icon" aria-hidden="true"><use href="#i-compass"></use></svg></span>
+          <div class="amenity-ribbon__text">
+            <strong>Ubicación ideal</strong>
+            <small>A minutos del río y del centro</small>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         3. NUESTRAS CABAÑAS
+         Las tarjetas se generan automáticamente desde script.js > CONFIG.cabanas
+         (nombre, capacidad, precio, descripción, servicios y fotos de cada una).
+         ===================================================================== -->
+    <section class="section cabins" id="cabanas">
+      <div class="container">
+        <header class="section-head reveal">
+          <span class="eyebrow">Nuestras cabañas</span>
+          <h2 class="section-title">Tres cabañas, el mismo descanso</h2>
+          <p>
+            Todas nuestras cabañas cuentan con un dormitorio con cama doble, comedor con cama marinera,
+            cocina comedor, baño completo, cochera, asador, espacio al aire libre y piscina.
+          </p>
+        </header>
+
+        <div class="cabins__grid" id="cabins-grid">
+          <!-- Contenido generado por script.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         4. SERVICIOS Y EQUIPAMIENTO
+         ===================================================================== -->
+    <section class="section services" id="servicios">
+      <div class="container">
+        <header class="section-head reveal">
+          <span class="eyebrow">Servicios y equipamiento</span>
+          <h2 class="section-title">Todo lo que necesitás para tu estadía</h2>
+          <p>Cada cabaña cuenta con el siguiente equipamiento.</p>
+        </header>
+
+        <ul class="cabin-layout reveal" aria-label="Distribución de cada cabaña">
+          <li><svg class="icon" aria-hidden="true"><use href="#i-bed"></use></svg>1 dormitorio con cama doble</li>
+          <li><svg class="icon" aria-hidden="true"><use href="#i-bunk"></use></svg>Comedor con cama marinera</li>
+          <li><svg class="icon" aria-hidden="true"><use href="#i-utensils"></use></svg>Cocina comedor</li>
+          <li><svg class="icon" aria-hidden="true"><use href="#i-bath"></use></svg>Baño completo</li>
+        </ul>
+
+        <div class="equip-grid">
+          <!-- CATEGORÍA: COCINA -->
+          <article class="equip-card reveal">
+            <header class="equip-card__head">
+              <span class="equip-card__icon"><svg class="icon" aria-hidden="true"><use href="#i-utensils"></use></svg></span>
+              <h3>Cocina</h3>
+            </header>
+            <ul class="equip-list">
+              <li><svg class="icon" aria-hidden="true"><use href="#i-utensils"></use></svg>Cocina comedor</li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-cooktop"></use></svg>Anafe eléctrico</li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-flame"></use></svg>Anafe a gas</li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-fridge"></use></svg>Heladera</li>
+            </ul>
+          </article>
+
+          <!-- CATEGORÍA: CONFORT -->
+          <article class="equip-card reveal">
+            <header class="equip-card__head">
+              <span class="equip-card__icon"><svg class="icon" aria-hidden="true"><use href="#i-sofa"></use></svg></span>
+              <h3>Confort</h3>
+            </header>
+            <ul class="equip-list">
+              <li><svg class="icon" aria-hidden="true"><use href="#i-ac"></use></svg>Aire acondicionado</li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-heater"></use></svg>Estufa garrafera</li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-fan"></use></svg>Ventilador</li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-boiler"></use></svg>Termotanque</li>
+            </ul>
+          </article>
+
+          <!-- CATEGORÍA: ELECTRODOMÉSTICOS -->
+          <article class="equip-card reveal">
+            <header class="equip-card__head">
+              <span class="equip-card__icon"><svg class="icon" aria-hidden="true"><use href="#i-plug"></use></svg></span>
+              <h3>Electrodomésticos</h3>
+            </header>
+            <ul class="equip-list">
+              <li><svg class="icon" aria-hidden="true"><use href="#i-tv"></use></svg>TV Smart de 32 pulgadas</li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-microwave"></use></svg>Microondas</li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-toaster"></use></svg>Tostadora</li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-kettle"></use></svg>Pava eléctrica</li>
+            </ul>
+          </article>
+
+          <!-- CATEGORÍA: EXTERIOR -->
+          <article class="equip-card reveal">
+            <header class="equip-card__head">
+              <span class="equip-card__icon"><svg class="icon" aria-hidden="true"><use href="#i-tree"></use></svg></span>
+              <h3>Exterior</h3>
+            </header>
+            <ul class="equip-list">
+              <li><svg class="icon" aria-hidden="true"><use href="#i-tree"></use></svg>Espacio al aire libre</li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-grill"></use></svg>Asador</li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-pool"></use></svg>Piscina</li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-car"></use></svg>Cochera</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         5. GALERÍA
+         Para cambiar una foto: reemplazar el "src" de cada <img> por la foto real
+         (ver comentario "REEMPLAZAR FOTO" arriba de cada una).
+         data-categoria define el filtro: interior | exterior | entorno
+         ===================================================================== -->
+    <section class="section gallery" id="galeria">
+      <div class="container">
+        <header class="section-head reveal">
+          <span class="eyebrow">Galería</span>
+          <h2 class="section-title">Conocé cada rincón</h2>
+          <p>Espacios cómodos, luminosos y rodeados de naturaleza.</p>
+        </header>
+
+        <div class="gallery__filters reveal" role="group" aria-label="Filtrar fotos">
+          <button class="chip is-active" type="button" data-filtro="todas" aria-pressed="true">Todas</button>
+          <button class="chip" type="button" data-filtro="interior" aria-pressed="false">Interior</button>
+          <button class="chip" type="button" data-filtro="exterior" aria-pressed="false">Exterior</button>
+          <button class="chip" type="button" data-filtro="entorno" aria-pressed="false">Entorno</button>
+        </div>
+
+        <div class="gallery__grid" id="gallery-grid">
+
+          <!-- REEMPLAZAR FOTO 1: FRENTE DE LAS CABAÑAS. Ej: src="images/galeria/frente.jpg" -->
+          <div class="gallery__item gallery__item--big reveal" data-categoria="exterior">
+            <button class="gallery__btn" type="button">
+              <img src="https://images.unsplash.com/photo-1587061949409-02df41d5e562?auto=format&fit=crop&w=1400&q=80" alt="Frente de las cabañas" loading="lazy">
+              <span class="gallery__caption">Frente de las cabañas</span>
+            </button>
+          </div>
+
+          <!-- REEMPLAZAR FOTO 2: DORMITORIO. Ej: src="images/galeria/dormitorio.jpg" -->
+          <div class="gallery__item gallery__item--tall reveal" data-categoria="interior">
+            <button class="gallery__btn" type="button">
+              <img src="https://images.unsplash.com/photo-1571508601891-ca5e7a713859?auto=format&fit=crop&w=1000&q=80" alt="Dormitorio" loading="lazy">
+              <span class="gallery__caption">Dormitorio</span>
+            </button>
+          </div>
+
+          <!-- REEMPLAZAR FOTO 3: CAMA. Ej: src="images/galeria/cama.jpg" -->
+          <div class="gallery__item reveal" data-categoria="interior">
+            <button class="gallery__btn" type="button">
+              <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=1000&q=80" alt="Cama doble" loading="lazy">
+              <span class="gallery__caption">Cama doble</span>
+            </button>
+          </div>
+
+          <!-- REEMPLAZAR FOTO 4: COMEDOR. Ej: src="images/galeria/comedor.jpg" -->
+          <div class="gallery__item reveal" data-categoria="interior">
+            <button class="gallery__btn" type="button">
+              <img src="https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&w=1000&q=80" alt="Comedor" loading="lazy">
+              <span class="gallery__caption">Comedor</span>
+            </button>
+          </div>
+
+          <!-- REEMPLAZAR FOTO 5: COCINA. Ej: src="images/galeria/cocina.jpg" -->
+          <div class="gallery__item gallery__item--wide reveal" data-categoria="interior">
+            <button class="gallery__btn" type="button">
+              <img src="https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=1400&q=80" alt="Cocina" loading="lazy">
+              <span class="gallery__caption">Cocina</span>
+            </button>
+          </div>
+
+          <!-- REEMPLAZAR FOTO 6: BAÑO. Ej: src="images/galeria/bano.jpg" -->
+          <div class="gallery__item reveal" data-categoria="interior">
+            <button class="gallery__btn" type="button">
+              <img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&w=1000&q=80" alt="Baño completo" loading="lazy">
+              <span class="gallery__caption">Baño completo</span>
+            </button>
+          </div>
+
+          <!-- REEMPLAZAR FOTO 7: COCHERA. Ej: src="images/galeria/cochera.jpg" -->
+          <div class="gallery__item reveal" data-categoria="exterior">
+            <button class="gallery__btn" type="button">
+              <img src="https://images.unsplash.com/photo-1510627489930-0c1b0bfb6785?auto=format&fit=crop&w=1000&q=80" alt="Cochera" loading="lazy">
+              <span class="gallery__caption">Cochera</span>
+            </button>
+          </div>
+
+          <!-- REEMPLAZAR FOTO 8: ASADOR. Ej: src="images/galeria/asador.jpg" -->
+          <div class="gallery__item reveal" data-categoria="exterior">
+            <button class="gallery__btn" type="button">
+              <img src="https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?auto=format&fit=crop&w=1000&q=80" alt="Asador" loading="lazy">
+              <span class="gallery__caption">Asador</span>
+            </button>
+          </div>
+
+          <!-- REEMPLAZAR FOTO 9: PISCINA. Ej: src="images/galeria/piscina.jpg" -->
+          <div class="gallery__item gallery__item--big reveal" data-categoria="exterior">
+            <button class="gallery__btn" type="button">
+              <img src="https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&w=1400&q=80" alt="Piscina" loading="lazy">
+              <span class="gallery__caption">Piscina</span>
+            </button>
+          </div>
+
+          <!-- REEMPLAZAR FOTO 10: ESPACIO EXTERIOR. Ej: src="images/galeria/exterior.jpg" -->
+          <div class="gallery__item gallery__item--tall reveal" data-categoria="exterior">
+            <button class="gallery__btn" type="button">
+              <img src="https://images.unsplash.com/photo-1558036117-15d82a90b9b1?auto=format&fit=crop&w=1000&q=80" alt="Espacio al aire libre" loading="lazy">
+              <span class="gallery__caption">Espacio al aire libre</span>
+            </button>
+          </div>
+
+          <!-- REEMPLAZAR FOTO 11: NATURALEZA. Ej: src="images/galeria/naturaleza.jpg" -->
+          <div class="gallery__item reveal" data-categoria="entorno">
+            <button class="gallery__btn" type="button">
+              <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1000&q=80" alt="Naturaleza" loading="lazy">
+              <span class="gallery__caption">Naturaleza</span>
+            </button>
+          </div>
+
+          <!-- REEMPLAZAR FOTO 12: ENTORNO. Ej: src="images/galeria/entorno.jpg" -->
+          <div class="gallery__item gallery__item--full reveal" data-categoria="entorno">
+            <button class="gallery__btn" type="button">
+              <img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=2000&q=80" alt="Entorno serrano" loading="lazy">
+              <span class="gallery__caption">Entorno</span>
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         6. DISPONIBILIDAD
+         El calendario, las cabañas y el resumen se generan desde script.js.
+         Las reservas se guardan en la base de datos online (Supabase):
+           - Datos de conexión: reservas/supabase-config.js
+           - Administración de reservas y bloqueos: admin/index.html
+         ===================================================================== -->
+    <section class="section availability" id="disponibilidad">
+      <div class="container">
+        <header class="section-head reveal">
+          <span class="eyebrow">Reservas</span>
+          <h2 class="section-title">Disponibilidad y reservas</h2>
+          <p>Elegí tu cabaña, seleccioná las fechas de entrada y salida y envianos tu consulta por WhatsApp.</p>
+        </header>
+
+        <div class="availability__layout">
+          <div class="calendar-card reveal">
+            <fieldset class="cabin-picker" id="cabin-picker">
+              <legend class="visually-hidden">Elegí una cabaña</legend>
+              <!-- Opciones generadas por script.js -->
+            </fieldset>
+
+            <p class="calendar__hint" id="calendar-hint" aria-live="polite">Seleccioná la fecha de entrada.</p>
+
+            <!-- Estado de la conexión con la base de datos (cargando / error) -->
+            <div class="calendar__status" id="calendar-status" role="status" hidden>
+              <span id="calendar-status-texto"></span>
+              <button class="btn btn--text btn--sm" type="button" id="calendar-reintentar" hidden>Reintentar</button>
+            </div>
+
+            <div class="calendar__toolbar">
+              <button class="icon-btn" type="button" id="cal-prev" aria-label="Mes anterior">
+                <svg class="icon" aria-hidden="true"><use href="#i-chev-left"></use></svg>
+              </button>
+              <p class="calendar__label" id="cal-label"></p>
+              <button class="icon-btn" type="button" id="cal-next" aria-label="Mes siguiente">
+                <svg class="icon" aria-hidden="true"><use href="#i-chev-right"></use></svg>
+              </button>
+            </div>
+
+            <div class="calendar__months" id="calendar-months">
+              <!-- Calendario generado por script.js -->
+            </div>
+
+            <ul class="calendar__legend">
+              <li><span class="legend-swatch legend-swatch--disponible"></span>Disponible</li>
+              <li><span class="legend-swatch legend-swatch--ocupado"></span>Reservada</li>
+              <li><span class="legend-swatch legend-swatch--seleccionado"></span>Seleccionada</li>
+            </ul>
+          </div>
+
+          <aside class="summary-card reveal" aria-labelledby="summary-title">
+
+            <!-- Formulario de solicitud -->
+            <div id="reserva-panel">
+              <h3 class="summary-card__title" id="summary-title">
+                <svg class="icon" aria-hidden="true"><use href="#i-calendar"></use></svg>
+                Resumen de reserva
+              </h3>
+              <dl class="summary-card__list">
+                <div><dt>Cabaña</dt><dd id="sum-cabana">Sin seleccionar</dd></div>
+                <div><dt>Fecha de entrada</dt><dd id="sum-entrada">Sin seleccionar</dd></div>
+                <div><dt>Fecha de salida</dt><dd id="sum-salida">Sin seleccionar</dd></div>
+                <div><dt>Noches</dt><dd id="sum-noches">Sin seleccionar</dd></div>
+                <div><dt>Huéspedes</dt><dd id="sum-huespedes">Sin seleccionar</dd></div>
+              </dl>
+
+              <form class="reserva-form" id="reserva-form" novalidate>
+                <div class="field">
+                  <label class="field__label" for="reserva-huespedes">Cantidad de huéspedes</label>
+                  <select class="field__control" id="reserva-huespedes" name="huespedes" required>
+                    <!-- Opciones generadas por script.js según la capacidad de la cabaña -->
+                  </select>
+                </div>
+                <div class="field">
+                  <label class="field__label" for="reserva-nombre">Nombre y apellido</label>
+                  <input class="field__control" id="reserva-nombre" name="nombre" type="text" autocomplete="name" minlength="2" maxlength="80" required>
+                </div>
+                <div class="field">
+                  <label class="field__label" for="reserva-mensaje">Mensaje <span>(opcional)</span></label>
+                  <textarea class="field__control" id="reserva-mensaje" name="mensaje" rows="3" maxlength="500"></textarea>
+                </div>
+
+                <!-- Campo trampa contra envíos automáticos: las personas no lo ven ni lo completan -->
+                <div class="field-trampa" aria-hidden="true">
+                  <label>No completar <input type="text" name="sitio_web" tabindex="-1" autocomplete="off"></label>
+                </div>
+
+                <button class="btn btn--primary btn--block" type="submit" id="btn-reservar" aria-disabled="true">
+                  <svg class="icon" aria-hidden="true"><use href="#i-chat"></use></svg>
+                  <span class="btn__texto">Consultar por WhatsApp</span>
+                </button>
+                <button class="btn btn--text btn--block" type="button" id="btn-limpiar">Limpiar fechas</button>
+              </form>
+
+              <p class="summary-card__note">
+                Al enviar la consulta, las fechas quedan reservadas como <strong>pendientes</strong> hasta que te
+                confirmemos por WhatsApp. Solo guardamos tu nombre, la cantidad de huéspedes y tu mensaje.
+              </p>
+            </div>
+
+            <!-- Confirmación después de enviar -->
+            <div class="reserva-exito" id="reserva-exito" tabindex="-1" hidden>
+              <span class="reserva-exito__icon"><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg></span>
+              <h3 class="summary-card__title">¡Solicitud enviada!</h3>
+              <p id="reserva-exito-texto"></p>
+              <a class="btn btn--primary btn--block" id="reserva-exito-wa" href="#" data-whatsapp="reserva" target="_blank" rel="noopener">
+                <svg class="icon" aria-hidden="true"><use href="#i-chat"></use></svg>
+                Abrir WhatsApp
+              </a>
+              <button class="btn btn--text btn--block" type="button" id="reserva-nueva">Hacer otra consulta</button>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         7. UBICACIÓN
+         Los enlaces "Cómo llegar" y "Ver en Google Maps" se configuran en
+         script.js > CONFIG.googleMaps
+         ===================================================================== -->
+    <section class="section location" id="ubicacion">
+      <div class="container location__grid">
+        <div class="location__info reveal">
+          <span class="eyebrow">Ubicación</span>
+          <h2 class="section-title">¿Dónde estamos?</h2>
+          <p>Estamos en Santa Rosa de Calamuchita, en el Valle de Calamuchita, Córdoba.</p>
+
+          <address class="location__address">
+            <span class="location__address-icon"><svg class="icon" aria-hidden="true"><use href="#i-pin"></use></svg></span>
+            <span>
+              <a href="https://www.google.com/maps/search/El+Tordo+140+Santa+Rosa+de+Calamuchita+C%C3%B3rdoba,+Argentina" data-maps="ver" target="_blank" rel="noopener">El Tordo 140</a><br>
+              <a href="https://www.google.com/maps/search/El+Tordo+140+Santa+Rosa+de+Calamuchita+C%C3%B3rdoba,+Argentina" data-maps="ver" target="_blank" rel="noopener">Santa Rosa de Calamuchita</a><br>
+              <a href="https://www.google.com/maps/search/El+Tordo+140+Santa+Rosa+de+Calamuchita+C%C3%B3rdoba,+Argentina" data-maps="ver" target="_blank" rel="noopener">Córdoba, Argentina</a>
+            </span>
+          </address>
+
+          <div class="location__actions">
+            <a class="btn btn--primary" href="https://www.google.com/maps/dir/?api=1&destination=El+Tordo+140%2C+Santa+Rosa+de+Calamuchita%2C+C%C3%B3rdoba%2C+Argentina" data-maps="comoLlegar" target="_blank" rel="noopener">
+              <svg class="icon" aria-hidden="true"><use href="#i-route"></use></svg>
+              Cómo llegar
+            </a>
+            <a class="btn btn--outline" href="https://www.google.com/maps/search/El+Tordo+140+Santa+Rosa+de+Calamuchita+C%C3%B3rdoba,+Argentina" data-maps="ver" target="_blank" rel="noopener">
+              Ver en Google Maps
+            </a>
+          </div>
+        </div>
+
+        <div class="location__map reveal">
+          <!-- =================================================================
+               GOOGLE MAPS
+               Para usar el mapa exacto del complejo:
+               1. Buscar el complejo en https://www.google.com/maps
+               2. Tocar "Compartir" > "Incorporar un mapa" > "Copiar HTML"
+               3. Reemplazar el <iframe> de abajo por el copiado
+                  (conviene mantener title="..." y loading="lazy").
+               ================================================================= -->
+          <iframe
+            src="https://maps.google.com/maps?q=El%20Tordo%20140%2C%20Santa%20Rosa%20de%20Calamuchita%2C%20C%C3%B3rdoba%2C%20Argentina&z=15&output=embed"
+            title="Mapa: El Tordo 140, Santa Rosa de Calamuchita, Córdoba"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         8. SANTA ROSA DE CALAMUCHITA
+         Textos generales, editables libremente.
+         ===================================================================== -->
+    <section class="section town" id="santa-rosa">
+      <div class="container">
+        <header class="section-head reveal">
+          <span class="eyebrow">Descubrí la zona</span>
+          <h2 class="section-title">Santa Rosa de Calamuchita</h2>
+          <p>
+            Rodeada de sierras, río y naturaleza, Santa Rosa es uno de los destinos más elegidos del
+            Valle de Calamuchita para combinar descanso, paseos y aire libre.
+          </p>
+        </header>
+
+        <div class="town__grid">
+          <article class="town-card town-card--wide reveal">
+            <!-- REEMPLAZAR FOTO: NATURALEZA. Ej: src="images/santa-rosa/naturaleza.jpg" -->
+            <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1400&q=80" alt="Naturaleza en el valle" loading="lazy">
+            <div class="town-card__body">
+              <span class="town-card__icon"><svg class="icon" aria-hidden="true"><use href="#i-leaf"></use></svg></span>
+              <h3>Naturaleza</h3>
+              <p>Paisajes serranos, vegetación y aire puro. Un entorno que invita a bajar el ritmo y disfrutar del aire libre.</p>
+            </div>
+          </article>
+
+          <article class="town-card reveal">
+            <!-- REEMPLAZAR FOTO: RÍO. Ej: src="images/santa-rosa/rio.jpg" -->
+            <img src="https://images.unsplash.com/photo-1437482078695-73f5ca6c96e2?auto=format&fit=crop&w=1000&q=80" alt="Río entre piedras" loading="lazy">
+            <div class="town-card__body">
+              <span class="town-card__icon"><svg class="icon" aria-hidden="true"><use href="#i-river"></use></svg></span>
+              <h3>Río</h3>
+              <p>El río es uno de los protagonistas de la ciudad. Sus costas son ideales para caminar o pasar el día.</p>
+            </div>
+          </article>
+
+          <article class="town-card reveal">
+            <!-- REEMPLAZAR FOTO: BALNEARIOS. Ej: src="images/santa-rosa/balnearios.jpg" -->
+            <img src="https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=1000&q=80" alt="Costa de agua rodeada de árboles" loading="lazy">
+            <div class="town-card__body">
+              <span class="town-card__icon"><svg class="icon" aria-hidden="true"><use href="#i-umbrella"></use></svg></span>
+              <h3>Balnearios</h3>
+              <p>En verano, los balnearios son el punto de encuentro para disfrutar del sol, el agua y unos buenos mates.</p>
+            </div>
+          </article>
+
+          <article class="town-card reveal">
+            <!-- REEMPLAZAR FOTO: SIERRAS. Ej: src="images/santa-rosa/sierras.jpg" -->
+            <img src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&w=1000&q=80" alt="Sierras al atardecer" loading="lazy">
+            <div class="town-card__body">
+              <span class="town-card__icon"><svg class="icon" aria-hidden="true"><use href="#i-mountain"></use></svg></span>
+              <h3>Sierras</h3>
+              <p>Las sierras rodean el valle y regalan vistas, atardeceres y lugares para recorrer a pie.</p>
+            </div>
+          </article>
+
+          <article class="town-card reveal">
+            <!-- REEMPLAZAR FOTO: CENTRO. Ej: src="images/santa-rosa/centro.jpg" -->
+            <img src="https://images.unsplash.com/photo-1525610553991-2bede1a236e2?auto=format&fit=crop&w=1000&q=80" alt="Calle con comercios" loading="lazy">
+            <div class="town-card__body">
+              <span class="town-card__icon"><svg class="icon" aria-hidden="true"><use href="#i-store"></use></svg></span>
+              <h3>Centro</h3>
+              <p>Comercios, cafés y locales regionales para recorrer tranquilo, de día o de noche.</p>
+            </div>
+          </article>
+
+          <article class="town-card reveal">
+            <!-- REEMPLAZAR FOTO: GASTRONOMÍA. Ej: src="images/santa-rosa/gastronomia.jpg" -->
+            <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1000&q=80" alt="Plato de comida" loading="lazy">
+            <div class="town-card__body">
+              <span class="town-card__icon"><svg class="icon" aria-hidden="true"><use href="#i-utensils"></use></svg></span>
+              <h3>Gastronomía</h3>
+              <p>Sabores regionales, parrillas, confiterías y productos típicos de las sierras.</p>
+            </div>
+          </article>
+
+          <article class="town-card town-card--wide reveal">
+            <!-- REEMPLAZAR FOTO: PASEOS. Ej: src="images/santa-rosa/paseos.jpg" -->
+            <img src="https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?auto=format&fit=crop&w=1400&q=80" alt="Sendero entre árboles" loading="lazy">
+            <div class="town-card__body">
+              <span class="town-card__icon"><svg class="icon" aria-hidden="true"><use href="#i-compass"></use></svg></span>
+              <h3>Paseos</h3>
+              <p>Caminatas, recorridos por el valle y excursiones a localidades cercanas para conocer la zona.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         9. CONTACTO
+         WhatsApp: script.js > CONFIG.whatsapp
+         Instagram: script.js > CONFIG.instagram
+         Cómo llegar: script.js > CONFIG.googleMaps.comoLlegar
+         ===================================================================== -->
+    <section class="section contact" id="contacto">
+      <div class="contact__bg" aria-hidden="true">
+        <!-- REEMPLAZAR FOTO: FONDO DE CONTACTO. Ej: src="images/contacto-fondo.jpg" -->
+        <img src="https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&fit=crop&w=2000&q=80" alt="" loading="lazy">
+      </div>
+      <div class="container">
+        <div class="contact__card reveal">
+          <span class="eyebrow">Contacto</span>
+          <h2 class="section-title">¿Tenés alguna consulta?</h2>
+          <p>Escribinos y con gusto te ayudamos a planificar tu estadía.</p>
+
+          <div class="contact__actions">
+            <a class="contact-btn" href="#" data-whatsapp="general" target="_blank" rel="noopener">
+              <span class="contact-btn__icon"><svg class="icon" aria-hidden="true"><use href="#i-chat"></use></svg></span>
+              <span class="contact-btn__text">
+                <strong>WhatsApp</strong>
+                <small>Consultá disponibilidad y precios</small>
+              </span>
+            </a>
+            <a class="contact-btn" href="#" data-instagram target="_blank" rel="noopener">
+              <span class="contact-btn__icon"><svg class="icon" aria-hidden="true"><use href="#i-instagram"></use></svg></span>
+              <span class="contact-btn__text">
+                <strong>Instagram</strong>
+                <small>Seguinos y mirá más fotos</small>
+              </span>
+            </a>
+            <a class="contact-btn" href="https://www.google.com/maps/dir/?api=1&destination=El+Tordo+140%2C+Santa+Rosa+de+Calamuchita%2C+C%C3%B3rdoba%2C+Argentina" data-maps="comoLlegar" target="_blank" rel="noopener">
+              <span class="contact-btn__icon"><svg class="icon" aria-hidden="true"><use href="#i-route"></use></svg></span>
+              <span class="contact-btn__text">
+                <strong>Cómo llegar</strong>
+                <small>El Tordo 140, Santa Rosa de Calamuchita</small>
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =====================================================================
+       10. FOOTER
+       ===================================================================== -->
+  <footer class="footer">
+    <div class="container footer__grid">
+      <div class="footer__brand">
+        <a href="#inicio" class="brand brand--footer">
+          <svg class="brand__mark" aria-hidden="true"><use href="#i-cabin"></use></svg>
+          <span class="brand__name" data-nombre-complejo>Cabañas El Jardin</span>
+        </a>
+        <p>Cabañas para descansar y disfrutar de las sierras en Santa Rosa de Calamuchita, Córdoba.</p>
+      </div>
+
+      <div class="footer__col">
+        <h4>Navegación</h4>
+        <ul>
+          <li><a href="#cabanas">Cabañas</a></li>
+          <li><a href="#servicios">Servicios</a></li>
+          <li><a href="#galeria">Galería</a></li>
+          <li><a href="#disponibilidad">Disponibilidad</a></li>
+          <li><a href="#ubicacion">Ubicación</a></li>
+        </ul>
+      </div>
+
+      <div class="footer__col">
+        <h4>Dirección</h4>
+        <ul>
+          <li><a href="https://www.google.com/maps/search/Santa+Rosa+de+Calamuchita,+C%C3%B3rdoba+El+Tordo+140" data-maps="ver" target="_blank" rel="noopener">El Tordo 140</a></li>
+          <li><a href="https://www.google.com/maps/search/Santa+Rosa+de+Calamuchita,+C%C3%B3rdoba+El+Tordo+140" data-maps="ver" target="_blank" rel="noopener">Santa Rosa de Calamuchita, Córdoba</a></li>
+        </ul>
+      </div>
+
+      <div class="footer__col">
+        <h4>Contacto</h4>
+        <ul>
+          <li>
+            <a href="#" data-whatsapp="general" target="_blank" rel="noopener">
+              <svg class="icon" aria-hidden="true"><use href="#i-chat"></use></svg>WhatsApp
+            </a>
+          </li>
+          <li>
+            <a href="#" data-instagram target="_blank" rel="noopener">
+              <svg class="icon" aria-hidden="true"><use href="#i-instagram"></use></svg>Instagram
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="container footer__bottom">
+      <p>&copy; <span data-anio>2026</span> <span data-nombre-complejo>Cabañas El Jardin</span>. Todos los derechos reservados.</p>
+      <a href="#inicio" class="footer__top">
+        Volver arriba
+        <svg class="icon" aria-hidden="true"><use href="#i-arrow-down"></use></svg>
+      </a>
+    </div>
+  </footer>
+
+  <!-- Botón flotante de WhatsApp -->
+  <a class="wa-float" href="#" data-whatsapp="general" target="_blank" rel="noopener" aria-label="Consultar por WhatsApp">
+    <svg class="icon" aria-hidden="true"><use href="#i-chat"></use></svg>
+    <span class="wa-float__label">¿Consultas? Escribinos</span>
+  </a>
+
+  <!-- Ventana con el detalle de cada cabaña -->
+  <div class="modal" id="cabin-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
+    <div class="modal__backdrop" data-cerrar-modal></div>
+    <div class="modal__panel">
+      <button class="modal__close" type="button" data-cerrar-modal aria-label="Cerrar">
+        <svg class="icon" aria-hidden="true"><use href="#i-close"></use></svg>
+      </button>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <!-- Vista ampliada de fotos (lightbox) -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Foto ampliada" hidden>
+    <button class="lightbox__btn lightbox__close" type="button" data-lb="cerrar" aria-label="Cerrar">
+      <svg class="icon" aria-hidden="true"><use href="#i-close"></use></svg>
+    </button>
+    <button class="lightbox__btn lightbox__prev" type="button" data-lb="anterior" aria-label="Foto anterior">
+      <svg class="icon" aria-hidden="true"><use href="#i-chev-left"></use></svg>
+    </button>
+    <figure class="lightbox__figure">
+      <img class="lightbox__img" id="lightbox-img" src="data:," alt="">
+      <figcaption class="lightbox__caption" id="lightbox-caption"></figcaption>
+    </figure>
+    <button class="lightbox__btn lightbox__next" type="button" data-lb="siguiente" aria-label="Foto siguiente">
+      <svg class="icon" aria-hidden="true"><use href="#i-chev-right"></use></svg>
+    </button>
+    <span class="lightbox__counter" id="lightbox-counter"></span>
+  </div>
+
+  <!-- Avisos breves -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <!-- Sistema de reservas: librería de Supabase (gratuita), configuración y conexión -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.116.0/dist/umd/supabase.js"
+          integrity="sha384-iLddHTLokph6Omwoyid4XKxHaWa6w41BnoEj0q5oOrzmYPpHIKt1wyjReA7s//pP"
+          crossorigin="anonymous"></script>
+  <script src="reservas/supabase-config.js"></script>
+  <script src="reservas/reservas-api.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

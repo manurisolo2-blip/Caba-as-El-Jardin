@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Imagen de ejemplo (placeholder). Reemplazar por una fotografia real. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+<defs>
+  <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#F5EEE3"/><stop offset="1" stop-color="#EADFCD"/>
+  </linearGradient>
+  <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#C9DBD6"/><stop offset="1" stop-color="#9EBDB7"/>
+  </linearGradient>
+  <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#F4EDE2"/><stop offset="1" stop-color="#EADFCE"/>
+  </linearGradient></defs>
+<rect width="1200" height="800" fill="url(#sky)"/><circle cx="885" cy="215" r="62" fill="#FBF5EB"/><path d="M0,430 C120,360 220,300 340,350 C440,392 520,280 640,300 C760,320 820,382 940,340 C1040,305 1120,330 1200,310 L1200,800 L0,800 Z" fill="#DDCFB9"/><path d="M0,520 C140,450 260,420 380,470 C500,520 600,430 720,440 C860,452 940,520 1060,480 C1120,460 1170,468 1200,475 L1200,800 L0,800 Z" fill="#BCC5AD"/><path d="M0,592 C300,570 900,575 1200,594 L1200,800 L0,800 Z" fill="#AFBA9F"/>
+    <g transform="translate(140,610) scale(1)"><rect x="-4" y="-18" width="8" height="18" fill="#7A6250"/><path d="M0,-110 L32,-18 L-32,-18 Z" fill="#7F9074"/></g><g transform="translate(1050,610) scale(1.2)"><rect x="-5" y="-40" width="10" height="40" fill="#7A6250"/><circle cx="0" cy="-70" r="42" fill="#8C9D80"/><circle cx="-26" cy="-52" r="26" fill="#8C9D80"/><circle cx="26" cy="-50" r="28" fill="#8C9D80"/></g>
+    <rect x="555" y="250" width="90" height="150" fill="#A97A5D"/>
+    <rect x="543" y="236" width="114" height="18" rx="4" fill="#8E6A50"/>
+    <path d="M600,222 C580,196 620,176 600,146 C585,124 610,110 600,88" stroke="#FFFFFF" stroke-opacity="0.8" stroke-width="8" fill="none" stroke-linecap="round"/>
+    <rect x="470" y="400" width="260" height="222" fill="#B9876A"/>
+    <path d="M470,430 H730 M470,462 H730 M470,494 H730 M470,526 H730 M470,558 H730 M470,590 H730" stroke="#A8765A" stroke-width="3"/>
+    <rect x="514" y="446" width="172" height="100" rx="8" fill="#5A4234"/>
+    <path d="M524,488 H676 M524,504 H676" stroke="#8A7466" stroke-width="4"/>
+    <rect x="454" y="386" width="292" height="22" rx="4" fill="#9E7255"/>
+    <rect x="730" y="468" width="140" height="154" fill="#C9A385"/>
+    <rect x="724" y="458" width="152" height="14" rx="4" fill="#B08A6C"/>
+    <path d="M0,705 C400,680 800,694 1200,672 L1200,800 L0,800 Z" fill="#98A78B"/>
+<g transform="translate(600,655)">
+  <rect x="-225" y="-62" width="450" height="124" rx="62" fill="#FFFFFF" fill-opacity="0.88"/>
+  <text y="-14" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="18" letter-spacing="5" fill="#8B6A4F">FOTO DE EJEMPLO</text>
+  <text y="34" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="40" fill="#3A2F28">Asador</text>
+</g>
+</svg>

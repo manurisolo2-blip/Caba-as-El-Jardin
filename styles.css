@@ -1099,6 +1099,236 @@ main[id] { scroll-margin-top: calc(var(--header-h) - 10px); }
   margin: 0;
 }
 
+/* =========================================================================
+   FICHA PRINCIPAL: LOS DEPARTAMENTOS
+   ========================================================================= */
+.dept-showcase {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: clamp(32px, 4.5vw, 56px);
+  align-items: start;
+  background-color: var(--bg-surface); /* #EFE9DE */
+  border: 1px solid var(--borde);
+  border-radius: 12px;
+  padding: clamp(28px, 4vw, 44px);
+  box-shadow: var(--sombra);
+}
+
+.dept-showcase__media {
+  display: flex;
+  flex-direction: column;
+}
+
+.dept-video-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: var(--brand-forest);
+  box-shadow: 0 8px 24px rgba(36, 64, 51, 0.12);
+}
+
+.dept-video-iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.dept-video-caption {
+  margin: 12px 0 16px;
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
+  font-style: italic;
+  color: var(--text-muted);
+  text-align: center;
+  line-height: 1.5;
+}
+
+.dept-gallery-btn {
+  width: 100%;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-weight: 600;
+  gap: 8px;
+}
+
+.dept-showcase__content {
+  display: flex;
+  flex-direction: column;
+}
+
+.dept-badge-wrap {
+  margin-bottom: 8px;
+}
+
+.dept-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px;
+  border-radius: 6px;
+  background-color: var(--brand-forest); /* #244033 */
+  color: #FAF8F5;
+  font-family: var(--font-sans);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  box-shadow: 0 2px 8px rgba(36, 64, 51, 0.18);
+}
+
+.dept-title {
+  font-family: var(--font-serif);
+  font-size: clamp(26px, 3.2vw, 34px);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  color: var(--brand-forest);
+  margin: 8px 0 12px;
+}
+
+.dept-desc {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--text-main);
+  margin: 0 0 20px;
+}
+
+.dept-amenities {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px 14px;
+  padding: 16px 0;
+  margin-bottom: 22px;
+  border-top: 1px solid rgba(36, 64, 51, 0.08);
+  border-bottom: 1px solid rgba(36, 64, 51, 0.08);
+}
+
+.dept-amenity {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--font-sans);
+  font-size: 13.5px;
+  color: var(--text-muted);
+  line-height: 1.35;
+}
+
+.dept-amenity .icon {
+  width: 17px;
+  height: 17px;
+  color: var(--cta-terracotta);
+  flex-shrink: 0;
+}
+
+.dept-hours {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.dept-hour-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: var(--bg-base); /* #FAF8F5 */
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(36, 64, 51, 0.04);
+}
+
+.dept-hour-icon {
+  font-size: 1.45rem;
+  line-height: 1;
+}
+
+.dept-hour-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.dept-hour-label {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+.dept-hour-time {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--brand-forest);
+}
+
+.dept-cta-wrap {
+  margin-top: 4px;
+}
+
+.dept-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 15px 28px;
+  background-color: var(--cta-terracotta); /* #B85C38 */
+  color: #FAF8F5;
+  border-radius: 8px;
+  font-family: var(--font-sans);
+  font-size: 15.5px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 6px 20px rgba(184, 92, 56, 0.32);
+  transition: background-color 0.3s var(--ease), transform 0.25s var(--ease), box-shadow 0.3s var(--ease);
+  cursor: pointer;
+}
+
+.dept-cta-btn:hover {
+  background-color: var(--cta-terracotta-hover); /* #A04E2E */
+  color: #FFFFFF;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px rgba(184, 92, 56, 0.44);
+}
+
+.dept-cta-btn .icon {
+  width: 1.25em;
+  height: 1.25em;
+}
+
+@media (max-width: 991px) {
+  .dept-showcase {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: clamp(20px, 3.5vw, 32px);
+  }
+  .dept-amenities {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .dept-hours {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .dept-cta-btn {
+    font-size: 14.5px;
+    padding: 13px 18px;
+    flex-direction: column;
+    gap: 6px;
+    text-align: center;
+  }
+}
+
 .cabins__grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));

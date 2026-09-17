@@ -29,7 +29,7 @@ const CONFIG = {
      Se muestra en el menú, la portada y el pie de página.
      Cambiarlo también en index.html dentro de <title> y <meta property="og:title">.
      ----------------------------------------------------------------------- */
-  nombreComplejo: "Cabañas El Jardin",
+  nombreComplejo: "Cabañas El Jardín",
 
   /* -----------------------------------------------------------------------
      WHATSAPP
@@ -612,7 +612,7 @@ function iniciarNavegacion() {
   const alHacerScroll = () => {
     pendiente = false;
     const y = window.scrollY;
-    header.classList.toggle("is-scrolled", y > 40);
+    header.classList.toggle("is-scrolled", y > 50);
     botonFlotante.classList.toggle("is-visible", y > hero.offsetHeight * 0.6);
   };
   window.addEventListener("scroll", () => {

@@ -25,22 +25,22 @@
        ===================================================================== -->
 
   <!-- EDITAR: NOMBRE DEL COMPLEJO (título de la pestaña y resultados de Google) -->
-  <title>Cabañas El Jardin | Cabañas en Valeria del Mar, Buenos Aires</title>
+  <title>Cabañas El Jardín | Cabañas en Valeria del Mar, Buenos Aires</title>
   <meta name="description" content="Complejo de 3 cabañas en Valeria del Mar, Buenos Aires. Tranquilidad, naturaleza, piscina, asador y cochera. Consultá disponibilidad por WhatsApp.">
 
   <!-- EDITAR: NOMBRE DEL COMPLEJO (vista previa al compartir el enlace en redes y WhatsApp) -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Cabañas El Jardin | Cabañas en Valeria del Mar">
+  <meta property="og:title" content="Cabañas El Jardín | Cabañas en Valeria del Mar">
   <meta property="og:description" content="Un lugar para descansar y disfrutar del mar y la naturaleza.">
   <meta property="og:locale" content="es_AR">
   <meta property="og:image" content="images/portada.jpg">
 
-  <meta name="theme-color" content="#FAF7F2">
+  <meta name="theme-color" content="#FAF8F5">
   <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <script>document.documentElement.classList.add("js");</script>
 </head>
@@ -110,7 +110,7 @@
       <a href="#inicio" class="brand" aria-label="Ir al inicio">
         <svg class="brand__mark" aria-hidden="true"><use href="#i-cabin"></use></svg>
         <!-- El nombre se completa automáticamente desde script.js > CONFIG.nombreComplejo -->
-        <span class="brand__name" data-nombre-complejo>Cabañas El Jardin</span>
+        <span class="brand__name" data-nombre-complejo>Cabañas El Jardín</span>
       </a>
 
       <nav class="nav" id="nav" aria-label="Navegación principal">
@@ -154,31 +154,33 @@
       <div class="hero__overlay" aria-hidden="true"></div>
 
       <div class="container hero__content">
-        <!-- El nombre se completa automáticamente desde script.js > CONFIG.nombreComplejo -->
-        <h1 class="hero__title" data-nombre-complejo>Cabañas El Jardin</h1>
-        <p class="hero__subtitle">El descanso de los pinos, la brisa del mar y el tiempo a tu propio ritmo.</p>
-        <p class="hero__location">
-          <svg class="icon" aria-hidden="true"><use href="#i-pin"></use></svg>
-          Valeria del Mar, Buenos Aires
-        </p>
+        <span class="hero__kicker">VALERIA DEL MAR · A METROS DEL MAR Y EL BOSQUE</span>
+        <h1 class="hero__title">El refugio donde el parque se funde con la playa.</h1>
+        <p class="hero__lead">Cabañas amplias e independientes rodeadas de pinos y silencio, atendidas por sus dueños para que disfrutes del ritmo costero a pasos de la arena.</p>
 
         <div class="hero__actions">
-          <a href="#cabanas" class="btn btn--light">Conocé nuestras cabañas</a>
-          <a href="#disponibilidad" class="btn btn--ghost-light">Consultar disponibilidad</a>
+          <a href="#cabanas" class="hero__btn-main">
+            <span>Ver Cabañas y Disponibilidad</span>
+            <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg>
+          </a>
         </div>
 
-        <!-- WhatsApp con mensaje predeterminado (el número se configura en script.js > CONFIG.whatsapp) -->
-        <a href="https://wa.me/5491132616765?text=Hola!%20Quisiera%20consultar%20disponibilidad%20y%20precios%20de%20las%20caba%C3%B1as." class="hero__wa" data-whatsapp="general" target="_blank" rel="noopener">
-          <svg class="icon" aria-hidden="true"><use href="#i-chat"></use></svg>
-          Escribinos por WhatsApp
-        </a>
-
-        <ul class="hero__facts" aria-label="Lo que ofrecemos">
-          <li><svg class="icon" aria-hidden="true"><use href="#i-cabin"></use></svg>3 cabañas</li>
-          <li><svg class="icon" aria-hidden="true"><use href="#i-pool"></use></svg>Piscina</li>
-          <li><svg class="icon" aria-hidden="true"><use href="#i-grill"></use></svg>Asador</li>
-          <li><svg class="icon" aria-hidden="true"><use href="#i-car"></use></svg>Cochera</li>
-        </ul>
+        <div class="hero__context-ribbon" aria-label="Destacados del complejo">
+          <div class="hero__ribbon-item">
+            <span class="hero__ribbon-icon" aria-hidden="true">🚶‍♂️</span>
+            <span>A 50 metros de la bajada a la playa</span>
+          </div>
+          <div class="hero__ribbon-divider" aria-hidden="true"></div>
+          <div class="hero__ribbon-item">
+            <span class="hero__ribbon-icon" aria-hidden="true">🌲</span>
+            <span>Parque arbolado y sombra natural</span>
+          </div>
+          <div class="hero__ribbon-divider" aria-hidden="true"></div>
+          <div class="hero__ribbon-item">
+            <span class="hero__ribbon-icon" aria-hidden="true">🥩</span>
+            <span>Parrilla y deck individual por cabaña</span>
+          </div>
+        </div>
       </div>
 
       <a href="#nosotros" class="hero__scroll" aria-label="Ver más">
@@ -986,7 +988,7 @@
       <div class="footer__brand">
         <a href="#inicio" class="brand brand--footer">
           <svg class="brand__mark" aria-hidden="true"><use href="#i-cabin"></use></svg>
-          <span class="brand__name" data-nombre-complejo>Cabañas El Jardin</span>
+          <span class="brand__name" data-nombre-complejo>Cabañas El Jardín</span>
         </a>
         <p>Cabañas para descansar y disfrutar del mar y el bosque en Valeria del Mar, Buenos Aires.</p>
       </div>
@@ -1028,7 +1030,7 @@
     </div>
 
     <div class="container footer__bottom">
-      <p>&copy; <span data-anio>2026</span> <span data-nombre-complejo>Cabañas El Jardin</span>. Todos los derechos reservados.</p>
+      <p>&copy; <span data-anio>2026</span> <span data-nombre-complejo>Cabañas El Jardín</span>. Todos los derechos reservados.</p>
       <a href="#inicio" class="footer__top">
         Volver arriba
         <svg class="icon" aria-hidden="true"><use href="#i-arrow-down"></use></svg>

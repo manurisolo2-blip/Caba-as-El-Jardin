@@ -101,7 +101,7 @@ code {
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgba(250, 247, 242, .92);
+  background: rgba(250, 248, 245, .92);
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   box-shadow: 0 1px 0 var(--borde);
@@ -113,7 +113,7 @@ code {
   gap: 16px;
   min-height: 70px;
 }
-.admin-header__brand { color: var(--texto); font-size: 1.4rem; }
+.admin-header__brand { color: var(--brand-forest); font-size: 1.4rem; letter-spacing: -0.01em; }
 .admin-header__acciones { display: flex; align-items: center; gap: 8px; }
 .admin-header__usuario {
   max-width: 220px;

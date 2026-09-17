@@ -38,7 +38,7 @@ const CONFIG = {
      Formato de ejemplo (NO es un número real): "549XXXXXXXXXX"
      Mientras esté vacío, los botones de WhatsApp muestran un aviso.
      ----------------------------------------------------------------------- */
-  whatsapp: "",
+  whatsapp: "5491132616765",
 
   /* Mensajes automáticos de WhatsApp.
      En "reserva" se reemplazan solos: {cabana}, {entrada}, {salida},

@@ -1766,96 +1766,96 @@ main[id] { scroll-margin-top: calc(var(--header-h) - 10px); }
 
 
 /* =========================================================================
-   8. SERVICIOS Y EQUIPAMIENTO
+   8. COMODIDADES INCLUIDAS
    ========================================================================= */
-.services { background: var(--bg-base); }
-
-.cabin-layout {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 12px;
-  margin: calc(-1 * clamp(16px, 2vw, 28px)) auto clamp(40px, 5vw, 56px);
+.amenities,
+.services {
+  background: var(--bg-base); /* #FAF8F5 */
+  padding-block: clamp(64px, 8vw, 100px);
 }
-.cabin-layout li {
-  display: inline-flex;
-  align-items: center;
-  gap: .65em;
-  padding: .75em 1.4em;
-  border-radius: var(--radio-full);
-  background: var(--bg-surface);
-  border: 1px solid var(--borde);
-  font-size: .94rem;
-  font-weight: 500;
-  color: var(--text-main);
-  box-shadow: var(--sombra-xs);
-}
-.cabin-layout .icon { color: var(--cta-terracotta); }
 
-.equip-grid {
+.amenities-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: clamp(16px, 2vw, 24px);
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: clamp(16px, 2.2vw, 24px);
 }
 
-.equip-card {
-  padding: clamp(26px, 3vw, 34px) clamp(22px, 2.5vw, 28px);
-  border-radius: var(--radio);
-  background: var(--bg-surface);
-  border: 1px solid var(--borde);
-  box-shadow: var(--sombra-xs);
-  transition: transform .45s var(--ease), box-shadow .45s var(--ease), border-color .45s;
-}
-.equip-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--sombra);
-  border-color: rgba(36, 64, 51, 0.16);
-}
-
-.equip-card__head {
+.amenity-card {
   display: flex;
-  align-items: center;
-  gap: 14px;
-  margin-bottom: 20px;
-  padding-bottom: 18px;
-  border-bottom: 1px solid var(--borde);
+  flex-direction: column;
+  align-items: flex-start;
+  background: #FFFFFF;
+  border: 1px solid var(--borde);
+  border-radius: 12px;
+  padding: clamp(22px, 2.8vw, 28px);
+  box-shadow: 0 2px 10px rgba(36, 64, 51, 0.03);
+  transition: transform .3s var(--ease), box-shadow .3s var(--ease), border-color .3s var(--ease);
 }
-.equip-card__icon {
+.amenity-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(36, 64, 51, 0.2);
+  box-shadow: 0 8px 24px rgba(36, 64, 51, 0.08);
+}
+
+.amenity-card__icon-wrap {
   display: grid;
   place-items: center;
-  width: 48px;
-  height: 48px;
-  flex: none;
-  border-radius: 14px;
-  background: rgba(36, 64, 51, 0.08);
+  width: 46px;
+  height: 46px;
+  border-radius: 10px;
+  background: #FAF8F5;
+  border: 1px solid rgba(36, 64, 51, 0.07);
   color: var(--brand-forest);
+  margin-bottom: 16px;
+  flex-shrink: 0;
+  transition: background-color .3s var(--ease), color .3s var(--ease);
 }
-.equip-card__icon .icon { width: 24px; height: 24px; }
-.equip-card h3 {
-  font-family: var(--font-serif);
-  font-size: 1.6rem;
-  letter-spacing: -0.01em;
-  color: var(--brand-forest);
+.amenity-card:hover .amenity-card__icon-wrap {
+  background: var(--brand-forest);
+  color: #FAF8F5;
 }
 
-.equip-list { display: grid; gap: 14px; }
-.equip-list li {
+.amenity-card__icon {
+  width: 22px;
+  height: 22px;
+  stroke-width: 1.6;
+}
+
+.amenity-card__body {
   display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: .95rem;
-  line-height: 1.4;
-  color: var(--text-muted);
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
 }
-.equip-list .icon { width: 22px; height: 22px; color: var(--cta-terracotta); flex: none; }
 
-@media (max-width: 1023px) {
-  .equip-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.amenity-card__title {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.25;
+  color: #1C2A24;
+  margin: 0;
 }
-@media (max-width: 560px) {
-  .equip-grid { grid-template-columns: 1fr; }
-  .cabin-layout li { font-size: .88rem; }
+
+.amenity-card__desc {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #5C6B64;
+  margin: 0;
 }
+
+@media (max-width: 580px) {
+  .amenities-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .amenity-card {
+    padding: 20px;
+  }
+}
+
 
 
 /* =========================================================================

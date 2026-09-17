@@ -114,21 +114,22 @@ const CONFIG = {
     {
       id: 1,                                   // No cambiar
       nombre: "Cabaña 1",                      // EDITAR: nombre de la cabaña
-      capacidad: "Hasta 4 personas",           // EDITAR: cama doble (2) + cama marinera (2). Verificar.
+      capacidad: "Ideal 2 a 4 personas",       // EDITAR: cama doble (2) + cama marinera (2).
       capacidadMaxima: 4,                      // EDITAR: número máximo de huéspedes
       precio: "",                              // EDITAR: precio. Ej: "$ 00.000 por noche"
       descripcionCorta:                        // EDITAR: descripción de la tarjeta
-        "Dormitorio con cama doble, comedor con cama marinera, cocina comedor y baño completo. Con cochera, asador, espacio al aire libre y piscina.",
+        "Dormitorio principal con cama doble, estar comedor con cama marinera, cocina completa y baño. Con deck individual, asador propio y acceso al parque con piscina.",
       descripcion: [                           // EDITAR: descripción completa
         "Una cabaña cómoda y acogedora para disfrutar de Valeria del Mar. Cuenta con un dormitorio con cama doble, comedor con cama marinera, cocina comedor y baño completo.",
         "Afuera te esperan el espacio al aire libre, el asador y la piscina, ideales para aprovechar los días de descanso y playa. También dispone de cochera."
       ],
       destacados: [
-        { icono: "bed", texto: "Cama doble" },
-        { icono: "bunk", texto: "Cama marinera" },
-        { icono: "pool", texto: "Piscina" },
-        { icono: "grill", texto: "Asador" },
-        { icono: "car", texto: "Cochera" }
+        { icono: "grill", texto: "Parrilla individual" },
+        { icono: "deck", texto: "Deck techado" },
+        { icono: "wifi", texto: "Wi-Fi fibra óptica" },
+        { icono: "utensils", texto: "Cocina equipada" },
+        { icono: "car", texto: "Estacionamiento en predio" },
+        { icono: "ac", texto: "Aire acondicionado" }
       ],
       caracteristicas: "comunes",              // Para datos propios, reemplazar "comunes" por una lista [ { icono, texto }, ... ]
       equipamiento: "comun",                   // Para datos propios, reemplazar "comun" por una lista [ { icono, texto }, ... ]
@@ -161,21 +162,22 @@ const CONFIG = {
     {
       id: 2,                                   // No cambiar
       nombre: "Cabaña 2",                      // EDITAR: nombre de la cabaña
-      capacidad: "Hasta 4 personas",           // EDITAR: cama doble (2) + cama marinera (2). Verificar.
+      capacidad: "Ideal 2 a 4 personas",       // EDITAR: cama doble (2) + cama marinera (2).
       capacidadMaxima: 4,                      // EDITAR: número máximo de huéspedes
       precio: "",                              // EDITAR: precio. Ej: "$ 00.000 por noche"
       descripcionCorta:                        // EDITAR: descripción de la tarjeta
-        "Dormitorio con cama doble, comedor con cama marinera, cocina comedor y baño completo. Con cochera, asador, espacio al aire libre y piscina.",
+        "Unidad independiente rodeada de bosque, con dormitorio matrimonial, cocina equipada, baño completo, deck propio con parrilla y cochera techada.",
       descripcion: [                           // EDITAR: descripción completa
         "Una cabaña cómoda y acogedora para disfrutar de Valeria del Mar. Cuenta con un dormitorio con cama doble, comedor con cama marinera, cocina comedor y baño completo.",
         "Afuera te esperan el espacio al aire libre, el asador y la piscina, ideales para aprovechar los días de descanso y playa. También dispone de cochera."
       ],
       destacados: [
-        { icono: "bed", texto: "Cama doble" },
-        { icono: "bunk", texto: "Cama marinera" },
-        { icono: "pool", texto: "Piscina" },
-        { icono: "grill", texto: "Asador" },
-        { icono: "car", texto: "Cochera" }
+        { icono: "grill", texto: "Parrilla individual" },
+        { icono: "deck", texto: "Deck techado" },
+        { icono: "wifi", texto: "Wi-Fi fibra óptica" },
+        { icono: "utensils", texto: "Cocina equipada" },
+        { icono: "car", texto: "Estacionamiento en predio" },
+        { icono: "ac", texto: "Aire acondicionado" }
       ],
       caracteristicas: "comunes",
       equipamiento: "comun",
@@ -201,21 +203,22 @@ const CONFIG = {
     {
       id: 3,                                   // No cambiar
       nombre: "Cabaña 3",                      // EDITAR: nombre de la cabaña
-      capacidad: "Hasta 4 personas",           // EDITAR: cama doble (2) + cama marinera (2). Verificar.
+      capacidad: "Ideal 2 a 4 personas",       // EDITAR: cama doble (2) + cama marinera (2).
       capacidadMaxima: 4,                      // EDITAR: número máximo de huéspedes
       precio: "",                              // EDITAR: precio. Ej: "$ 00.000 por noche"
       descripcionCorta:                        // EDITAR: descripción de la tarjeta
-        "Dormitorio con cama doble, comedor con cama marinera, cocina comedor y baño completo. Con cochera, asador, espacio al aire libre y piscina.",
+        "Ambiente sereno con galería privada hacia el parque arbolado, cocina comedor, dormitorio confortable, parrilla exclusiva y estacionamiento interior.",
       descripcion: [                           // EDITAR: descripción completa
         "Una cabaña cómoda y acogedora para disfrutar de Valeria del Mar. Cuenta con un dormitorio con cama doble, comedor con cama marinera, cocina comedor y baño completo.",
         "Afuera te esperan el espacio al aire libre, el asador y la piscina, ideales para aprovechar los días de descanso y playa. También dispone de cochera."
       ],
       destacados: [
-        { icono: "bed", texto: "Cama doble" },
-        { icono: "bunk", texto: "Cama marinera" },
-        { icono: "pool", texto: "Piscina" },
-        { icono: "grill", texto: "Asador" },
-        { icono: "car", texto: "Cochera" }
+        { icono: "grill", texto: "Parrilla individual" },
+        { icono: "deck", texto: "Deck techado" },
+        { icono: "wifi", texto: "Wi-Fi fibra óptica" },
+        { icono: "utensils", texto: "Cocina equipada" },
+        { icono: "car", texto: "Estacionamiento en predio" },
+        { icono: "ac", texto: "Aire acondicionado" }
       ],
       caracteristicas: "comunes",
       equipamiento: "comun",
@@ -671,28 +674,44 @@ function iniciarNavegacion() {
 
 function renderizarTarjetasCabanas() {
   const contenedor = $("#cabins-grid");
+  if (!contenedor) return;
+
   contenedor.innerHTML = CONFIG.cabanas.map((cabana) => {
     const portada = cabana.fotos[0] || { src: "", alt: cabana.nombre };
     const precio = cabana.precio
-      ? `Tarifa: <strong>${escaparHTML(cabana.precio)}</strong>`
-      : "Tarifa: <strong>a consultar</strong>";
+      ? `<span class="cabin-card__price">Tarifa: <strong>${escaparHTML(cabana.precio)}</strong></span>`
+      : "";
 
     return `
       <article class="cabin-card reveal">
-        <div class="cabin-card__media">
+        <div class="cabin-card__media" role="button" tabindex="0" data-ver-cabana="${cabana.id}" aria-label="Ver fotos de ${escaparHTML(cabana.nombre)}">
           <img src="${escaparHTML(portada.src)}" alt="${escaparHTML(portada.alt)}" data-placeholder="${escaparHTML(cabana.nombre)}" loading="lazy">
-          <span class="cabin-card__badge">${icono("users")}${escaparHTML(cabana.capacidad)}</span>
+          <span class="cabin-card__badge">${escaparHTML(cabana.capacidad || "Ideal 2 a 4 personas")}</span>
         </div>
         <div class="cabin-card__body">
-          <h3 class="cabin-card__title">${escaparHTML(cabana.nombre)}</h3>
+          <div class="cabin-card__header">
+            <h3 class="cabin-card__title">${escaparHTML(cabana.nombre)}</h3>
+            ${precio}
+          </div>
           <p class="cabin-card__desc">${escaparHTML(cabana.descripcionCorta)}</p>
-          <ul class="cabin-card__features" aria-label="Servicios principales">
-            ${(cabana.destacados || []).map((item) => `<li>${icono(item.icono)}${escaparHTML(item.texto)}</li>`).join("")}
-          </ul>
-          <p class="cabin-card__price">${icono("tag")}<span>${precio}</span></p>
+          
+          <div class="cabin-card__amenities" aria-label="Comodidades de la unidad">
+            ${(cabana.destacados || []).map((item) => `
+              <div class="cabin-card__amenity">
+                ${icono(item.icono)}
+                <span>${escaparHTML(item.texto)}</span>
+              </div>
+            `).join("")}
+          </div>
+
           <div class="cabin-card__actions">
-            <button class="btn btn--outline" type="button" data-ver-cabana="${cabana.id}">Ver cabaña</button>
-            <button class="btn btn--primary" type="button" data-consultar-cabana="${cabana.id}">Consultar disponibilidad</button>
+            <button class="cabin-card__cta" type="button" data-consultar-cabana="${cabana.id}">
+              Consultar por esta cabaña
+            </button>
+            <button class="cabin-card__link-details" type="button" data-ver-cabana="${cabana.id}">
+              <span>Ver fotos y equipamiento</span>
+              ${icono("arrow")}
+            </button>
           </div>
         </div>
       </article>`;
@@ -854,6 +873,16 @@ function iniciarCabanas() {
       cerrarModal({ devolverFoco: false });
       seleccionarCabana(botonConsultar.dataset.consultarCabana);
       $("#disponibilidad").scrollIntoView({ behavior: prefiereMenosMovimiento ? "auto" : "smooth" });
+    }
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      const mediaBtn = e.target.closest(".cabin-card__media[data-ver-cabana]");
+      if (mediaBtn) {
+        e.preventDefault();
+        abrirModalCabana(mediaBtn.dataset.verCabana);
+      }
     }
   });
 }

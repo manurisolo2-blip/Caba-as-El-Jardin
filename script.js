@@ -951,46 +951,58 @@ function iniciarGaleria() {
   lightbox.el = $("#lightbox");
   lightbox.img = $("#lightbox-img");
 
-  const items = $$(".gallery__item");
+  const items = $$(".editorial-card, .gallery__item");
 
   items.forEach((item) => {
-    const titulo = $(".gallery__caption", item)?.textContent.trim() || $("img", item).alt;
-    $(".gallery__btn", item).setAttribute("aria-label", `Ampliar foto: ${titulo}`);
+    const captionEl = $(".editorial-card__caption, .gallery__caption", item);
+    const titulo = captionEl?.textContent.trim() || $("img", item)?.alt || "";
+    const btn = $(".gallery__btn, .editorial-card__frame", item);
+    if (btn) btn.setAttribute("aria-label", `Ampliar foto: ${titulo}`);
   });
 
-  /* Filtros */
+  /* Filtros (si existen en la página) */
   const filtros = $$(".chip[data-filtro]");
-  filtros.forEach((chip) => {
-    chip.addEventListener("click", () => {
-      const filtro = chip.dataset.filtro;
-      filtros.forEach((otro) => {
-        const activo = otro === chip;
-        otro.classList.toggle("is-active", activo);
-        otro.setAttribute("aria-pressed", String(activo));
-      });
-      items.forEach((item) => {
-        const visible = filtro === "todas" || item.dataset.categoria === filtro;
-        item.classList.toggle("is-oculto", !visible);
-        if (visible) item.classList.add("is-visible");
+  if (filtros.length) {
+    filtros.forEach((chip) => {
+      chip.addEventListener("click", () => {
+        const filtro = chip.dataset.filtro;
+        filtros.forEach((otro) => {
+          const activo = otro === chip;
+          otro.classList.toggle("is-active", activo);
+          otro.setAttribute("aria-pressed", String(activo));
+        });
+        items.forEach((item) => {
+          const visible = filtro === "todas" || item.dataset.categoria === filtro;
+          item.classList.toggle("is-oculto", !visible);
+          if (visible) item.classList.add("is-visible");
+        });
       });
     });
-  });
+  }
 
   /* Abrir foto ampliada */
-  $("#gallery-grid").addEventListener("click", (e) => {
-    const boton = e.target.closest(".gallery__btn");
-    if (!boton) return;
-    const visibles = items.filter((item) => !item.classList.contains("is-oculto"));
-    const fotos = visibles.map((item) => {
-      const img = $("img", item);
-      return {
-        src: img.currentSrc || img.src,
-        alt: img.alt,
-        titulo: $(".gallery__caption", item)?.textContent.trim() || img.alt
-      };
+  const grid = $("#gallery-grid");
+  if (grid) {
+    grid.addEventListener("click", (e) => {
+      const boton = e.target.closest(".gallery__btn, .editorial-card__frame");
+      if (!boton) return;
+      const card = boton.closest(".editorial-card, .gallery__item");
+      const visibles = items.filter((item) => !item.classList.contains("is-oculto"));
+      const fotos = visibles.map((item) => {
+        const img = $("img", item);
+        const captionEl = $(".editorial-card__caption, .gallery__caption", item);
+        return {
+          src: img.currentSrc || img.src,
+          alt: img.alt,
+          titulo: captionEl?.textContent.trim() || img.alt
+        };
+      });
+      const indice = visibles.indexOf(card);
+      if (indice !== -1) {
+        abrirLightbox(fotos, indice);
+      }
     });
-    abrirLightbox(fotos, visibles.indexOf(boton.closest(".gallery__item")));
-  });
+  }
 
   /* Controles del lightbox */
   lightbox.el.addEventListener("click", (e) => {

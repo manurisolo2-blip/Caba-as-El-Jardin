@@ -1334,6 +1334,124 @@ main[id] { scroll-margin-top: calc(var(--header-h) - 10px); }
   }
 }
 
+/* Selector Rápido de Consulta (Generador de WhatsApp) */
+.quick-wa-widget {
+  grid-column: 1 / -1;
+  background: #FFFFFF;
+  border: 1.5px solid rgba(36, 64, 51, 0.12);
+  border-radius: 12px;
+  padding: clamp(16px, 2.5vw, 24px);
+  box-shadow: 0 4px 18px rgba(36, 64, 51, 0.05);
+  margin-top: 6px;
+}
+
+.quick-wa-widget__header {
+  margin-bottom: 14px;
+}
+
+.quick-wa-widget__badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  background: rgba(36, 64, 51, 0.08);
+  color: var(--brand-forest);
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 6px;
+}
+
+.quick-wa-widget__title {
+  font-family: var(--font-serif);
+  font-size: clamp(20px, 2.2vw, 24px);
+  font-weight: 600;
+  color: var(--brand-forest);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.quick-wa-fields {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.quick-wa-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.quick-wa-label {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.quick-wa-input,
+.quick-wa-select {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid rgba(36, 64, 51, 0.18);
+  border-radius: 8px;
+  background: var(--bg-base);
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  transition: border-color 0.25s var(--ease), box-shadow 0.25s var(--ease);
+}
+
+.quick-wa-input:focus,
+.quick-wa-select:focus {
+  outline: none;
+  border-color: var(--brand-forest);
+  box-shadow: 0 0 0 3px rgba(36, 64, 51, 0.12);
+  background: #FFFFFF;
+}
+
+.quick-wa-submit-btn {
+  width: 100%;
+  padding: 13px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  background-color: var(--cta-terracotta);
+  color: #FFFFFF;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(184, 92, 56, 0.3);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.25s var(--ease), transform 0.2s var(--ease), box-shadow 0.25s var(--ease);
+}
+
+.quick-wa-submit-btn:hover {
+  background-color: var(--cta-terracotta-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(184, 92, 56, 0.4);
+}
+
+.quick-wa-widget__note {
+  margin: 10px 0 0;
+  text-align: center;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+@media (max-width: 680px) {
+  .quick-wa-fields {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}
+
 .cabins__grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -3259,10 +3377,10 @@ select.field__control {
   line-height: 1.5;
 }
 
-/* Esquema de reserva: 2 Pasos */
+/* Esquema de reserva: 3 Pasos */
 .booking-steps {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: clamp(12px, 1.8vw, 18px);
   margin-bottom: clamp(14px, 2vw, 20px);
 }
@@ -3609,7 +3727,7 @@ select.field__control {
   }
 }
 
-@media (max-width: 680px) {
+@media (max-width: 860px) {
   .booking-steps {
     grid-template-columns: 1fr;
   }

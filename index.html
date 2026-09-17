@@ -127,14 +127,14 @@
           <li><a class="nav__link" href="#ubicacion">Ubicación</a></li>
           <li><a class="nav__link" href="#condiciones">Condiciones</a></li>
         </ul>
-        <a class="btn btn--primary nav__cta" href="https://wa.me/5491132618849?text=Hola!%20Quisiera%20consultar%20disponibilidad%20y%20precios%20de%20los%20departamentos." data-whatsapp="general" target="_blank" rel="noopener">
+        <a class="btn btn--primary nav__cta" href="https://wa.me/5491132618849?text=Hola%20Ignacio%2C%20te%20contacto%20desde%20la%20web%20de%20Caba%C3%B1as%20El%20Jard%C3%ADn.%20Quer%C3%ADa%20consultar%20disponibilidad%20y%20tarifas%20para%20los%20departamentos%20de%202%20ambientes." data-whatsapp="general" target="_blank" rel="noopener">
           <svg class="icon" aria-hidden="true"><use href="#i-chat"></use></svg>
           (011) 15-3261-8849
         </a>
       </nav>
 
       <div class="header__actions">
-        <a class="header__wa-btn" href="https://wa.me/5491132618849?text=Hola!%20Quisiera%20consultar%20disponibilidad%20y%20precios%20de%20los%20departamentos." data-whatsapp="general" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp al (011) 15-3261-8849">
+        <a class="header__wa-btn" href="https://wa.me/5491132618849?text=Hola%20Ignacio%2C%20te%20contacto%20desde%20la%20web%20de%20Caba%C3%B1as%20El%20Jard%C3%ADn.%20Quer%C3%ADa%20consultar%20disponibilidad%20y%20tarifas%20para%20los%20departamentos%20de%202%20ambientes." data-whatsapp="general" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp al (011) 15-3261-8849">
           <svg class="icon" aria-hidden="true"><use href="#i-chat"></use></svg>
           <span>(011) 15-3261-8849</span>
         </a>
@@ -335,17 +335,44 @@
               </div>
             </div>
 
-            <!-- Botón de Consulta WhatsApp -->
-            <div class="dept-cta-wrap">
-              <a class="dept-cta-btn"
-                 href="https://wa.me/5491132618849?text=Hola!%20Quisiera%20consultar%20disponibilidad%20para%20el%20departamento%20familiar%20de%202%20ambientes%20para%204%20personas."
-                 data-whatsapp="directo"
-                 target="_blank"
-                 rel="noopener"
-                 aria-label="Consultar disponibilidad para 4 personas por WhatsApp">
-                <svg class="icon" aria-hidden="true"><use href="#i-chat"></use></svg>
-                <span>Consultar disponibilidad para 4 personas</span>
-              </a>
+            <!-- Selector Rápido de Consulta (Generador de Mensaje de WhatsApp) -->
+            <div class="quick-wa-widget" id="selector-consulta">
+              <div class="quick-wa-widget__header">
+                <span class="quick-wa-widget__badge">Reserva 100% directa</span>
+                <h4 class="quick-wa-widget__title">Consultar disponibilidad para tu estadía</h4>
+              </div>
+
+              <form class="quick-wa-form" id="quick-wa-form" action="#" onsubmit="return false;">
+                <div class="quick-wa-fields">
+                  <div class="quick-wa-field">
+                    <label class="quick-wa-label" for="wa-checkin">Fecha de ingreso (Check-in)</label>
+                    <input class="quick-wa-input" type="date" id="wa-checkin" name="checkin" aria-label="Fecha de ingreso">
+                  </div>
+
+                  <div class="quick-wa-field">
+                    <label class="quick-wa-label" for="wa-checkout">Fecha de salida (Check-out)</label>
+                    <input class="quick-wa-input" type="date" id="wa-checkout" name="checkout" aria-label="Fecha de salida">
+                  </div>
+
+                  <div class="quick-wa-field">
+                    <label class="quick-wa-label" for="wa-guests">Cantidad de pasajeros</label>
+                    <div class="quick-wa-select-wrap">
+                      <select class="quick-wa-select" id="wa-guests" name="guests" aria-label="Cantidad de pasajeros">
+                        <option value="1">1 pasajero</option>
+                        <option value="2">2 pasajeros</option>
+                        <option value="3">3 pasajeros</option>
+                        <option value="4" selected>4 pasajeros (máx.)</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <button class="btn btn--primary quick-wa-submit-btn" type="button" id="quick-wa-submit">
+                  <svg class="icon" aria-hidden="true"><use href="#i-chat"></use></svg>
+                  <span>Consultar Disponibilidad por WhatsApp</span>
+                </button>
+              </form>
+              <p class="quick-wa-widget__note">Trato directo con Ignacio Posada · Sin comisiones ni intermediarios</p>
             </div>
           </div>
         </div>
@@ -609,123 +636,6 @@
               <figcaption class="editorial-card__caption">Unidades independientes a pasos de la arena</figcaption>
             </figure>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- =====================================================================
-         6. DISPONIBILIDAD
-         El calendario, las cabañas y el resumen se generan desde script.js.
-         Las reservas se guardan en la base de datos online (Supabase):
-           - Datos de conexión: reservas/supabase-config.js
-           - Administración de reservas y bloqueos: admin/index.html
-         ===================================================================== -->
-    <section class="section availability" id="disponibilidad">
-      <div class="container">
-        <header class="section-head reveal">
-          <span class="eyebrow">Reservas</span>
-          <h2 class="section-title">Disponibilidad y reservas</h2>
-          <p>Elegí tu cabaña, seleccioná las fechas de entrada y salida y envianos tu consulta por WhatsApp.</p>
-        </header>
-
-        <div class="availability__layout">
-          <div class="calendar-card reveal">
-            <fieldset class="cabin-picker" id="cabin-picker">
-              <legend class="visually-hidden">Elegí una cabaña</legend>
-              <!-- Opciones generadas por script.js -->
-            </fieldset>
-
-            <p class="calendar__hint" id="calendar-hint" aria-live="polite">Seleccioná la fecha de entrada.</p>
-
-            <!-- Estado de la conexión con la base de datos (cargando / error) -->
-            <div class="calendar__status" id="calendar-status" role="status" hidden>
-              <span id="calendar-status-texto"></span>
-              <button class="btn btn--text btn--sm" type="button" id="calendar-reintentar" hidden>Reintentar</button>
-            </div>
-
-            <div class="calendar__toolbar">
-              <button class="icon-btn" type="button" id="cal-prev" aria-label="Mes anterior">
-                <svg class="icon" aria-hidden="true"><use href="#i-chev-left"></use></svg>
-              </button>
-              <p class="calendar__label" id="cal-label"></p>
-              <button class="icon-btn" type="button" id="cal-next" aria-label="Mes siguiente">
-                <svg class="icon" aria-hidden="true"><use href="#i-chev-right"></use></svg>
-              </button>
-            </div>
-
-            <div class="calendar__months" id="calendar-months">
-              <!-- Calendario generado por script.js -->
-            </div>
-
-            <ul class="calendar__legend">
-              <li><span class="legend-swatch legend-swatch--disponible"></span>Disponible</li>
-              <li><span class="legend-swatch legend-swatch--ocupado"></span>Reservada</li>
-              <li><span class="legend-swatch legend-swatch--seleccionado"></span>Seleccionada</li>
-            </ul>
-          </div>
-
-          <aside class="summary-card reveal" aria-labelledby="summary-title">
-
-            <!-- Formulario de solicitud -->
-            <div id="reserva-panel">
-              <h3 class="summary-card__title" id="summary-title">
-                <svg class="icon" aria-hidden="true"><use href="#i-calendar"></use></svg>
-                Resumen de reserva
-              </h3>
-              <dl class="summary-card__list">
-                <div><dt>Cabaña</dt><dd id="sum-cabana">Sin seleccionar</dd></div>
-                <div><dt>Fecha de entrada</dt><dd id="sum-entrada">Sin seleccionar</dd></div>
-                <div><dt>Fecha de salida</dt><dd id="sum-salida">Sin seleccionar</dd></div>
-                <div><dt>Noches</dt><dd id="sum-noches">Sin seleccionar</dd></div>
-                <div><dt>Huéspedes</dt><dd id="sum-huespedes">Sin seleccionar</dd></div>
-              </dl>
-
-              <form class="reserva-form" id="reserva-form" novalidate>
-                <div class="field">
-                  <label class="field__label" for="reserva-huespedes">Cantidad de huéspedes</label>
-                  <select class="field__control" id="reserva-huespedes" name="huespedes" required>
-                    <!-- Opciones generadas por script.js según la capacidad de la cabaña -->
-                  </select>
-                </div>
-                <div class="field">
-                  <label class="field__label" for="reserva-nombre">Nombre y apellido</label>
-                  <input class="field__control" id="reserva-nombre" name="nombre" type="text" autocomplete="name" minlength="2" maxlength="80" required>
-                </div>
-                <div class="field">
-                  <label class="field__label" for="reserva-mensaje">Mensaje <span>(opcional)</span></label>
-                  <textarea class="field__control" id="reserva-mensaje" name="mensaje" rows="3" maxlength="500"></textarea>
-                </div>
-
-                <!-- Campo trampa contra envíos automáticos: las personas no lo ven ni lo completan -->
-                <div class="field-trampa" aria-hidden="true">
-                  <label>No completar <input type="text" name="sitio_web" tabindex="-1" autocomplete="off"></label>
-                </div>
-
-                <button class="btn btn--primary btn--block" type="submit" id="btn-reservar" aria-disabled="true">
-                  <svg class="icon" aria-hidden="true"><use href="#i-chat"></use></svg>
-                  <span class="btn__texto">Consultar por WhatsApp</span>
-                </button>
-                <button class="btn btn--text btn--block" type="button" id="btn-limpiar">Limpiar fechas</button>
-              </form>
-
-              <p class="summary-card__note">
-                Al enviar la consulta, las fechas quedan reservadas como <strong>pendientes</strong> hasta que te
-                confirmemos por WhatsApp. Solo guardamos tu nombre, la cantidad de huéspedes y tu mensaje.
-              </p>
-            </div>
-
-            <!-- Confirmación después de enviar -->
-            <div class="reserva-exito" id="reserva-exito" tabindex="-1" hidden>
-              <span class="reserva-exito__icon"><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg></span>
-              <h3 class="summary-card__title">¡Solicitud enviada!</h3>
-              <p id="reserva-exito-texto"></p>
-              <a class="btn btn--primary btn--block" id="reserva-exito-wa" href="#" data-whatsapp="reserva" target="_blank" rel="noopener">
-                <svg class="icon" aria-hidden="true"><use href="#i-chat"></use></svg>
-                Abrir WhatsApp
-              </a>
-              <button class="btn btn--text btn--block" type="button" id="reserva-nueva">Hacer otra consulta</button>
-            </div>
-          </aside>
         </div>
       </div>
     </section>
@@ -1131,15 +1041,15 @@
             <p class="how-to-book__subtitle">Condiciones claras y transparentes para asegurar tu estadía con total tranquilidad.</p>
           </div>
 
-          <!-- Pasos del esquema de reserva -->
+          <!-- Pasos del esquema de reserva (Trato Directo) -->
           <div class="booking-steps">
             <div class="booking-step">
               <div class="booking-step__header">
                 <span class="booking-step__badge">Paso 1</span>
-                <span class="booking-step__pct">50%</span>
+                <span class="booking-step__pct">1°</span>
               </div>
-              <h3 class="booking-step__title">Seña del 50% por adelantado</h3>
-              <p class="booking-step__desc">Congelás la fecha y el valor de tu departamento de forma inmediata para asegurar tu reserva.</p>
+              <h3 class="booking-step__title">Consulta por WhatsApp</h3>
+              <p class="booking-step__desc">Coordinás directamente con nosotros las fechas exactas y la tarifa.</p>
             </div>
 
             <div class="booking-step">
@@ -1147,8 +1057,17 @@
                 <span class="booking-step__badge">Paso 2</span>
                 <span class="booking-step__pct">50%</span>
               </div>
-              <h3 class="booking-step__title">Cancelación del 50% restante</h3>
-              <p class="booking-step__desc">Abonás el saldo final al momento de ingresar a la unidad durante la bienvenida con los dueños.</p>
+              <h3 class="booking-step__title">Seña del 50%</h3>
+              <p class="booking-step__desc">Se reserva congelando la fecha con el 50% mediante transferencia bancaria, efectivo o criptomonedas.</p>
+            </div>
+
+            <div class="booking-step">
+              <div class="booking-step__header">
+                <span class="booking-step__badge">Paso 3</span>
+                <span class="booking-step__pct">Saldo</span>
+              </div>
+              <h3 class="booking-step__title">Saldo al ingresar</h3>
+              <p class="booking-step__desc">El 50% restante se abona al momento de hacer el check-in en el complejo.</p>
             </div>
           </div>
 
@@ -1194,9 +1113,9 @@
                   <div class="owner-item__content">
                     <span class="owner-item__label">Teléfonos directos:</span>
                     <div class="owner-item__links">
-                      <a href="https://wa.me/5491132618849?text=Hola%20Ignacio%2C%20te%20escribo%20desde%20la%20web%20de%20Caba%C3%B1as%20El%20Jard%C3%ADn.%20Quer%C3%ADa%20consultar%20disponibilidad%20para%20%5Bindicar%20fechas%5D%20para%20%5Bcantidad%5D%20pasajeros." data-whatsapp="directo" target="_blank" rel="noopener">(011) 15-3261-8849</a>
+                      <a href="https://wa.me/5491132618849?text=Hola%20Ignacio%2C%20te%20contacto%20desde%20la%20web%20de%20Caba%C3%B1as%20El%20Jard%C3%ADn.%20Quer%C3%ADa%20consultar%20disponibilidad%20y%20tarifas%20para%20los%20departamentos%20de%202%20ambientes." data-whatsapp="directo" target="_blank" rel="noopener"><strong>Principal (WhatsApp):</strong> (011) 15-3261-8849</a>
                       <span class="owner-item__sep">/</span>
-                      <a href="https://wa.me/5491132616765?text=Hola%20Ignacio%2C%20te%20escribo%20desde%20la%20web%20de%20Caba%C3%B1as%20El%20Jard%C3%ADn.%20Quer%C3%ADa%20consultar%20disponibilidad%20para%20%5Bindicar%20fechas%5D%20para%20%5Bcantidad%5D%20pasajeros." target="_blank" rel="noopener">(011) 15-3261-6765</a>
+                      <a href="https://wa.me/5491132616765?text=Hola%20Ignacio%2C%20te%20contacto%20desde%20la%20web%20de%20Caba%C3%B1as%20El%20Jard%C3%ADn.%20Quer%C3%ADa%20consultar%20disponibilidad%20y%20tarifas%20para%20los%20departamentos%20de%202%20ambientes." target="_blank" rel="noopener"><strong>Alternativo:</strong> (011) 15-3261-6765</a>
                     </div>
                   </div>
                 </div>
@@ -1229,7 +1148,7 @@
                 <h4 class="owner-cta-box__title">Consultá disponibilidad y tarifas</h4>
                 <p class="owner-cta-box__subtitle">Escribinos directamente a WhatsApp para cotizar tu estadía en minutos.</p>
                 <a class="owner-cta-box__btn"
-                   href="https://wa.me/5491132618849?text=Hola%20Ignacio%2C%20te%20escribo%20desde%20la%20web%20de%20Caba%C3%B1as%20El%20Jard%C3%ADn.%20Quer%C3%ADa%20consultar%20disponibilidad%20para%20%5Bindicar%20fechas%5D%20para%20%5Bcantidad%5D%20pasajeros."
+                   href="https://wa.me/5491132618849?text=Hola%20Ignacio%2C%20te%20contacto%20desde%20la%20web%20de%20Caba%C3%B1as%20El%20Jard%C3%ADn.%20Quer%C3%ADa%20consultar%20disponibilidad%20y%20tarifas%20para%20los%20departamentos%20de%202%20ambientes."
                    data-whatsapp="directo"
                    target="_blank"
                    rel="noopener"
@@ -1285,15 +1204,15 @@
         <p class="footer__contact-owner">Ignacio Posada · Propietario</p>
         <ul class="footer__contact-list">
           <li>
-            <a href="https://wa.me/5491132618849?text=Hola%20Ignacio%2C%20te%20escribo%20desde%20la%20web%20de%20Caba%C3%B1as%20El%20Jard%C3%ADn.%20Quer%C3%ADa%20consultar%20disponibilidad%20para%20%5Bindicar%20fechas%5D%20para%20%5Bcantidad%5D%20pasajeros." data-whatsapp="directo" target="_blank" rel="noopener">
+            <a href="https://wa.me/5491132618849?text=Hola%20Ignacio%2C%20te%20contacto%20desde%20la%20web%20de%20Caba%C3%B1as%20El%20Jard%C3%ADn.%20Quer%C3%ADa%20consultar%20disponibilidad%20y%20tarifas%20para%20los%20departamentos%20de%202%20ambientes." data-whatsapp="directo" target="_blank" rel="noopener">
               <svg class="icon" aria-hidden="true"><use href="#i-chat"></use></svg>
-              <span>(011) 15-3261-8849</span>
+              <span><strong>Principal (WhatsApp):</strong> (011) 15-3261-8849</span>
             </a>
           </li>
           <li>
-            <a href="https://wa.me/5491132616765?text=Hola%20Ignacio%2C%20te%20escribo%20desde%20la%20web%20de%20Caba%C3%B1as%20El%20Jard%C3%ADn.%20Quer%C3%ADa%20consultar%20disponibilidad%20para%20%5Bindicar%20fechas%5D%20para%20%5Bcantidad%5D%20pasajeros." target="_blank" rel="noopener">
+            <a href="https://wa.me/5491132616765?text=Hola%20Ignacio%2C%20te%20contacto%20desde%20la%20web%20de%20Caba%C3%B1as%20El%20Jard%C3%ADn.%20Quer%C3%ADa%20consultar%20disponibilidad%20y%20tarifas%20para%20los%20departamentos%20de%202%20ambientes." target="_blank" rel="noopener">
               <svg class="icon" aria-hidden="true"><use href="#i-chat"></use></svg>
-              <span>(011) 15-3261-6765</span>
+              <span><strong>Alternativo:</strong> (011) 15-3261-6765</span>
             </a>
           </li>
           <li>
@@ -1345,13 +1264,13 @@
     <div class="mobile-sticky-bar__inner">
       <p class="mobile-sticky-bar__text">Depto 2 amb (4 pers) · Trato directo con dueño</p>
       <a class="mobile-sticky-bar__btn"
-         href="https://wa.me/5491132618849?text=Hola%20Ignacio%2C%20te%20escribo%20desde%20la%20web%20de%20Caba%C3%B1as%20El%20Jard%C3%ADn.%20Quer%C3%ADa%20consultar%20disponibilidad%20para%20%5Bindicar%20fechas%5D%20para%20%5Bcantidad%5D%20pasajeros."
+         href="https://wa.me/5491132618849?text=Hola%20Ignacio%2C%20te%20contacto%20desde%20la%20web%20de%20Caba%C3%B1as%20El%20Jard%C3%ADn.%20Quer%C3%ADa%20consultar%20disponibilidad%20y%20tarifas%20para%20los%20departamentos%20de%202%20ambientes."
          data-whatsapp="directo"
          target="_blank"
          rel="noopener"
-         aria-label="Consultar por WhatsApp con Ignacio Posada">
+         aria-label="Reservar por WhatsApp con Ignacio Posada">
         <svg class="icon mobile-sticky-bar__btn-icon" aria-hidden="true"><use href="#i-chat"></use></svg>
-        <span>Consultar</span>
+        <span>Reservar por WhatsApp</span>
       </a>
     </div>
   </aside>
@@ -1388,12 +1307,6 @@
   <!-- Avisos breves -->
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <!-- Sistema de reservas: librería de Supabase (gratuita), configuración y conexión -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.116.0/dist/umd/supabase.js"
-          integrity="sha384-iLddHTLokph6Omwoyid4XKxHaWa6w41BnoEj0q5oOrzmYPpHIKt1wyjReA7s//pP"
-          crossorigin="anonymous"></script>
-  <script src="reservas/supabase-config.js"></script>
-  <script src="reservas/reservas-api.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

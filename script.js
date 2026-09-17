@@ -53,10 +53,10 @@ const CONFIG = {
      En "reserva" se reemplazan solos: {cabana}, {entrada}, {salida},
      {noches}, {personas} y {nombre}. */
   mensajesWhatsapp: {
-    general: "Hola! Quisiera consultar disponibilidad y precios de las cabañas.",
-    cabana: "Hola! Quisiera consultar disponibilidad y precios de la {cabana}.",
-    reserva: "Hola! Quisiera consultar/reservar la {cabana} desde el {entrada} hasta el {salida} para {personas}. Mi nombre es {nombre}.",
-    directo: "Hola Ignacio, te escribo desde la web de Cabañas El Jardín. Quería consultar disponibilidad para [indicar fechas] para [cantidad] pasajeros."
+    general: "Hola Ignacio, te contacto desde la web de Cabañas El Jardín. Quería consultar disponibilidad y tarifas para los departamentos de 2 ambientes.",
+    cabana: "Hola Ignacio, te contacto desde la web de Cabañas El Jardín. Quería consultar disponibilidad y tarifas para los departamentos de 2 ambientes.",
+    reserva: "Hola Ignacio, te contacto desde la web de Cabañas El Jardín. Quería consultar disponibilidad y tarifas para los departamentos de 2 ambientes.",
+    directo: "Hola Ignacio, te contacto desde la web de Cabañas El Jardín. Quería consultar disponibilidad y tarifas para los departamentos de 2 ambientes."
   },
 
   /* -----------------------------------------------------------------------
@@ -885,8 +885,10 @@ function iniciarCabanas() {
     const botonConsultar = e.target.closest("[data-consultar-cabana]");
     if (botonConsultar) {
       cerrarModal({ devolverFoco: false });
-      seleccionarCabana(botonConsultar.dataset.consultarCabana);
-      $("#disponibilidad").scrollIntoView({ behavior: prefiereMenosMovimiento ? "auto" : "smooth" });
+      const selector = $("#selector-consulta") || $("#cabanas");
+      if (selector) {
+        selector.scrollIntoView({ behavior: prefiereMenosMovimiento ? "auto" : "smooth" });
+      }
     }
   });
 
@@ -1045,602 +1047,76 @@ function iniciarGaleria() {
 
 
 /* =========================================================================
-   9. CALENDARIO DE DISPONIBILIDAD Y SOLICITUD DE RESERVA
+   9. SELECTOR RÁPIDO DE CONSULTA (GENERADOR DE MENSAJE DE WHATSAPP)
    ========================================================================= */
 
-const DIAS_SEMANA = ["Lu", "Ma", "Mi", "Ju", "Vi", "Sá", "Do"];
-const INTERVALO_ACTUALIZACION = 2 * 60 * 1000; // Se vuelve a consultar la disponibilidad cada 2 minutos
-
-const calendario = {
-  cabanaId: null,
-  mesInicio: null,
-  meses: 1,
-  entrada: null,
-  salida: null,
-  fijas: {},        // Fechas de CONFIG (opcionales)
-  reservadas: {},   // Fechas de la base de datos (reservas y bloqueos)
-  estadoCarga: "sin-base", // "sin-base" | "cargando" | "ok" | "error"
-  enviando: false
-};
-
-function textoPersonas(cantidad) {
-  return `${cantidad} ${cantidad === 1 ? "persona" : "personas"}`;
-}
-
-function estaOcupada(idCabana, clave) {
-  const id = String(idCabana);
-  return calendario.fijas[id].has(clave) || calendario.reservadas[id].has(clave);
-}
-
-/* true si todas las noches entre entrada (incluida) y salida (excluida) están libres */
-function rangoLibre(idCabana, entrada, salida) {
-  for (let dia = new Date(entrada); dia < salida; dia = sumarDias(dia, 1)) {
-    if (estaOcupada(idCabana, aClave(dia))) return false;
+function formatearFechaLegible(fechaIso) {
+  if (!fechaIso) return "";
+  const partes = fechaIso.split("-");
+  if (partes.length === 3) {
+    return `${partes[2]}/${partes[1]}/${partes[0]}`;
   }
-  return true;
+  return fechaIso;
 }
 
-function nochesPermitidas(noches) {
-  return noches >= CONFIG.estadiaMinima && noches <= CONFIG.estadiaMaxima;
-}
+function iniciarSelectorConsulta() {
+  const form = $("#quick-wa-form");
+  if (!form) return;
 
-function esSalidaPosible(fecha) {
-  const { entrada, salida, cabanaId } = calendario;
-  return Boolean(entrada && !salida && fecha > entrada &&
-    nochesPermitidas(nochesEntre(entrada, fecha)) &&
-    rangoLibre(cabanaId, entrada, fecha));
-}
+  const checkinInput = $("#wa-checkin");
+  const checkoutInput = $("#wa-checkout");
+  const guestsSelect = $("#wa-guests");
+  const submitBtn = $("#quick-wa-submit");
 
-function mismoDia(a, b) {
-  return Boolean(a && b && aClave(a) === aClave(b));
-}
+  // Configurar fecha mínima de ingreso (hoy)
+  const hoyObj = new Date();
+  const anio = hoyObj.getFullYear();
+  const mes = String(hoyObj.getMonth() + 1).padStart(2, "0");
+  const dia = String(hoyObj.getDate()).padStart(2, "0");
+  const hoyStr = `${anio}-${mes}-${dia}`;
 
-function limitesDelCalendario() {
-  const actual = hoy();
-  const minimo = new Date(actual.getFullYear(), actual.getMonth(), 1);
-  const maximo = sumarMeses(minimo, Math.max(0, CONFIG.mesesDisponibles - calendario.meses));
-  return { minimo, maximo };
-}
-
-function ajustarMesVisible() {
-  const { minimo, maximo } = limitesDelCalendario();
-  if (calendario.mesInicio < minimo) calendario.mesInicio = minimo;
-  if (calendario.mesInicio > maximo) calendario.mesInicio = maximo;
-}
-
-/* ---------- Carga de disponibilidad desde la base de datos ---------- */
-
-async function cargarDisponibilidad({ lanzarError = false } = {}) {
-  if (!baseDeDatosDisponible()) return false;
-
-  const primeraCarga = calendario.estadoCarga !== "ok";
-  if (primeraCarga) {
-    calendario.estadoCarga = "cargando";
-    actualizarEstadoConexion();
-  }
-
-  const desde = hoy();
-  const hasta = sumarMeses(desde, CONFIG.mesesDisponibles + 1);
-
-  try {
-    const filas = await window.ReservasAPI.obtenerDisponibilidad(aClave(desde), aClave(hasta));
-    const nuevas = {};
-    CONFIG.cabanas.forEach((cabana) => { nuevas[String(cabana.id)] = new Set(); });
-    filas.forEach((fila) => {
-      const conjunto = nuevas[String(fila.cabana)];
-      if (!conjunto) return;
-      expandirFechas([{ desde: fila.fecha_desde, hasta: fila.fecha_hasta }]).forEach((clave) => conjunto.add(clave));
-    });
-    calendario.reservadas = nuevas;
-    calendario.estadoCarga = "ok";
-    actualizarEstadoConexion();
-    return true;
-  } catch (error) {
-    console.error("[Reservas] No se pudo cargar la disponibilidad:", error);
-    if (primeraCarga) {
-      calendario.estadoCarga = "error";
-      actualizarEstadoConexion();
-    }
-    if (lanzarError) throw error;
-    return false;
-  }
-}
-
-/* Actualiza el calendario y avisa si las fechas elegidas ya no están libres */
-async function actualizarDisponibilidad({ avisar = true } = {}) {
-  const exito = await cargarDisponibilidad();
-  if (exito) verificarSeleccion({ avisar });
-  renderizarCalendario();
-}
-
-function verificarSeleccion({ avisar = true } = {}) {
-  const { entrada, salida, cabanaId } = calendario;
-  if (!entrada) return true;
-  const valida = !estaOcupada(cabanaId, aClave(entrada)) && (!salida || rangoLibre(cabanaId, entrada, salida));
-  if (!valida) {
-    calendario.entrada = null;
-    calendario.salida = null;
-    if (avisar) aviso("Algunas de las fechas que elegiste acaban de reservarse. Elegí nuevas fechas.");
-  }
-  return valida;
-}
-
-function actualizarEstadoConexion() {
-  const contenedor = $("#calendar-status");
-  const texto = $("#calendar-status-texto");
-  const reintentar = $("#calendar-reintentar");
-
-  if (calendario.estadoCarga === "cargando") {
-    texto.textContent = "Cargando disponibilidad actualizada...";
-    reintentar.hidden = true;
-    contenedor.hidden = false;
-    contenedor.classList.remove("is-error");
-  } else if (calendario.estadoCarga === "error") {
-    texto.textContent = "No pudimos cargar la disponibilidad actualizada.";
-    reintentar.hidden = false;
-    contenedor.hidden = false;
-    contenedor.classList.add("is-error");
-  } else {
-    contenedor.hidden = true;
-  }
-}
-
-/* ---------- Dibujo del calendario ---------- */
-
-function htmlDia(fecha) {
-  const clave = aClave(fecha);
-  const id = calendario.cabanaId;
-  const pasado = fecha < hoy();
-  const ocupada = !pasado && estaOcupada(id, clave);
-  const salidaPosible = ocupada && esSalidaPosible(fecha);
-  const clases = ["cal-day"];
-  let estado = "disponible";
-
-  if (pasado) {
-    clases.push("is-pasado");
-    estado = "fecha pasada";
-  } else if (ocupada) {
-    clases.push("is-ocupado");
-    estado = salidaPosible ? "reservada, disponible como fecha de salida" : "reservada";
-    if (salidaPosible) clases.push("is-salida-posible");
-  }
-
-  if (mismoDia(fecha, hoy())) clases.push("is-hoy");
-
-  if (mismoDia(fecha, calendario.entrada)) {
-    clases.push("is-entrada");
-    estado = "fecha de entrada seleccionada";
-  } else if (mismoDia(fecha, calendario.salida)) {
-    clases.push("is-salida");
-    estado = "fecha de salida seleccionada";
-  } else if (calendario.entrada && calendario.salida && fecha > calendario.entrada && fecha < calendario.salida) {
-    clases.push("is-en-rango");
-    estado = "dentro de las fechas seleccionadas";
-  }
-
-  const etiqueta = `${capitalizar(formatoCompleto.format(fecha))}, ${estado}`;
-  const atributos = [
-    `type="button"`,
-    `class="${clases.join(" ")}"`,
-    `data-fecha="${clave}"`,
-    `aria-label="${etiqueta}"`
-  ];
-  if (pasado) atributos.push("disabled");
-  if (ocupada && !salidaPosible) atributos.push(`aria-disabled="true"`);
-
-  return `<button ${atributos.join(" ")}>${fecha.getDate()}</button>`;
-}
-
-function htmlMes(primerDia) {
-  const anio = primerDia.getFullYear();
-  const mes = primerDia.getMonth();
-  const diasDelMes = new Date(anio, mes + 1, 0).getDate();
-  const desplazamiento = (primerDia.getDay() + 6) % 7; // La semana empieza el lunes
-  const titulo = capitalizar(formatoMes.format(primerDia));
-
-  let celdas = DIAS_SEMANA.map((dia) => `<span class="cal-weekday" aria-hidden="true">${dia}</span>`).join("");
-  celdas += "<span></span>".repeat(desplazamiento);
-  for (let dia = 1; dia <= diasDelMes; dia++) {
-    celdas += htmlDia(new Date(anio, mes, dia));
-  }
-
-  return `
-    <div class="cal-month">
-      <p class="cal-month__title">${titulo}</p>
-      <div class="cal-grid" role="group" aria-label="${titulo}">${celdas}</div>
-    </div>`;
-}
-
-function renderizarCalendario(claveAEnfocar) {
-  const contenedor = $("#calendar-months");
-  const teniaFoco = contenedor.contains(document.activeElement);
-  ajustarMesVisible();
-
-  contenedor.style.setProperty("--meses", calendario.meses);
-  let html = "";
-  for (let i = 0; i < calendario.meses; i++) {
-    html += htmlMes(sumarMeses(calendario.mesInicio, i));
-  }
-  contenedor.innerHTML = html;
-
-  const { minimo, maximo } = limitesDelCalendario();
-  $("#cal-prev").disabled = calendario.mesInicio <= minimo;
-  $("#cal-next").disabled = calendario.mesInicio >= maximo;
-  $("#cal-label").innerHTML = `<span>Consultando</span>${escaparHTML(buscarCabana(calendario.cabanaId).nombre)}`;
-
-  if (teniaFoco && claveAEnfocar) {
-    $(`[data-fecha="${claveAEnfocar}"]`, contenedor)?.focus({ preventScroll: true });
-  }
-
-  actualizarIndicacion();
-  actualizarResumen();
-}
-
-function actualizarIndicacion() {
-  const { entrada, salida } = calendario;
-  let texto = "Seleccioná la fecha de entrada.";
-  if (entrada && !salida) texto = `Entrada: ${fechaResumen(entrada)}. Ahora seleccioná la fecha de salida.`;
-  else if (entrada && salida) texto = "Fechas seleccionadas. Completá tus datos en el resumen de reserva.";
-  $("#calendar-hint").textContent = texto;
-}
-
-/* ---------- Resumen y formulario ---------- */
-
-function mostrarDato(selector, valor) {
-  const el = $(selector);
-  el.textContent = valor ?? "Sin seleccionar";
-  el.classList.toggle("is-vacio", valor == null);
-}
-
-function actualizarOpcionesHuespedes() {
-  const cabana = buscarCabana(calendario.cabanaId);
-  const maximo = Math.max(1, Number(cabana.capacidadMaxima) || 1);
-  const select = $("#reserva-huespedes");
-  const actual = Number(select.value) || 0;
-
-  let html = `<option value="">Elegí una opción</option>`;
-  for (let i = 1; i <= maximo; i++) {
-    html += `<option value="${i}"${i === actual ? " selected" : ""}>${textoPersonas(i)}</option>`;
-  }
-  select.innerHTML = html;
-}
-
-function actualizarResumen() {
-  const cabana = buscarCabana(calendario.cabanaId);
-  const { entrada, salida } = calendario;
-  const noches = entrada && salida ? nochesEntre(entrada, salida) : null;
-  const huespedes = Number($("#reserva-huespedes").value) || null;
-
-  mostrarDato("#sum-cabana", cabana.nombre);
-  mostrarDato("#sum-entrada", entrada ? fechaResumen(entrada) : null);
-  mostrarDato("#sum-salida", salida ? fechaResumen(salida) : null);
-  mostrarDato("#sum-noches", noches ? textoNoches(noches) : null);
-  mostrarDato("#sum-huespedes", huespedes ? textoPersonas(huespedes) : null);
-
-  const listo = Boolean(entrada && salida && huespedes);
-  $("#btn-reservar").setAttribute("aria-disabled", String(!listo));
-}
-
-function marcarInvalido(campo, invalido) {
-  if (invalido) campo.setAttribute("aria-invalid", "true");
-  else campo.removeAttribute("aria-invalid");
-}
-
-function ponerEnviando(enviando) {
-  calendario.enviando = enviando;
-  const boton = $("#btn-reservar");
-  boton.disabled = enviando;
-  boton.classList.toggle("is-loading", enviando);
-  boton.setAttribute("aria-busy", String(enviando));
-  $(".btn__texto", boton).textContent = enviando ? "Enviando consulta..." : "Consultar por WhatsApp";
-}
-
-function mostrarExito({ guardada, enlace, datos }) {
-  const texto = guardada
-    ? `Registramos tu solicitud para la ${datos.cabana} del ${datos.entrada} al ${datos.salida} (${datos.noches}, ${datos.personas}). Las fechas quedan pendientes hasta que te confirmemos por WhatsApp. Si no se abrió WhatsApp, tocá el botón.`
-    : `Para completar tu consulta por la ${datos.cabana} del ${datos.entrada} al ${datos.salida} (${datos.personas}), envianos el mensaje por WhatsApp.`;
-
-  $("#reserva-exito-texto").textContent = texto;
-  $("#reserva-exito-wa").href = enlace;
-  $("#reserva-panel").hidden = true;
-  const exito = $("#reserva-exito");
-  exito.hidden = false;
-  exito.focus({ preventScroll: true });
-
-  calendario.entrada = null;
-  calendario.salida = null;
-  $("#reserva-form").reset();
-  renderizarCalendario();
-}
-
-function nuevaConsulta() {
-  $("#reserva-exito").hidden = true;
-  $("#reserva-panel").hidden = false;
-  renderizarCalendario();
-  $("#calendar-months").scrollIntoView({ behavior: prefiereMenosMovimiento ? "auto" : "smooth", block: "center" });
-}
-
-async function enviarSolicitud(evento) {
-  evento.preventDefault();
-  if (calendario.enviando) return;
-
-  const formulario = evento.currentTarget;
-  const campoHuespedes = $("#reserva-huespedes");
-  const campoNombre = $("#reserva-nombre");
-  const campoMensaje = $("#reserva-mensaje");
-  const { entrada, salida } = calendario;
-  const cabana = buscarCabana(calendario.cabanaId);
-
-  /* Validaciones */
-  if (!entrada || !salida) {
-    aviso("Primero elegí la fecha de entrada y la fecha de salida en el calendario.");
-    return;
-  }
-  const huespedes = Number(campoHuespedes.value);
-  marcarInvalido(campoHuespedes, !huespedes);
-  if (!huespedes) {
-    campoHuespedes.focus();
-    aviso("Elegí la cantidad de huéspedes.");
-    return;
-  }
-  const nombre = campoNombre.value.trim().replace(/\s+/g, " ");
-  marcarInvalido(campoNombre, nombre.length < 2);
-  if (nombre.length < 2) {
-    campoNombre.focus();
-    aviso("Ingresá tu nombre y apellido.");
-    return;
-  }
-  const mensaje = campoMensaje.value.trim().slice(0, 500);
-  const noches = nochesEntre(entrada, salida);
-
-  const datos = {
-    cabana: cabana.nombre,
-    entrada: formatoFecha.format(entrada),
-    salida: formatoFecha.format(salida),
-    noches: textoNoches(noches),
-    personas: textoPersonas(huespedes),
-    nombre
-  };
-  const enlace = enlaceWhatsApp(plantilla(CONFIG.mensajesWhatsapp.reserva, datos));
-  const hayWhatsApp = whatsappConfigurado();
-
-  /* Campo trampa completado: es un envío automático, no se guarda nada */
-  if (formulario.elements.sitio_web.value) {
-    mostrarExito({ guardada: false, enlace, datos });
-    return;
-  }
-
-  /* Sin base de datos: solo WhatsApp */
-  if (!baseDeDatosDisponible()) {
-    if (hayWhatsApp) window.open(enlace, "_blank", "noopener");
-    mostrarExito({ guardada: false, enlace, datos });
-    if (!hayWhatsApp) aviso("Falta configurar el número de WhatsApp (script.js > CONFIG.whatsapp).");
-    return;
-  }
-
-  /* La pestaña de WhatsApp se abre en el momento del clic para que el
-     navegador no la bloquee; se completa cuando la solicitud se guardó. */
-  const ventana = hayWhatsApp ? window.open("", "_blank") : null;
-  if (ventana) ventana.opener = null;
-
-  ponerEnviando(true);
-  try {
-    /* Se revisa la disponibilidad justo antes de guardar */
-    await cargarDisponibilidad({ lanzarError: true });
-    if (!rangoLibre(cabana.id, entrada, salida)) {
-      const ocupado = new Error("FECHAS_OCUPADAS");
-      ocupado.codigo = "FECHAS_OCUPADAS";
-      throw ocupado;
-    }
-
-    await window.ReservasAPI.crearSolicitud({
-      cabana: cabana.id,
-      fechaEntrada: aClave(entrada),
-      fechaSalida: aClave(salida),
-      nombre,
-      cantidadHuespedes: huespedes,
-      mensaje
-    });
-  } catch (error) {
-    if (ventana) ventana.close();
-    ponerEnviando(false);
-    console.error("[Reservas] No se pudo registrar la solicitud:", error);
-    aviso(MENSAJES_ERROR_RESERVA[error.codigo] || MENSAJES_ERROR_RESERVA.DESCONOCIDO);
-    if (error.codigo === "FECHAS_OCUPADAS") {
-      calendario.entrada = null;
-      calendario.salida = null;
-      await cargarDisponibilidad();
-      renderizarCalendario();
-    }
-    return;
-  }
-
-  ponerEnviando(false);
-  await cargarDisponibilidad();
-
-  if (ventana) ventana.location.href = enlace;
-  mostrarExito({ guardada: true, enlace, datos });
-  if (!hayWhatsApp) aviso("Solicitud registrada. Falta configurar el número de WhatsApp (script.js > CONFIG.whatsapp).");
-}
-
-/* ---------- Selección de fechas ---------- */
-
-function alSeleccionarDia(clave) {
-  if (calendario.estadoCarga === "cargando") {
-    aviso("Estamos cargando la disponibilidad. Esperá un momento.");
-    return;
-  }
-
-  const fecha = desdeClave(clave);
-  const id = calendario.cabanaId;
-  const ocupada = estaOcupada(id, clave);
-  const { entrada, salida } = calendario;
-
-  /* Elegir la fecha de salida */
-  if (entrada && !salida && fecha > entrada) {
-    if (rangoLibre(id, entrada, fecha)) {
-      const noches = nochesEntre(entrada, fecha);
-      if (noches < CONFIG.estadiaMinima) {
-        aviso(`La estadía mínima es de ${textoNoches(CONFIG.estadiaMinima)}.`);
-        return;
+  if (checkinInput) {
+    checkinInput.min = hoyStr;
+    checkinInput.addEventListener("change", () => {
+      if (checkoutInput) {
+        checkoutInput.min = checkinInput.value || hoyStr;
+        if (checkoutInput.value && checkoutInput.value <= checkinInput.value) {
+          const d = new Date(checkinInput.value + "T12:00:00");
+          d.setDate(d.getDate() + 1);
+          const y = d.getFullYear();
+          const m = String(d.getMonth() + 1).padStart(2, "0");
+          const day = String(d.getDate()).padStart(2, "0");
+          checkoutInput.value = `${y}-${m}-${day}`;
+        }
       }
-      if (noches > CONFIG.estadiaMaxima) {
-        aviso(`Para estadías de más de ${textoNoches(CONFIG.estadiaMaxima)}, escribinos por WhatsApp.`);
-        return;
-      }
-      calendario.salida = fecha;
-      renderizarCalendario(clave);
-      return;
-    }
-    if (ocupada) {
-      aviso("Esa fecha está reservada. Elegí una fecha de salida anterior.");
-      return;
-    }
-    aviso("Entre esas fechas hay noches reservadas. Empezamos una nueva selección desde esta fecha.");
-  } else if (ocupada) {
-    aviso("Esa fecha está reservada. Elegí otra fecha de entrada.");
-    return;
-  }
-
-  /* Elegir (o volver a elegir) la fecha de entrada */
-  calendario.entrada = fecha;
-  calendario.salida = null;
-  renderizarCalendario(clave);
-}
-
-function limpiarSeleccion() {
-  calendario.entrada = null;
-  calendario.salida = null;
-  renderizarCalendario();
-}
-
-function seleccionarCabana(id, { avisar = true } = {}) {
-  const idTexto = String(id);
-  if (!buscarCabana(idTexto)) return;
-  calendario.cabanaId = idTexto;
-
-  $$('#cabin-picker input[name="cabana"]').forEach((radio) => {
-    radio.checked = radio.value === idTexto;
-  });
-
-  const { entrada, salida } = calendario;
-  if (entrada) {
-    const noDisponible = estaOcupada(idTexto, aClave(entrada)) || (salida && !rangoLibre(idTexto, entrada, salida));
-    if (noDisponible) {
-      calendario.entrada = null;
-      calendario.salida = null;
-      if (avisar) aviso("Las fechas elegidas no están disponibles en esta cabaña. Elegí nuevas fechas.");
-    }
-  }
-
-  /* Si estaba a la vista la confirmación de una consulta anterior, volver al formulario */
-  $("#reserva-exito").hidden = true;
-  $("#reserva-panel").hidden = false;
-
-  actualizarOpcionesHuespedes();
-  renderizarCalendario();
-}
-
-async function iniciarCalendario() {
-  calendario.cabanaId = String(CONFIG.cabanas[0].id);
-  const actual = hoy();
-  calendario.mesInicio = new Date(actual.getFullYear(), actual.getMonth(), 1);
-
-  CONFIG.cabanas.forEach((cabana) => {
-    const id = String(cabana.id);
-    calendario.fijas[id] = expandirFechas(cabana.fechasOcupadas);
-    calendario.reservadas[id] = new Set();
-  });
-
-  /* Selector de cabañas */
-  const selector = $("#cabin-picker");
-  selector.insertAdjacentHTML("beforeend", CONFIG.cabanas.map((cabana, i) => `
-    <label class="cabin-picker__option">
-      <input type="radio" name="cabana" value="${cabana.id}"${i === 0 ? " checked" : ""}>
-      <span>${escaparHTML(cabana.nombre)}</span>
-    </label>`).join(""));
-  selector.addEventListener("change", (e) => {
-    if (e.target.name === "cabana") seleccionarCabana(e.target.value);
-  });
-
-  /* Cantidad de meses según el ancho disponible */
-  const contenedor = $("#calendar-months");
-  const calcularMeses = () => (contenedor.clientWidth >= 600 ? 2 : 1);
-  calendario.meses = calcularMeses();
-  const alCambiarTamano = debounce(() => {
-    const meses = calcularMeses();
-    if (meses !== calendario.meses) {
-      calendario.meses = meses;
-      renderizarCalendario();
-    }
-  }, 120);
-  if ("ResizeObserver" in window) new ResizeObserver(alCambiarTamano).observe(contenedor);
-  else window.addEventListener("resize", alCambiarTamano);
-
-  /* Navegación entre meses */
-  $("#cal-prev").addEventListener("click", () => {
-    calendario.mesInicio = sumarMeses(calendario.mesInicio, -1);
-    renderizarCalendario();
-  });
-  $("#cal-next").addEventListener("click", () => {
-    calendario.mesInicio = sumarMeses(calendario.mesInicio, 1);
-    renderizarCalendario();
-  });
-
-  /* Selección de días */
-  contenedor.addEventListener("click", (e) => {
-    const dia = e.target.closest(".cal-day");
-    if (dia && !dia.disabled) alSeleccionarDia(dia.dataset.fecha);
-  });
-
-  /* Vista previa del rango al pasar el mouse */
-  const limpiarVistaPrevia = () => $$(".is-preview", contenedor).forEach((el) => el.classList.remove("is-preview"));
-  contenedor.addEventListener("mouseover", (e) => {
-    const { entrada, salida, cabanaId } = calendario;
-    if (!entrada || salida) return;
-    const dia = e.target.closest(".cal-day");
-    limpiarVistaPrevia();
-    if (!dia) return;
-    const fin = desdeClave(dia.dataset.fecha);
-    if (fin <= entrada || !nochesPermitidas(nochesEntre(entrada, fin)) || !rangoLibre(cabanaId, entrada, fin)) return;
-    const claveEntrada = aClave(entrada);
-    const claveFin = dia.dataset.fecha;
-    $$(".cal-day", contenedor).forEach((el) => {
-      const clave = el.dataset.fecha;
-      if (clave > claveEntrada && clave <= claveFin) el.classList.add("is-preview");
     });
-  });
-  contenedor.addEventListener("mouseleave", limpiarVistaPrevia);
-
-  /* Formulario */
-  actualizarOpcionesHuespedes();
-  $("#reserva-huespedes").addEventListener("change", (e) => {
-    marcarInvalido(e.target, false);
-    actualizarResumen();
-  });
-  $("#reserva-nombre").addEventListener("input", (e) => marcarInvalido(e.target, false));
-  $("#reserva-form").addEventListener("submit", enviarSolicitud);
-  $("#btn-limpiar").addEventListener("click", limpiarSeleccion);
-  $("#reserva-nueva").addEventListener("click", nuevaConsulta);
-  $("#calendar-reintentar").addEventListener("click", () => actualizarDisponibilidad({ avisar: true }));
-
-  renderizarCalendario();
-
-  if (!baseDeDatosDisponible()) {
-    console.warn("[Reservas] Base de datos sin configurar (reservas/supabase-config.js). Las consultas se envían solo por WhatsApp y no se guardan.");
-    return;
   }
 
-  calendario.estadoCarga = "cargando";
-  await actualizarDisponibilidad({ avisar: false });
+  function generarEnlaceWhatsApp() {
+    const checkin = checkinInput ? checkinInput.value.trim() : "";
+    const checkout = checkoutInput ? checkoutInput.value.trim() : "";
+    const guests = guestsSelect ? guestsSelect.value : "4";
 
-  /* Mantener la disponibilidad al día */
-  document.addEventListener("visibilitychange", () => {
-    if (document.visibilityState === "visible" && !calendario.enviando) actualizarDisponibilidad();
+    let mensaje;
+    if (checkin && checkout) {
+      const fIngreso = formatearFechaLegible(checkin);
+      const fSalida = formatearFechaLegible(checkout);
+      mensaje = `Hola Ignacio, te contacto desde la web de Cabañas El Jardín. Quería consultar disponibilidad para ingresar el ${fIngreso} y salir el ${fSalida} para ${guests} pasajeros. ¡Gracias!`;
+    } else {
+      mensaje = "Hola Ignacio, te contacto desde la web de Cabañas El Jardín. Quería consultar disponibilidad y tarifas para los departamentos de 2 ambientes.";
+    }
+
+    const url = `https://wa.me/5491132618849?text=${encodeURIComponent(mensaje)}`;
+    window.open(url, "_blank", "noopener,noreferrer");
+  }
+
+  if (submitBtn) {
+    submitBtn.addEventListener("click", generarEnlaceWhatsApp);
+  }
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    generarEnlaceWhatsApp();
   });
-  setInterval(() => {
-    if (document.visibilityState === "visible" && !calendario.enviando) actualizarDisponibilidad();
-  }, INTERVALO_ACTUALIZACION);
 }
 
 
@@ -1684,5 +1160,5 @@ aplicarDatosGenerales();
 iniciarNavegacion();
 iniciarCabanas();
 iniciarGaleria();
-iniciarCalendario();
+iniciarSelectorConsulta();
 iniciarAnimaciones();

@@ -65,8 +65,8 @@ const CONFIG = {
      y pegalo en "ver". El mapa insertado se cambia en index.html (buscar "GOOGLE MAPS").
      ----------------------------------------------------------------------- */
   googleMaps: {
-    ver: "https://www.google.com/maps/search/El+Tordo+140+Santa+Rosa+de+Calamuchita+C%C3%B3rdoba,+Argentina",
-    comoLlegar: "https://www.google.com/maps/dir/?api=1&destination=El+Tordo+140%2C+Santa+Rosa+de+Calamuchita%2C+C%C3%B3rdoba%2C+Argentina"
+    ver: "https://www.google.com/maps/search/Granville+122,+Valeria+del+Mar,+Argentina,+7167",
+    comoLlegar: "https://www.google.com/maps/dir/?api=1&destination=Granville+122%2C+Valeria+del+Mar%2C+Argentina%2C+7167"
   },
 
   /* -----------------------------------------------------------------------
@@ -120,8 +120,8 @@ const CONFIG = {
       descripcionCorta:                        // EDITAR: descripción de la tarjeta
         "Dormitorio con cama doble, comedor con cama marinera, cocina comedor y baño completo. Con cochera, asador, espacio al aire libre y piscina.",
       descripcion: [                           // EDITAR: descripción completa
-        "Una cabaña cómoda y acogedora para disfrutar de Santa Rosa de Calamuchita. Cuenta con un dormitorio con cama doble, comedor con cama marinera, cocina comedor y baño completo.",
-        "Afuera te esperan el espacio al aire libre, el asador y la piscina, ideales para aprovechar los días en las sierras. También dispone de cochera."
+        "Una cabaña cómoda y acogedora para disfrutar de Valeria del Mar. Cuenta con un dormitorio con cama doble, comedor con cama marinera, cocina comedor y baño completo.",
+        "Afuera te esperan el espacio al aire libre, el asador y la piscina, ideales para aprovechar los días de descanso y playa. También dispone de cochera."
       ],
       destacados: [
         { icono: "bed", texto: "Cama doble" },
@@ -166,8 +166,8 @@ const CONFIG = {
       descripcionCorta:                        // EDITAR: descripción de la tarjeta
         "Dormitorio con cama doble, comedor con cama marinera, cocina comedor y baño completo. Con cochera, asador, espacio al aire libre y piscina.",
       descripcion: [                           // EDITAR: descripción completa
-        "Una cabaña cómoda y acogedora para disfrutar de Santa Rosa de Calamuchita. Cuenta con un dormitorio con cama doble, comedor con cama marinera, cocina comedor y baño completo.",
-        "Afuera te esperan el espacio al aire libre, el asador y la piscina, ideales para aprovechar los días en las sierras. También dispone de cochera."
+        "Una cabaña cómoda y acogedora para disfrutar de Valeria del Mar. Cuenta con un dormitorio con cama doble, comedor con cama marinera, cocina comedor y baño completo.",
+        "Afuera te esperan el espacio al aire libre, el asador y la piscina, ideales para aprovechar los días de descanso y playa. También dispone de cochera."
       ],
       destacados: [
         { icono: "bed", texto: "Cama doble" },
@@ -205,8 +205,8 @@ const CONFIG = {
       descripcionCorta:                        // EDITAR: descripción de la tarjeta
         "Dormitorio con cama doble, comedor con cama marinera, cocina comedor y baño completo. Con cochera, asador, espacio al aire libre y piscina.",
       descripcion: [                           // EDITAR: descripción completa
-        "Una cabaña cómoda y acogedora para disfrutar de Santa Rosa de Calamuchita. Cuenta con un dormitorio con cama doble, comedor con cama marinera, cocina comedor y baño completo.",
-        "Afuera te esperan el espacio al aire libre, el asador y la piscina, ideales para aprovechar los días en las sierras. También dispone de cochera."
+        "Una cabaña cómoda y acogedora para disfrutar de Valeria del Mar. Cuenta con un dormitorio con cama doble, comedor con cama marinera, cocina comedor y baño completo.",
+        "Afuera te esperan el espacio al aire libre, el asador y la piscina, ideales para aprovechar los días de descanso y playa. También dispone de cochera."
       ],
       destacados: [
         { icono: "bed", texto: "Cama doble" },
@@ -490,7 +490,7 @@ function enlaceWhatsApp(mensaje) {
 
 function aplicarDatosGenerales() {
   $$("[data-nombre-complejo]").forEach((el) => { el.textContent = CONFIG.nombreComplejo; });
-  document.title = `${CONFIG.nombreComplejo} | Cabañas en Santa Rosa de Calamuchita, Córdoba`;
+  document.title = `${CONFIG.nombreComplejo} | Cabañas en Valeria del Mar, Buenos Aires`;
   $$("[data-anio]").forEach((el) => { el.textContent = new Date().getFullYear(); });
 
   $$('[data-whatsapp="general"]').forEach((enlace) => {

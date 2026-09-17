@@ -133,16 +133,17 @@ const CONFIG = {
       caracteristicas: "comunes",              // Para datos propios, reemplazar "comunes" por una lista [ { icono, texto }, ... ]
       equipamiento: "comun",                   // Para datos propios, reemplazar "comun" por una lista [ { icono, texto }, ... ]
 
-      // REEMPLAZAR FOTOS DE LA CABAÑA 1. Ej: { src: "images/cabana-1/frente.jpg", alt: "Frente de la Cabaña 1" }
+      // FOTOS DE LA CABAÑA 1
       fotos: [
-        { src: "https://images.unsplash.com/photo-1587061949409-02df41d5e562?auto=format&fit=crop&w=1400&q=80", alt: "Frente de la cabaña" },
-        { src: "https://images.unsplash.com/photo-1571508601891-ca5e7a713859?auto=format&fit=crop&w=1400&q=80", alt: "Dormitorio" },
-        { src: "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=1400&q=80", alt: "Cama doble" },
-        { src: "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&w=1400&q=80", alt: "Comedor" },
-        { src: "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=1400&q=80", alt: "Cocina comedor" },
-        { src: "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&w=1400&q=80", alt: "Baño completo" },
-        { src: "https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?auto=format&fit=crop&w=1400&q=80", alt: "Asador" },
-        { src: "https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&w=1400&q=80", alt: "Piscina" }
+        { src: "images/exterior-1.jpg", alt: "Frente de la Cabaña 1" },
+        { src: "images/dormitorio-1.jpg", alt: "Dormitorio con cama doble" },
+        { src: "images/dormitorio-2.jpg", alt: "Dormitorio" },
+        { src: "images/comedor-1.jpg", alt: "Comedor y estar" },
+        { src: "images/cocina-1.jpg", alt: "Cocina equipada" },
+        { src: "images/heladera.jpg", alt: "Heladera y cocina" },
+        { src: "images/bano.jpg", alt: "Baño completo" },
+        { src: "images/parrilla.jpg", alt: "Asador individual" },
+        { src: "images/parque-reposeras.jpg", alt: "Parque y reposeras" }
       ],
 
       /* FECHAS FIJAS OPCIONALES DE LA CABAÑA 1
@@ -179,16 +180,17 @@ const CONFIG = {
       caracteristicas: "comunes",
       equipamiento: "comun",
 
-      // REEMPLAZAR FOTOS DE LA CABAÑA 2. Ej: { src: "images/cabana-2/frente.jpg", alt: "Frente de la Cabaña 2" }
+      // FOTOS DE LA CABAÑA 2
       fotos: [
-        { src: "https://images.unsplash.com/photo-1449158743715-0a90ebb6d2d8?auto=format&fit=crop&w=1400&q=80", alt: "Frente de la cabaña" },
-        { src: "https://images.unsplash.com/photo-1571508601891-ca5e7a713859?auto=format&fit=crop&w=1400&q=80", alt: "Dormitorio" },
-        { src: "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=1400&q=80", alt: "Cama doble" },
-        { src: "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&w=1400&q=80", alt: "Comedor" },
-        { src: "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=1400&q=80", alt: "Cocina comedor" },
-        { src: "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&w=1400&q=80", alt: "Baño completo" },
-        { src: "https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?auto=format&fit=crop&w=1400&q=80", alt: "Asador" },
-        { src: "https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&w=1400&q=80", alt: "Piscina" }
+        { src: "images/portada.jpg", alt: "Frente de la Cabaña 2" },
+        { src: "images/dormitorio-2.jpg", alt: "Dormitorio con cama doble" },
+        { src: "images/dormitorio-alojamientos.jpg", alt: "Dormitorio" },
+        { src: "images/mesa-comedor.jpg", alt: "Mesa de comedor" },
+        { src: "images/estar-alojamientos.jpg", alt: "Estar y comedor" },
+        { src: "images/cocina-1.jpg", alt: "Cocina comedor" },
+        { src: "images/bano.jpg", alt: "Baño completo" },
+        { src: "images/parrilla.jpg", alt: "Asador individual" },
+        { src: "images/parque-juegos.jpg", alt: "Parque con juegos" }
       ],
 
       // FECHAS FIJAS OPCIONALES DE LA CABAÑA 2 (mismo formato que la Cabaña 1)
@@ -218,16 +220,17 @@ const CONFIG = {
       caracteristicas: "comunes",
       equipamiento: "comun",
 
-      // REEMPLAZAR FOTOS DE LA CABAÑA 3. Ej: { src: "images/cabana-3/frente.jpg", alt: "Frente de la Cabaña 3" }
+      // FOTOS DE LA CABAÑA 3
       fotos: [
-        { src: "https://images.unsplash.com/photo-1542718610-a1d656d1884c?auto=format&fit=crop&w=1400&q=80", alt: "Frente de la cabaña" },
-        { src: "https://images.unsplash.com/photo-1571508601891-ca5e7a713859?auto=format&fit=crop&w=1400&q=80", alt: "Dormitorio" },
-        { src: "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=1400&q=80", alt: "Cama doble" },
-        { src: "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&w=1400&q=80", alt: "Comedor" },
-        { src: "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=1400&q=80", alt: "Cocina comedor" },
-        { src: "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&w=1400&q=80", alt: "Baño completo" },
-        { src: "https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?auto=format&fit=crop&w=1400&q=80", alt: "Asador" },
-        { src: "https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&w=1400&q=80", alt: "Piscina" }
+        { src: "images/exterior-2.jpg", alt: "Frente de la Cabaña 3" },
+        { src: "images/dormitorio-alojamientos.jpg", alt: "Dormitorio con cama doble" },
+        { src: "images/dormitorio-1.jpg", alt: "Dormitorio" },
+        { src: "images/comedor-1.jpg", alt: "Comedor" },
+        { src: "images/cocina-1.jpg", alt: "Cocina equipada" },
+        { src: "images/bano.jpg", alt: "Baño completo" },
+        { src: "images/parrilla.jpg", alt: "Asador individual" },
+        { src: "images/parque-reposeras.jpg", alt: "Parque y reposeras" },
+        { src: "images/parque-alojamientos.jpg", alt: "Entorno natural arbolado" }
       ],
 
       // FECHAS FIJAS OPCIONALES DE LA CABAÑA 3 (mismo formato que la Cabaña 1)

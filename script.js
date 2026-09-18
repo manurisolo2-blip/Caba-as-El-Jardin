@@ -32,6 +32,23 @@ const CONFIG = {
   nombreComplejo: "Cabañas El Jardín",
 
   /* -----------------------------------------------------------------------
+     PRELOADER HERO CON REVELACIÓN EN ARCO
+     ----------------------------------------------------------------------- */
+  arcPreloader: {
+    activo: true,
+    saludos: [
+      "Calma.",
+      "Bosque.",
+      "Naturaleza.",
+      "A pasos del mar.",
+      "Cabañas El Jardín."
+    ],
+    tiempoPalabra: 520,
+    duracionArco: 1200,
+    storageKey: "arc_preloader_seen"
+  },
+
+  /* -----------------------------------------------------------------------
      PROPIETARIO Y CONTACTO DIRECTO
      ----------------------------------------------------------------------- */
   propietario: "Ignacio Posada",
@@ -1152,9 +1169,166 @@ function iniciarAnimaciones() {
 
 
 /* =========================================================================
+   10.5 PRELOADER HERO CON REVELACIÓN EN ARCO (ARC PRELOADER HERO)
+   ========================================================================= */
+
+function iniciarArcPreloaderHero() {
+  const preloader = $("#arc-preloader");
+  if (!preloader) return;
+
+  const path = $("#arc-preloader-path");
+  const textEl = $("#arc-preloader-text");
+  const textWrap = $("#arc-preloader-text-wrap");
+  const skipBtn = $("#arc-preloader-skip");
+
+  const cfg = CONFIG.arcPreloader || {};
+  const storageKey = cfg.storageKey || "arc_preloader_seen";
+
+  // Verificar si ya se vio en esta sesión o si el usuario prefiere movimiento reducido
+  let yaVisto = false;
+  try {
+    yaVisto = window.sessionStorage ? window.sessionStorage.getItem(storageKey) === "done" : false;
+  } catch (e) {}
+
+  if (prefiereMenosMovimiento || yaVisto) {
+    preloader.classList.add("is-done");
+    return;
+  }
+
+  const saludos = cfg.saludos || [
+    "Calma.",
+    "Bosque.",
+    "Naturaleza.",
+    "A pasos del mar.",
+    "Cabañas El Jardín."
+  ];
+  const tiempoPalabra = cfg.tiempoPalabra || 520;
+  const duracionArco = cfg.duracionArco || 1200;
+
+  let animando = true;
+  let animFrameId = null;
+  let timeoutId = null;
+
+  function finalizar(inmediato = false) {
+    if (!animando) return;
+    animando = false;
+    clearTimeout(timeoutId);
+    if (animFrameId) cancelAnimationFrame(animFrameId);
+
+    try {
+      if (window.sessionStorage) window.sessionStorage.setItem(storageKey, "done");
+    } catch (e) {}
+
+    if (inmediato) {
+      preloader.classList.add("is-done");
+    } else {
+      preloader.style.transition = "opacity 0.25s ease-out";
+      preloader.style.opacity = "0";
+      setTimeout(() => {
+        preloader.classList.add("is-done");
+      }, 260);
+    }
+  }
+
+  // Interacción de usuario para saltar en cualquier momento
+  if (skipBtn) {
+    skipBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      finalizar(true);
+    });
+  }
+  preloader.addEventListener("click", () => {
+    finalizar(true);
+  });
+
+  // Ciclo secuencial de palabras
+  function mostrarPalabra(idx) {
+    if (!animando) return;
+    if (idx >= saludos.length) {
+      iniciarRevelacionArco();
+      return;
+    }
+
+    if (textEl) {
+      textEl.textContent = saludos[idx];
+      textEl.className = "arc-preloader__text";
+      void textEl.offsetWidth; // reiniciar animación CSS
+      textEl.classList.add("is-active");
+    }
+
+    const tiempoEspera = idx === saludos.length - 1 ? tiempoPalabra + 220 : tiempoPalabra;
+
+    timeoutId = setTimeout(() => {
+      if (!animando) return;
+      if (textEl) {
+        textEl.classList.remove("is-active");
+        textEl.classList.add("is-leaving");
+      }
+
+      timeoutId = setTimeout(() => {
+        mostrarPalabra(idx + 1);
+      }, 150);
+    }, tiempoEspera);
+  }
+
+  // Animación del arco de cortina hacia arriba
+  function iniciarRevelacionArco() {
+    if (!animando) return;
+    if (textWrap) textWrap.style.opacity = "0";
+    if (skipBtn) skipBtn.style.opacity = "0";
+
+    // Easing cúbico suave [0.85, 0, 0.15, 1]
+    function easeArc(t) {
+      return t < 0.5
+        ? 4 * t * t * t
+        : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    }
+
+    const tInicio = performance.now();
+
+    function frame(ahora) {
+      if (!animando) return;
+      const transcurrido = ahora - tInicio;
+      const t = Math.min(1, Math.max(0, transcurrido / duracionArco));
+      const p = easeArc(t);
+
+      // t=0 -> edge=115, control=140 (pantalla totalmente cubierta de verde bosque)
+      // t=1 -> edge=-30, control=-5 (telón elevado completamente fuera de la vista superior)
+      const edge = 115 - p * 145;
+      const control = edge + 25;
+
+      if (path) {
+        path.setAttribute("d", `M 0 0 L 100 0 L 100 ${edge.toFixed(2)} Q 50 ${control.toFixed(2)} 0 ${edge.toFixed(2)} Z`);
+      }
+
+      if (t < 1) {
+        animFrameId = requestAnimationFrame(frame);
+      } else {
+        finalizar(false);
+      }
+    }
+
+    animFrameId = requestAnimationFrame(frame);
+  }
+
+  // Permitir relanzar manualmente desde la consola si se desea probar
+  window.reproducirIntroHero = function() {
+    try {
+      if (window.sessionStorage) window.sessionStorage.removeItem(storageKey);
+    } catch (e) {}
+    location.reload();
+  };
+
+  // Iniciar primer saludo
+  mostrarPalabra(0);
+}
+
+
+/* =========================================================================
    11. INICIO
    ========================================================================= */
 
+iniciarArcPreloaderHero();
 iniciarRespaldos();
 aplicarDatosGenerales();
 iniciarNavegacion();

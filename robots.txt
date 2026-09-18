@@ -1,0 +1,8 @@
+﻿User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /page/
+Disallow: /supabase/
+Disallow: /reservas/
+
+Sitemap: https://cabanaseljardin.com.ar/sitemap.xml

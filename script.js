@@ -2156,6 +2156,48 @@ function iniciarMovimientoHero() {
 
 
 /* =========================================================================
+   10.8 BOTONES DE COMPARTIR (WEB SHARE API Y FALLBACK)
+   ========================================================================= */
+
+function iniciarBotonCompartir() {
+  const botones = document.querySelectorAll("#header-share-btn, #footer-share-btn");
+  if (!botones.length) return;
+
+  const datosCompartir = {
+    title: "Cabañas El Jardín · Valeria del Mar",
+    text: "Mirá estos departamentos familiares a 50 metros del mar en Valeria del Mar:",
+    url: window.location.href.split("#")[0]
+  };
+
+  botones.forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      if (navigator.share) {
+        try {
+          await navigator.share(datosCompartir);
+          return;
+        } catch (err) {
+          if (err.name === "AbortError") return;
+        }
+      }
+
+      // Fallback: copiar al portapapeles
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        try {
+          await navigator.clipboard.writeText(datosCompartir.url);
+          aviso("¡Enlace copiado al portapapeles! Ya podés compartirlo.");
+          return;
+        } catch (_) {}
+      }
+
+      // Fallback a WhatsApp
+      const waUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(datosCompartir.text + " " + datosCompartir.url)}`;
+      window.open(waUrl, "_blank", "noopener,noreferrer");
+    });
+  });
+}
+
+
+/* =========================================================================
    11. INICIO
    ========================================================================= */
 
@@ -2170,3 +2212,5 @@ iniciarReviewsCardStack();
 iniciarTarjetas3D();
 iniciarMovimientoHero();
 iniciarAnimaciones();
+iniciarBotonCompartir();
+

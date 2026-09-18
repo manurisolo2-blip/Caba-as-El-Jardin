@@ -20,7 +20,9 @@ const ALLOWED_MIMES = {
   '.woff': 'font/woff',
   '.woff2': 'font/woff2',
   '.ttf': 'font/ttf',
-  '.otf': 'font/otf'
+  '.otf': 'font/otf',
+  '.txt': 'text/plain; charset=utf-8',
+  '.xml': 'application/xml; charset=utf-8'
 };
 
 /* Extensiones y patrones prohibidos (código interno, base de datos, configuraciones) */

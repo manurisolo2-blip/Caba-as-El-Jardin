@@ -2489,22 +2489,22 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
 
 
 /* =========================================================================
-   9. EXPERIENCIA LOCAL Y GALERÍA EDITORIAL
+   9. ESPECIFICACIONES Y NORMAS DEL PREDIO & GALERÍA EDITORIAL
    ========================================================================= */
 .experience {
   position: relative;
 }
 
-/* 1. Módulo de Experiencia Local */
-.experience-module {
+/* Módulo de Especificaciones y Normas del Predio */
+.predio-specs-module {
   background-color: #244033;
   color: #FAF8F5;
-  padding: clamp(36px, 4.5vw, 56px) 0 clamp(32px, 4vw, 48px);
+  padding: clamp(40px, 5vw, 64px) 0;
   position: relative;
   overflow: hidden;
 }
 
-.experience-module::before {
+.predio-specs-module::before {
   content: "";
   position: absolute;
   top: -20%;
@@ -2515,12 +2515,12 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
   pointer-events: none;
 }
 
-.experience-module__inner {
-  max-width: 820px;
-  margin-bottom: clamp(20px, 2.5vw, 32px);
+.predio-specs__head {
+  max-width: 780px;
+  margin-bottom: clamp(24px, 3.5vw, 36px);
 }
 
-.experience-module__eyebrow {
+.predio-specs__eyebrow {
   display: inline-block;
   font-family: var(--font-sans);
   font-size: 0.8rem;
@@ -2528,84 +2528,172 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: #D67A4F;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
-.experience-module__title {
+.predio-specs__title {
   font-family: var(--font-serif);
-  font-style: italic;
-  font-weight: 400;
-  font-size: clamp(2.2rem, 4.2vw, 3.2rem);
+  font-weight: 600;
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
   line-height: 1.15;
   color: #FAF8F5;
   letter-spacing: -0.015em;
-  margin: 0 0 14px;
+  margin: 0 0 12px;
 }
 
-.experience-module__text {
+.predio-specs__subtitle {
   font-family: var(--font-sans);
-  font-size: clamp(1rem, 1.25vw, 1.15rem);
+  font-size: clamp(1rem, 1.2vw, 1.12rem);
   font-weight: 400;
-  line-height: 1.65;
-  color: rgba(250, 248, 245, 0.9);
+  line-height: 1.6;
+  color: rgba(250, 248, 245, 0.88);
   margin: 0;
   text-wrap: pretty;
 }
 
-/* 2. Bloque 'Distancias a Pie' */
-.experience-distances {
+.predio-specs__grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: clamp(14px, 2vw, 22px);
+  gap: clamp(16px, 2.5vw, 26px);
+  align-items: stretch;
 }
 
-.distance-card {
+.predio-spec-card {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(250, 248, 245, 0.12);
-  border-radius: 12px;
-  padding: clamp(16px, 2vw, 24px) clamp(16px, 2vw, 22px);
+  background: rgba(250, 248, 245, 0.06);
+  border: 1px solid rgba(250, 248, 245, 0.14);
+  border-radius: 14px;
+  padding: clamp(20px, 2.6vw, 28px);
   backdrop-filter: blur(8px);
-  transition: transform 0.45s var(--ease), border-color 0.4s, background-color 0.4s;
+  transition: transform 0.35s var(--ease), border-color 0.3s, background-color 0.3s;
 }
 
-.distance-card:hover {
+.predio-spec-card:hover {
   transform: translateY(-4px);
-  background: rgba(255, 255, 255, 0.07);
+  background: rgba(250, 248, 245, 0.09);
   border-color: rgba(250, 248, 245, 0.28);
 }
 
-.distance-card__num {
-  font-family: var(--font-serif);
-  font-size: clamp(2.8rem, 4.2vw, 3.8rem);
-  font-weight: 600;
-  line-height: 1;
-  color: #FAF8F5;
-  letter-spacing: -0.02em;
+.predio-spec-card--family {
+  border-top: 3px solid #D67A4F;
 }
 
-.distance-card__text {
-  margin: 0;
+.predio-spec-card__icon {
+  font-size: 1.8rem;
+  line-height: 1;
+  margin-bottom: 14px;
+}
+
+.predio-spec-card__title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.25rem, 1.8vw, 1.45rem);
+  font-weight: 600;
+  color: #FAF8F5;
+  margin: 0 0 12px;
+  line-height: 1.25;
+}
+
+.predio-spec-card__text {
   font-family: var(--font-sans);
-  font-size: 0.94rem;
+  font-size: 0.93rem;
+  line-height: 1.6;
+  color: rgba(250, 248, 245, 0.9);
+  margin: 0;
+}
+
+.predio-spec-card__text strong {
+  color: #FFFFFF;
+  font-weight: 700;
+}
+
+.predio-spec-card__list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.predio-spec-card__list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: rgba(250, 248, 245, 0.06);
+  border-radius: 8px;
+  border: 1px solid rgba(250, 248, 245, 0.1);
+  font-family: var(--font-sans);
+  font-size: 0.93rem;
+  color: rgba(250, 248, 245, 0.95);
+}
+
+.predio-spec-card__list li strong {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  color: #FFFFFF;
+}
+
+.predio-spec-card__pill {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #D67A4F;
+}
+
+.predio-spec-card__note {
+  font-family: var(--font-sans);
+  font-size: 0.86rem;
+  line-height: 1.5;
+  color: rgba(250, 248, 245, 0.75);
+  margin: auto 0 0;
+}
+
+.predio-spec-card__exclusions {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.predio-spec-card__exclusions li {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
   line-height: 1.45;
   color: rgba(250, 248, 245, 0.88);
 }
 
-.distance-card__lead {
-  display: block;
-  font-weight: 700;
-  font-size: 1rem;
-  color: #FAF8F5;
-  margin-bottom: 2px;
+.predio-spec-card__exclusions li strong {
+  color: #FFFFFF;
 }
 
-.distance-card__detail {
-  display: block;
-  color: rgba(250, 248, 245, 0.78);
-  font-size: 0.88rem;
+.exclusion-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: rgba(214, 122, 79, 0.2);
+  color: #D67A4F;
+  font-size: 11px;
+  font-weight: 700;
+  flex: none;
+  margin-top: 2px;
+}
+
+@media (max-width: 960px) {
+  .predio-specs__grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
 }
 
 @media (max-width: 840px) {

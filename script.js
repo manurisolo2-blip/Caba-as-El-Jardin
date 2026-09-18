@@ -1718,8 +1718,6 @@ function iniciarReviewsCardStack() {
 
   const total = cards.length;
   let active = 0;
-  let autoTimer = null;
-  let isHovering = false;
 
   function calcularGeometria() {
     const isMobile = window.innerWidth <= 640;
@@ -1805,7 +1803,6 @@ function iniciarReviewsCardStack() {
   function irA(idx) {
     active = ((idx % total) + total) % total;
     actualizarPosiciones();
-    reiniciarAutoplay();
   }
 
   function siguiente() {
@@ -1860,28 +1857,11 @@ function iniciarReviewsCardStack() {
     stage.addEventListener("mouseup", onTouchEnd);
   }
 
-  function reiniciarAutoplay() {
-    clearInterval(autoTimer);
-    if (prefiereMenosMovimiento || isHovering) return;
-    autoTimer = setInterval(siguiente, 3800);
-  }
-
-  container.addEventListener("mouseenter", () => {
-    isHovering = true;
-    clearInterval(autoTimer);
-  });
-
-  container.addEventListener("mouseleave", () => {
-    isHovering = false;
-    reiniciarAutoplay();
-  });
-
   window.addEventListener("resize", () => {
     actualizarPosiciones();
   });
 
   actualizarPosiciones();
-  reiniciarAutoplay();
 }
 
 

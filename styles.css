@@ -1408,6 +1408,413 @@ main[id] { scroll-margin-top: calc(var(--header-h) - 10px); }
   background: #FFFFFF;
 }
 
+/* Envoltorio e iconos de fecha personalizada */
+.custom-date-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.custom-date-input {
+  width: 100%;
+  padding: 10px 38px 10px 14px;
+  border: 1.5px solid rgba(36, 64, 51, 0.16);
+  border-radius: 8px;
+  background: var(--bg-base);
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  letter-spacing: 0.02em;
+  transition: border-color 0.25s var(--ease), box-shadow 0.25s var(--ease), background-color 0.25s var(--ease);
+}
+
+.custom-date-input::placeholder {
+  color: var(--text-muted);
+  opacity: 0.7;
+}
+
+.custom-date-input:hover {
+  border-color: var(--brand-forest);
+  background: #FFFFFF;
+}
+
+.custom-date-input.is-active,
+.custom-date-input:focus {
+  outline: none;
+  border-color: var(--brand-forest);
+  box-shadow: 0 0 0 3px rgba(36, 64, 51, 0.12);
+  background: #FFFFFF;
+}
+
+.custom-date-icon {
+  position: absolute;
+  right: 12px;
+  color: var(--brand-forest);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  transition: transform 0.2s var(--ease), color 0.2s var(--ease);
+}
+
+.custom-date-input.is-active + .custom-date-icon,
+.custom-date-wrap:hover .custom-date-icon {
+  color: var(--cta-terracotta);
+  transform: scale(1.1);
+}
+
+.custom-date-icon .icon {
+  width: 17px;
+  height: 17px;
+}
+
+/* =========================================================================
+   CALENDARIO BOTÁNICO EMERGENTE (BEAUTIFUL DATEPICKER)
+   ========================================================================= */
+.botanical-cal {
+  position: relative;
+  width: 100%;
+  margin-top: 14px;
+  margin-bottom: 16px;
+  padding: 18px 20px;
+  background: #FAF8F5;
+  border: 1.5px solid rgba(36, 64, 51, 0.14);
+  border-radius: 16px;
+  box-shadow: 0 16px 40px rgba(36, 64, 51, 0.12), 0 4px 12px rgba(36, 64, 51, 0.04);
+  animation: calFadeIn 0.28s cubic-bezier(0.2, 0.9, 0.25, 1) both;
+}
+
+.botanical-cal[hidden] {
+  display: none !important;
+}
+
+@keyframes calFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.99);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.botanical-cal__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(36, 64, 51, 0.08);
+}
+
+.botanical-cal__status {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.botanical-cal__step-pill {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: rgba(184, 92, 56, 0.12);
+  color: var(--cta-terracotta);
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.botanical-cal__range-info {
+  font-family: var(--font-sans);
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--brand-forest);
+}
+
+.botanical-cal__close-btn {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(36, 64, 51, 0.06);
+  color: var(--text-main);
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  transition: all 0.2s var(--ease);
+}
+.botanical-cal__close-btn:hover {
+  background: var(--cta-terracotta);
+  color: #FFFFFF;
+}
+
+.botanical-cal__nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  padding: 0 4px;
+}
+
+.botanical-cal__month-title {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--brand-forest);
+  letter-spacing: -0.01em;
+  text-transform: capitalize;
+}
+
+.botanical-cal__nav-arrow {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 1px solid rgba(36, 64, 51, 0.14);
+  border-radius: 50%;
+  background: #FFFFFF;
+  color: var(--brand-forest);
+  cursor: pointer;
+  transition: all 0.2s var(--ease);
+}
+.botanical-cal__nav-arrow:hover:not(:disabled) {
+  background: var(--brand-forest);
+  color: #FFFFFF;
+  border-color: var(--brand-forest);
+  transform: scale(1.06);
+}
+.botanical-cal__nav-arrow:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+.botanical-cal__nav-arrow .icon {
+  width: 14px;
+  height: 14px;
+}
+
+.botanical-cal__weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+  margin-bottom: 6px;
+  text-align: center;
+}
+.botanical-cal__weekdays span {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  padding: 4px 0;
+}
+
+.botanical-cal__grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 3px 0;
+}
+
+.bcal-day-cell {
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: 38px;
+  padding: 0;
+}
+
+.bcal-day-btn {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  font-size: 13.5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.18s var(--ease);
+}
+
+.bcal-day-btn:hover:not(:disabled) {
+  background: rgba(36, 64, 51, 0.09);
+  color: var(--brand-forest);
+  font-weight: 600;
+  transform: scale(1.08);
+}
+
+.bcal-day-btn.is-today::after {
+  content: "";
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--cta-terracotta);
+}
+
+.bcal-day-btn.is-disabled {
+  color: #C5B5A2;
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.bcal-day-btn.is-empty {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Rango de fechas entre Check-in y Check-out */
+.bcal-day-cell.is-in-range {
+  background: rgba(184, 92, 56, 0.12);
+}
+.bcal-day-cell.is-in-range .bcal-day-btn {
+  color: var(--cta-terracotta);
+  font-weight: 600;
+  border-radius: 0;
+}
+
+.bcal-day-cell.is-preview-range {
+  background: rgba(184, 92, 56, 0.08);
+}
+.bcal-day-cell.is-preview-range .bcal-day-btn {
+  color: var(--cta-terracotta);
+  border-radius: 0;
+}
+
+.bcal-day-cell.is-range-start {
+  border-radius: 10px 0 0 10px;
+  background: rgba(184, 92, 56, 0.12);
+}
+.bcal-day-cell.is-range-end {
+  border-radius: 0 10px 10px 0;
+  background: rgba(184, 92, 56, 0.12);
+}
+.bcal-day-cell.is-single-select {
+  border-radius: 10px;
+  background: transparent;
+}
+
+.bcal-day-btn.is-selected {
+  background: var(--cta-terracotta) !important;
+  color: #FFFFFF !important;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(184, 92, 56, 0.35);
+  border-radius: 10px !important;
+  z-index: 2;
+}
+
+.botanical-cal__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(36, 64, 51, 0.08);
+}
+
+.botanical-cal__legend {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.botanical-cal__legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-sans);
+  font-size: 11.5px;
+  color: var(--text-muted);
+}
+
+.bcal-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+.bcal-dot--in, .bcal-dot--out {
+  background: var(--cta-terracotta);
+}
+
+.botanical-cal__actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.bcal-btn {
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-family: var(--font-sans);
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s var(--ease);
+}
+
+.bcal-btn--clear {
+  border: 1px solid rgba(36, 64, 51, 0.14);
+  background: transparent;
+  color: var(--text-muted);
+}
+.bcal-btn--clear:hover {
+  background: rgba(36, 64, 51, 0.06);
+  color: var(--text-main);
+}
+
+.bcal-btn--done {
+  border: none;
+  background: var(--brand-forest);
+  color: #FFFFFF;
+}
+.bcal-btn--done:hover {
+  background: #1C2A24;
+}
+
+/* Estilo estético para selectores de fecha nativos en admin */
+input[type="date"] {
+  font-family: var(--font-sans);
+  color: var(--text-main);
+  background: var(--bg-base);
+  border: 1px solid rgba(36, 64, 51, 0.18);
+  border-radius: 8px;
+  padding: 10px 14px;
+}
+input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  filter: invert(18%) sepia(35%) saturate(600%) hue-rotate(95deg) brightness(95%);
+  opacity: 0.8;
+  transition: opacity 0.2s, transform 0.2s;
+}
+input[type="date"]::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
 .quick-wa-submit-btn {
   width: 100%;
   padding: 13px 24px;

@@ -1093,13 +1093,14 @@ function iniciarGaleria() {
    9. SELECTOR RÁPIDO DE CONSULTA (GENERADOR DE MENSAJE DE WHATSAPP)
    ========================================================================= */
 
-function formatearFechaLegible(fechaIso) {
-  if (!fechaIso) return "";
-  const partes = fechaIso.split("-");
+function formatearFechaLegible(fechaStr) {
+  if (!fechaStr) return "";
+  if (fechaStr.includes("/")) return fechaStr;
+  const partes = fechaStr.split("-");
   if (partes.length === 3) {
     return `${partes[2]}/${partes[1]}/${partes[0]}`;
   }
-  return fechaIso;
+  return fechaStr;
 }
 
 function iniciarSelectorConsulta() {
@@ -1110,30 +1111,339 @@ function iniciarSelectorConsulta() {
   const checkoutInput = $("#wa-checkout");
   const guestsSelect = $("#wa-guests");
   const submitBtn = $("#quick-wa-submit");
+  const calModal = $("#botanical-cal");
 
-  // Configurar fecha mínima de ingreso (hoy)
-  const hoyObj = new Date();
-  const anio = hoyObj.getFullYear();
-  const mes = String(hoyObj.getMonth() + 1).padStart(2, "0");
-  const dia = String(hoyObj.getDate()).padStart(2, "0");
-  const hoyStr = `${anio}-${mes}-${dia}`;
+  if (!calModal || !checkinInput || !checkoutInput) return;
 
-  if (checkinInput) {
-    checkinInput.min = hoyStr;
-    checkinInput.addEventListener("change", () => {
-      if (checkoutInput) {
-        checkoutInput.min = checkinInput.value || hoyStr;
-        if (checkoutInput.value && checkoutInput.value <= checkinInput.value) {
-          const d = new Date(checkinInput.value + "T12:00:00");
-          d.setDate(d.getDate() + 1);
-          const y = d.getFullYear();
-          const m = String(d.getMonth() + 1).padStart(2, "0");
-          const day = String(d.getDate()).padStart(2, "0");
-          checkoutInput.value = `${y}-${m}-${day}`;
+  const stepPill = $("#bcal-step-pill");
+  const rangeInfo = $("#bcal-range-info");
+  const monthTitle = $("#bcal-month-title");
+  const prevBtn = $("#bcal-prev");
+  const nextBtn = $("#bcal-next");
+  const gridEl = $("#bcal-grid");
+  const closeBtn = $("#bcal-close");
+  const clearBtn = $("#bcal-btn-clear");
+  const doneBtn = $("#bcal-btn-done");
+
+  const MESES_ES = [
+    "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+    "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+  ];
+
+  const hoy = new Date();
+  hoy.setHours(0, 0, 0, 0);
+  const pad2 = (n) => String(n).padStart(2, "0");
+  const dateToIso = (d) => `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}`;
+
+  let mesVisualizado = new Date(hoy.getFullYear(), hoy.getMonth(), 1);
+  let fechaIngreso = null;  // Date object
+  let fechaSalida = null;   // Date object
+  let campoActivo = "checkin"; // 'checkin' | 'checkout'
+  let fechaHover = null;    // Date object
+
+  const formatearDisplay = (d) => {
+    if (!d) return "";
+    return `${pad2(d.getDate())}/${pad2(d.getMonth() + 1)}/${d.getFullYear()}`;
+  };
+
+  const abrirCalendario = (campo = "checkin") => {
+    campoActivo = campo;
+    calModal.hidden = false;
+
+    if (campo === "checkin" && fechaIngreso) {
+      mesVisualizado = new Date(fechaIngreso.getFullYear(), fechaIngreso.getMonth(), 1);
+    } else if (campo === "checkout" && fechaSalida) {
+      mesVisualizado = new Date(fechaSalida.getFullYear(), fechaSalida.getMonth(), 1);
+    } else if (campo === "checkout" && fechaIngreso) {
+      mesVisualizado = new Date(fechaIngreso.getFullYear(), fechaIngreso.getMonth(), 1);
+    }
+
+    actualizarInputsActivos();
+    renderizarCalendario();
+  };
+
+  const cerrarCalendario = () => {
+    calModal.hidden = true;
+    checkinInput.classList.remove("is-active");
+    checkoutInput.classList.remove("is-active");
+  };
+
+  const actualizarInputsActivos = () => {
+    checkinInput.classList.toggle("is-active", campoActivo === "checkin");
+    checkoutInput.classList.toggle("is-active", campoActivo === "checkout");
+
+    if (campoActivo === "checkin") {
+      stepPill.textContent = "Paso 1: Check-in";
+      rangeInfo.textContent = "Elegí el día de llegada";
+    } else {
+      stepPill.textContent = "Paso 2: Check-out";
+      if (fechaIngreso) {
+        rangeInfo.textContent = `Llegada: ${formatearDisplay(fechaIngreso)} · Elegí salida`;
+      } else {
+        rangeInfo.textContent = "Elegí el día de salida";
+      }
+    }
+  };
+
+  const calcularNoches = (desde, hasta) => {
+    if (!desde || !hasta) return 0;
+    const diff = Math.round((hasta.getTime() - desde.getTime()) / (1000 * 60 * 60 * 24));
+    return diff > 0 ? diff : 0;
+  };
+
+  const renderizarCalendario = () => {
+    const anio = mesVisualizado.getFullYear();
+    const mes = mesVisualizado.getMonth();
+
+    monthTitle.textContent = `${MESES_ES[mes]} ${anio}`;
+
+    // Deshabilitar botón mes anterior si ya estamos en el mes actual
+    const esMesActual = anio === hoy.getFullYear() && mes === hoy.getMonth();
+    prevBtn.disabled = esMesActual;
+
+    gridEl.innerHTML = "";
+
+    const primerDiaSemana = new Date(anio, mes, 1).getDay(); // 0 = Dom, 1 = Lun...
+    const diasEnMes = new Date(anio, mes + 1, 0).getDate();
+
+    // Celdas vacías previas
+    for (let i = 0; i < primerDiaSemana; i++) {
+      const emptyCell = document.createElement("div");
+      emptyCell.className = "bcal-day-cell";
+      const emptyBtn = document.createElement("button");
+      emptyBtn.type = "button";
+      emptyBtn.className = "bcal-day-btn is-empty";
+      emptyBtn.disabled = true;
+      emptyCell.appendChild(emptyBtn);
+      gridEl.appendChild(emptyCell);
+    }
+
+    // Días del mes
+    for (let d = 1; d <= diasEnMes; d++) {
+      const fechaDia = new Date(anio, mes, d);
+      fechaDia.setHours(0, 0, 0, 0);
+
+      const cell = document.createElement("div");
+      cell.className = "bcal-day-cell";
+
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "bcal-day-btn";
+      btn.textContent = String(d);
+
+      const timeVal = fechaDia.getTime();
+      const hoyTime = hoy.getTime();
+      const inTime = fechaIngreso ? fechaIngreso.getTime() : null;
+      const outTime = fechaSalida ? fechaSalida.getTime() : null;
+      const hoverTime = (campoActivo === "checkout" && fechaHover) ? fechaHover.getTime() : null;
+
+      if (timeVal === hoyTime) {
+        btn.classList.add("is-today");
+      }
+
+      // Validación de fechas pasadas
+      if (timeVal < hoyTime) {
+        btn.classList.add("is-disabled");
+        btn.disabled = true;
+      } else if (campoActivo === "checkout" && inTime && timeVal <= inTime) {
+        // En checkout, no se puede salir antes o el mismo día del check-in
+        btn.classList.add("is-disabled");
+        btn.disabled = true;
+      }
+
+      // Marcado de Check-in y Check-out
+      const esCheckin = inTime && timeVal === inTime;
+      const esCheckout = outTime && timeVal === outTime;
+
+      if (esCheckin) {
+        btn.classList.add("is-selected");
+        cell.classList.add(outTime ? "is-range-start" : "is-single-select");
+      }
+      if (esCheckout) {
+        btn.classList.add("is-selected");
+        cell.classList.add("is-range-end");
+      }
+
+      // Rango confirmado
+      if (inTime && outTime && timeVal > inTime && timeVal < outTime) {
+        cell.classList.add("is-in-range");
+      }
+
+      // Rango de vista previa al pasar el cursor
+      if (inTime && !outTime && hoverTime && hoverTime > inTime) {
+        if (timeVal > inTime && timeVal < hoverTime) {
+          cell.classList.add("is-preview-range");
+        } else if (timeVal === hoverTime) {
+          cell.classList.add("is-range-end");
+        }
+      }
+
+      // Eventos del día
+      if (!btn.disabled) {
+        btn.addEventListener("mouseenter", () => {
+          if (campoActivo === "checkout" && inTime && timeVal > inTime) {
+            fechaHover = fechaDia;
+            const noches = calcularNoches(fechaIngreso, fechaDia);
+            rangeInfo.textContent = `${formatearDisplay(fechaIngreso)} → ${formatearDisplay(fechaDia)} (${noches} ${noches === 1 ? 'noche' : 'noches'})`;
+            renderizarRangosEnDOM();
+          }
+        });
+
+        btn.addEventListener("click", () => {
+          seleccionarFecha(fechaDia);
+        });
+      }
+
+      cell.appendChild(btn);
+      gridEl.appendChild(cell);
+    }
+  };
+
+  const renderizarRangosEnDOM = () => {
+    const inTime = fechaIngreso ? fechaIngreso.getTime() : null;
+    const outTime = fechaSalida ? fechaSalida.getTime() : null;
+    const hoverTime = (campoActivo === "checkout" && fechaHover) ? fechaHover.getTime() : null;
+    const anio = mesVisualizado.getFullYear();
+    const mes = mesVisualizado.getMonth();
+
+    const cells = gridEl.querySelectorAll(".bcal-day-cell");
+    cells.forEach((cell) => {
+      const btn = cell.querySelector(".bcal-day-btn:not(.is-empty)");
+      if (!btn) return;
+      const d = Number(btn.textContent);
+      const timeVal = new Date(anio, mes, d).getTime();
+
+      cell.classList.remove("is-in-range", "is-preview-range", "is-range-start", "is-range-end", "is-single-select");
+
+      const esIn = inTime && timeVal === inTime;
+      const esOut = outTime && timeVal === outTime;
+
+      if (esIn) {
+        cell.classList.add(outTime || hoverTime ? "is-range-start" : "is-single-select");
+      } else if (esOut) {
+        cell.classList.add("is-range-end");
+      } else if (inTime && outTime && timeVal > inTime && timeVal < outTime) {
+        cell.classList.add("is-in-range");
+      } else if (inTime && !outTime && hoverTime && hoverTime > inTime) {
+        if (timeVal > inTime && timeVal < hoverTime) {
+          cell.classList.add("is-preview-range");
+        } else if (timeVal === hoverTime) {
+          cell.classList.add("is-range-end");
         }
       }
     });
-  }
+  };
+
+  gridEl.addEventListener("mouseleave", () => {
+    if (campoActivo === "checkout" && !fechaSalida) {
+      fechaHover = null;
+      if (fechaIngreso) {
+        rangeInfo.textContent = `Llegada: ${formatearDisplay(fechaIngreso)} · Elegí salida`;
+      }
+      renderizarRangosEnDOM();
+    }
+  });
+
+  const seleccionarFecha = (fecha) => {
+    if (campoActivo === "checkin") {
+      fechaIngreso = fecha;
+      checkinInput.value = formatearDisplay(fecha);
+      checkinInput.dataset.iso = dateToIso(fecha);
+
+      if (fechaSalida && fechaSalida <= fechaIngreso) {
+        fechaSalida = null;
+        checkoutInput.value = "";
+        checkoutInput.dataset.iso = "";
+      }
+
+      // Pasar automáticamente al paso 2: checkout
+      campoActivo = "checkout";
+      actualizarInputsActivos();
+      renderizarCalendario();
+    } else {
+      // campoActivo === 'checkout'
+      if (fechaIngreso && fecha <= fechaIngreso) {
+        // Si toca una fecha anterior, reasignar checkin
+        fechaIngreso = fecha;
+        checkinInput.value = formatearDisplay(fecha);
+        checkinInput.dataset.iso = dateToIso(fecha);
+        fechaSalida = null;
+        checkoutInput.value = "";
+        checkoutInput.dataset.iso = "";
+        actualizarInputsActivos();
+        renderizarCalendario();
+        return;
+      }
+
+      fechaSalida = fecha;
+      checkoutInput.value = formatearDisplay(fecha);
+      checkoutInput.dataset.iso = dateToIso(fecha);
+
+      const noches = calcularNoches(fechaIngreso, fechaSalida);
+      stepPill.textContent = `✓ Estadía confirmada`;
+      rangeInfo.textContent = `${noches} ${noches === 1 ? 'noche' : 'noches'} (${formatearDisplay(fechaIngreso)} al ${formatearDisplay(fechaSalida)})`;
+      renderizarCalendario();
+
+      // Cerrar con suave transición tras confirmación
+      setTimeout(() => {
+        cerrarCalendario();
+      }, 420);
+    }
+  };
+
+  // Botones de navegación de mes
+  prevBtn.addEventListener("click", () => {
+    mesVisualizado.setMonth(mesVisualizado.getMonth() - 1);
+    renderizarCalendario();
+  });
+
+  nextBtn.addEventListener("click", () => {
+    mesVisualizado.setMonth(mesVisualizado.getMonth() + 1);
+    renderizarCalendario();
+  });
+
+  // Limpiar selección
+  clearBtn.addEventListener("click", () => {
+    fechaIngreso = null;
+    fechaSalida = null;
+    fechaHover = null;
+    checkinInput.value = "";
+    checkinInput.dataset.iso = "";
+    checkoutInput.value = "";
+    checkoutInput.dataset.iso = "";
+    campoActivo = "checkin";
+    actualizarInputsActivos();
+    renderizarCalendario();
+  });
+
+  doneBtn.addEventListener("click", cerrarCalendario);
+  closeBtn.addEventListener("click", cerrarCalendario);
+
+  // Apertura al interactuar con los campos
+  checkinInput.addEventListener("click", () => abrirCalendario("checkin"));
+  checkoutInput.addEventListener("click", () => abrirCalendario("checkout"));
+
+  $$(".custom-date-icon").forEach((icon) => {
+    icon.addEventListener("click", (e) => {
+      const input = e.target.closest(".custom-date-wrap")?.querySelector(".custom-date-input");
+      if (input) {
+        abrirCalendario(input.id === "wa-checkout" ? "checkout" : "checkin");
+      }
+    });
+  });
+
+  // Cerrar al hacer clic fuera del widget
+  document.addEventListener("click", (e) => {
+    if (!calModal.hidden && !e.target.closest("#selector-consulta") && !e.target.closest(".botanical-cal")) {
+      cerrarCalendario();
+    }
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !calModal.hidden) {
+      cerrarCalendario();
+    }
+  });
 
   function generarEnlaceWhatsApp() {
     const checkin = checkinInput ? checkinInput.value.trim() : "";

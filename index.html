@@ -363,12 +363,22 @@
                 <div class="quick-wa-fields">
                   <div class="quick-wa-field">
                     <label class="quick-wa-label" for="wa-checkin">Fecha de ingreso (Check-in)</label>
-                    <input class="quick-wa-input" type="date" id="wa-checkin" name="checkin" aria-label="Fecha de ingreso">
+                    <div class="custom-date-wrap">
+                      <input class="quick-wa-input custom-date-input" type="text" id="wa-checkin" name="checkin" placeholder="dd/mm/aaaa" readonly aria-label="Fecha de ingreso" data-iso="" autocomplete="off">
+                      <span class="custom-date-icon" aria-hidden="true">
+                        <svg class="icon"><use href="#i-calendar"></use></svg>
+                      </span>
+                    </div>
                   </div>
 
                   <div class="quick-wa-field">
                     <label class="quick-wa-label" for="wa-checkout">Fecha de salida (Check-out)</label>
-                    <input class="quick-wa-input" type="date" id="wa-checkout" name="checkout" aria-label="Fecha de salida">
+                    <div class="custom-date-wrap">
+                      <input class="quick-wa-input custom-date-input" type="text" id="wa-checkout" name="checkout" placeholder="dd/mm/aaaa" readonly aria-label="Fecha de salida" data-iso="" autocomplete="off">
+                      <span class="custom-date-icon" aria-hidden="true">
+                        <svg class="icon"><use href="#i-calendar"></use></svg>
+                      </span>
+                    </div>
                   </div>
 
                   <div class="quick-wa-field">
@@ -380,6 +390,50 @@
                         <option value="3">3 pasajeros</option>
                         <option value="4" selected>4 pasajeros (máx.)</option>
                       </select>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Calendario Botánico Elegante Emergente -->
+                <div class="botanical-cal" id="botanical-cal" hidden>
+                  <div class="botanical-cal__header">
+                    <div class="botanical-cal__status">
+                      <span class="botanical-cal__step-pill" id="bcal-step-pill">Fecha de ingreso</span>
+                      <span class="botanical-cal__range-info" id="bcal-range-info">Elegí el día de llegada</span>
+                    </div>
+                    <button type="button" class="botanical-cal__close-btn" id="bcal-close" aria-label="Cerrar calendario">&times;</button>
+                  </div>
+
+                  <div class="botanical-cal__nav">
+                    <button type="button" class="botanical-cal__nav-arrow" id="bcal-prev" aria-label="Mes anterior">
+                      <svg class="icon" aria-hidden="true"><use href="#i-chev-left"></use></svg>
+                    </button>
+                    <h4 class="botanical-cal__month-title" id="bcal-month-title">Octubre 2026</h4>
+                    <button type="button" class="botanical-cal__nav-arrow" id="bcal-next" aria-label="Mes siguiente">
+                      <svg class="icon" aria-hidden="true"><use href="#i-chev-right"></use></svg>
+                    </button>
+                  </div>
+
+                  <div class="botanical-cal__weekdays" aria-hidden="true">
+                    <span>DO</span>
+                    <span>LU</span>
+                    <span>MA</span>
+                    <span>MI</span>
+                    <span>JU</span>
+                    <span>VI</span>
+                    <span>SÁ</span>
+                  </div>
+
+                  <div class="botanical-cal__grid" id="bcal-grid" role="grid" aria-label="Días del mes"></div>
+
+                  <div class="botanical-cal__footer">
+                    <div class="botanical-cal__legend">
+                      <span class="botanical-cal__legend-item"><span class="bcal-dot bcal-dot--in"></span> Check-in</span>
+                      <span class="botanical-cal__legend-item"><span class="bcal-dot bcal-dot--out"></span> Check-out</span>
+                    </div>
+                    <div class="botanical-cal__actions">
+                      <button type="button" class="bcal-btn bcal-btn--clear" id="bcal-btn-clear">Limpiar</button>
+                      <button type="button" class="bcal-btn bcal-btn--done" id="bcal-btn-done">Confirmar</button>
                     </div>
                   </div>
                 </div>

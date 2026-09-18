@@ -644,18 +644,9 @@ function iniciarNavegacion() {
   let pendiente = false;
   const alHacerScroll = () => {
     pendiente = false;
-    const about = $("#nosotros");
-    let fondoTapoHero = false;
-    if (about) {
-      // El fondo cubre el hero cuando la sección 'about' (#nosotros) alcanza la parte superior de la ventana
-      fondoTapoHero = about.getBoundingClientRect().top <= 60;
-    } else if (hero) {
-      fondoTapoHero = window.scrollY >= (hero.offsetHeight - 60);
-    } else {
-      fondoTapoHero = window.scrollY > 150;
-    }
-    header.classList.toggle("is-scrolled", fondoTapoHero);
-    if (botonFlotante) botonFlotante.classList.toggle("is-visible", fondoTapoHero);
+    const esScrolled = window.scrollY > 50;
+    header.classList.toggle("is-scrolled", esScrolled);
+    if (botonFlotante) botonFlotante.classList.toggle("is-visible", window.scrollY > 250);
   };
   window.addEventListener("scroll", () => {
     if (!pendiente) {
@@ -1532,8 +1523,8 @@ function iniciarAnimaciones() {
 
   elementos.forEach((el) => {
     const hermanos = Array.from(el.parentElement.children).filter((hijo) => hijo.classList.contains("reveal"));
-    const posicion = hermanos.indexOf(el) % 4;
-    el.style.setProperty("--delay", `${posicion * 90}ms`);
+    const posicion = hermanos.indexOf(el);
+    el.style.setProperty("--delay", `${posicion * 40}ms`);
   });
 
   if (prefiereMenosMovimiento || !("IntersectionObserver" in window)) {

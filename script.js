@@ -31,7 +31,12 @@ if (window.location.hash) {
   } catch (_) {}
 }
 
+let sincronizarInerciaGlobal = null;
+
 function forzarScrollAlHero() {
+  if (typeof sincronizarInerciaGlobal === "function") {
+    sincronizarInerciaGlobal(0);
+  }
   try {
     window.scrollTo({ top: 0, left: 0, behavior: "instant" });
   } catch (_) {
@@ -715,6 +720,14 @@ function iniciarNavegacion() {
       e.stopPropagation();
     }
     abrirMenu(false);
+
+    if (typeof window.desplazarConInercia === "function" && !prefiereMenosMovimiento) {
+      window.desplazarConInercia(0);
+      if (window.history && window.history.pushState) {
+        window.history.pushState(null, "", window.location.pathname);
+      }
+      return;
+    }
 
     const comportamiento = prefiereMenosMovimiento ? "auto" : "smooth";
 
@@ -2262,6 +2275,202 @@ function iniciarBotonCompartir() {
 
 
 /* =========================================================================
+   10.9 SCROLL SUAVE CON INERCIA Y PESO (VELVET MOMENTUM SCROLL)
+   ========================================================================= */
+
+function iniciarScrollInercia() {
+  if (prefiereMenosMovimiento) return;
+
+  // Preservar la inercia táctil nativa de 120Hz en smartphones y tablets sin puntero fino
+  const esTouchPuro = ("ontouchstart" in window || navigator.maxTouchPoints > 0) &&
+                      window.matchMedia("(max-width: 820px)").matches &&
+                      !window.matchMedia("(hover: hover)").matches;
+  if (esTouchPuro) return;
+
+  // Añadir clase al html para deshabilitar scroll-behavior smooth del navegador y evitar conflicto
+  document.documentElement.classList.add("con-scroll-inercia");
+
+  let currentY = window.scrollY;
+  let targetY = window.scrollY;
+  let animando = false;
+  let rafId = null;
+  let esScrollPropio = false;
+
+  // Calibración de peso e inercia:
+  // FRICCION = 0.078: amortiguación aterciopelada, noble y con peso físico al girar la rueda.
+  // FACTOR_DISTANCIA = 1.08: desplazamiento cómodo y progresivo.
+  const FRICCION = 0.078;
+  const FACTOR_DISTANCIA = 1.08;
+  const UMBRAL_DETENCION = 0.35;
+  const MAX_ACUMULADO = window.innerHeight * 1.5;
+
+  const obtenerMaxScroll = () => {
+    return Math.max(0, (document.documentElement.scrollHeight || document.body.scrollHeight) - window.innerHeight);
+  };
+
+  const bucleAnimacion = () => {
+    const distancia = targetY - currentY;
+
+    if (Math.abs(distancia) < UMBRAL_DETENCION) {
+      currentY = targetY;
+      esScrollPropio = true;
+      window.scrollTo(0, Math.round(targetY));
+      esScrollPropio = false;
+      animando = false;
+      rafId = null;
+      return;
+    }
+
+    // Amortiguación con inercia continua (lerp)
+    let paso = distancia * FRICCION;
+
+    // Límite de velocidad por frame para saltos largos (ej. clics en anclas del menú)
+    const maxPaso = 55;
+    if (Math.abs(paso) > maxPaso) {
+      paso = Math.sign(paso) * maxPaso;
+    }
+
+    currentY += paso;
+
+    esScrollPropio = true;
+    window.scrollTo(0, Math.round(currentY));
+    esScrollPropio = false;
+
+    rafId = requestAnimationFrame(bucleAnimacion);
+  };
+
+  const iniciarAnimacion = () => {
+    if (!animando) {
+      animando = true;
+      rafId = requestAnimationFrame(bucleAnimacion);
+    }
+  };
+
+  const desplazarHacia = (nuevoDestino) => {
+    const max = obtenerMaxScroll();
+    targetY = Math.max(0, Math.min(max, nuevoDestino));
+    currentY = window.scrollY;
+    iniciarAnimacion();
+  };
+
+  sincronizarInerciaGlobal = (nuevaPosicion) => {
+    if (rafId) {
+      cancelAnimationFrame(rafId);
+      rafId = null;
+    }
+    animando = false;
+    const pos = typeof nuevaPosicion === "number" ? nuevaPosicion : window.scrollY;
+    currentY = pos;
+    targetY = pos;
+  };
+
+  // Normalizar el delta de la rueda del mouse según el modo (pixels, líneas o páginas)
+  const normalizarDelta = (e) => {
+    let dy = e.deltaY;
+    if (e.deltaMode === 1) {
+      // Delta por líneas (Firefox en Windows)
+      dy *= 36;
+    } else if (e.deltaMode === 2) {
+      // Delta por páginas
+      dy *= window.innerHeight;
+    }
+    return dy;
+  };
+
+  // Detectar si el cursor está sobre un elemento con scroll interno propio
+  const esScrollInterno = (target) => {
+    if (!target || !(target instanceof Element)) return false;
+    if (target.closest(".modal__panel, select, textarea, [data-scroll-propio]")) return true;
+    let elem = target;
+    while (elem && elem !== document.body && elem !== document.documentElement) {
+      const estilo = window.getComputedStyle(elem);
+      const overflowY = estilo.overflowY;
+      if ((overflowY === "auto" || overflowY === "scroll") && elem.scrollHeight > elem.clientHeight + 2) {
+        return true;
+      }
+      elem = elem.parentElement;
+    }
+    return false;
+  };
+
+  const alHacerRueda = (e) => {
+    // Si se presiona Ctrl/Meta (zoom del navegador), o hay modales abiertos o scroll bloqueado
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
+    if (bloqueosDeScroll > 0 || document.documentElement.classList.contains("sin-scroll")) return;
+    if (esScrollInterno(e.target)) return;
+
+    const delta = normalizarDelta(e);
+    if (delta === 0) return;
+
+    e.preventDefault();
+
+    const max = obtenerMaxScroll();
+
+    // Sincronizar posición actual si la animación estaba en reposo
+    if (!animando) {
+      currentY = window.scrollY;
+      targetY = window.scrollY;
+    }
+
+    let nuevoTarget = targetY + delta * FACTOR_DISTANCIA;
+
+    // Evitar que ruedas de giro libre acumulen miles de píxeles descontroladamente
+    const diferencia = nuevoTarget - currentY;
+    if (Math.abs(diferencia) > MAX_ACUMULADO) {
+      nuevoTarget = currentY + Math.sign(diferencia) * MAX_ACUMULADO;
+    }
+
+    targetY = Math.max(0, Math.min(max, nuevoTarget));
+    iniciarAnimacion();
+  };
+
+  window.addEventListener("wheel", alHacerRueda, { passive: false });
+
+  // Sincronización cuando el usuario arrastra la barra de scroll nativa o presiona PageUp/Down
+  window.addEventListener("scroll", () => {
+    if (!esScrollPropio && !animando) {
+      currentY = window.scrollY;
+      targetY = window.scrollY;
+    }
+  }, { passive: true });
+
+  // Reajustar límites al cambiar el tamaño del viewport
+  window.addEventListener("resize", () => {
+    const max = obtenerMaxScroll();
+    targetY = Math.max(0, Math.min(max, targetY));
+    currentY = Math.max(0, Math.min(max, currentY));
+  }, { passive: true });
+
+  // Interceptar anclas internas (#cabanas, #galeria, #ubicacion, #contacto) para navegar con inercia
+  document.addEventListener("click", (e) => {
+    const enlace = e.target.closest('a[href^="#"]');
+    if (!enlace) return;
+    const href = enlace.getAttribute("href");
+    if (!href || href === "#") return;
+    if (href === "#inicio" || href === "#top") {
+      // Manejado por irArribaDelTodo
+      return;
+    }
+    const destino = document.querySelector(href);
+    if (destino) {
+      e.preventDefault();
+      const header = document.getElementById("header");
+      const offsetHeader = header ? header.offsetHeight : 70;
+      const rect = destino.getBoundingClientRect();
+      const destinoY = rect.top + window.scrollY - offsetHeader + 5;
+      desplazarHacia(destinoY);
+      if (window.history && window.history.pushState) {
+        window.history.pushState(null, "", href);
+      }
+    }
+  });
+
+  // Exponer API global
+  window.desplazarConInercia = desplazarHacia;
+}
+
+
+/* =========================================================================
    11. INICIO
    ========================================================================= */
 
@@ -2277,4 +2486,6 @@ iniciarTarjetas3D();
 iniciarMovimientoHero();
 iniciarAnimaciones();
 iniciarBotonCompartir();
+iniciarScrollInercia();
+
 

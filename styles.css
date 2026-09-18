@@ -124,9 +124,15 @@ html.pagina-lista {
   scroll-behavior: smooth;
 }
 
+html.con-scroll-inercia,
+html.con-scroll-inercia.pagina-lista {
+  scroll-behavior: auto !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html,
-  html.pagina-lista {
+  html.pagina-lista,
+  html.con-scroll-inercia {
     scroll-behavior: auto !important;
   }
 }

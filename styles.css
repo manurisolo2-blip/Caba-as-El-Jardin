@@ -904,7 +904,10 @@ main[id] { scroll-margin-top: calc(var(--header-h) - 10px); }
 .about__img--main {
   aspect-ratio: 4 / 5;
   transform-style: preserve-3d;
-  will-change: transform;
+  will-change: transform, box-shadow;
+  position: relative;
+  z-index: 1;
+  cursor: pointer;
 }
 .about__img--secondary {
   position: absolute;
@@ -917,6 +920,8 @@ main[id] { scroll-margin-top: calc(var(--header-h) - 10px); }
   box-shadow: 0 18px 45px rgba(36, 64, 51, 0.16);
   transform-style: preserve-3d;
   will-change: transform, box-shadow;
+  z-index: 2;
+  cursor: pointer;
 }
 
 .about__badge {
@@ -933,6 +938,11 @@ main[id] { scroll-margin-top: calc(var(--header-h) - 10px); }
   box-shadow: 0 14px 32px rgba(36, 64, 51, 0.12);
   transform-style: preserve-3d;
   will-change: transform, box-shadow;
+  pointer-events: auto;
+  cursor: pointer;
+  z-index: 3;
+}
+.about__badge * {
   pointer-events: none;
 }
 .about__badge strong {

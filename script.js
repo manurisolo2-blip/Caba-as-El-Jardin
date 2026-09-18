@@ -1905,85 +1905,123 @@ function iniciarTarjetas3D() {
   // Solo activar si el dispositivo cuenta con puntero preciso / mouse
   if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
 
-  /* 1. Composición de tarjetas en Sobre Nosotros (about__media) */
+  /* 1. Elementos de Sobre Nosotros: cada uno con física 3D 100% independiente */
   const aboutMedia = $(".about__media");
   if (aboutMedia) {
     const imgMain = $(".about__img--main", aboutMedia);
     const imgSecondary = $(".about__img--secondary", aboutMedia);
     const badge = $(".about__badge", aboutMedia);
 
-    let rafId = null;
-    let targetRotX = 0;
-    let targetRotY = 0;
-    let targetShiftX = 0;
-    let targetShiftY = 0;
-    let currentRotX = 0;
-    let currentRotY = 0;
-    let currentShiftX = 0;
-    let currentShiftY = 0;
-    let estaEncima = false;
+    function aplicarFisicaElemento(el, conf) {
+      if (!el) return;
 
-    const actualizarParallax = () => {
-      const factor = 0.12;
-      currentRotX += (targetRotX - currentRotX) * factor;
-      currentRotY += (targetRotY - currentRotY) * factor;
-      currentShiftX += (targetShiftX - currentShiftX) * factor;
-      currentShiftY += (targetShiftY - currentShiftY) * factor;
+      let rafId = null;
+      let targetRotX = 0, targetRotY = 0, targetShiftX = 0, targetShiftY = 0;
+      let currentRotX = 0, currentRotY = 0, currentShiftX = 0, currentShiftY = 0;
+      let estaEncima = false;
 
-      if (imgMain) {
-        imgMain.style.transform = `perspective(1200px) rotateX(${currentRotX * 0.75}deg) rotateY(${currentRotY * 0.75}deg) translate3d(${currentShiftX * 0.4}px, ${currentShiftY * 0.4}px, 0px)`;
-      }
-      if (imgSecondary) {
-        imgSecondary.style.transform = `perspective(1200px) rotateX(${currentRotX * 1.15}deg) rotateY(${currentRotY * 1.15}deg) translate3d(${currentShiftX * 1.25}px, ${currentShiftY * 1.25}px, 40px)`;
-        imgSecondary.style.boxShadow = `${-currentShiftX * 0.6}px ${-currentShiftY * 0.6 + 22}px 48px rgba(36, 64, 51, 0.20)`;
-      }
-      if (badge) {
-        badge.style.transform = `perspective(1200px) rotateX(${currentRotX * 0.9}deg) rotateY(${currentRotY * 0.9}deg) translate3d(${currentShiftX * 1.6}px, ${currentShiftY * 1.6}px, 65px)`;
-        badge.style.boxShadow = `${-currentShiftX * 0.5}px ${-currentShiftY * 0.5 + 16}px 36px rgba(36, 64, 51, 0.16)`;
-      }
+      const animar = () => {
+        const factor = conf.factor || 0.12;
+        currentRotX += (targetRotX - currentRotX) * factor;
+        currentRotY += (targetRotY - currentRotY) * factor;
+        currentShiftX += (targetShiftX - currentShiftX) * factor;
+        currentShiftY += (targetShiftY - currentShiftY) * factor;
 
-      const diff = Math.abs(targetRotX - currentRotX) + Math.abs(targetRotY - currentRotY) + Math.abs(targetShiftX - currentShiftX);
-      if (estaEncima || diff > 0.05) {
-        rafId = requestAnimationFrame(actualizarParallax);
-      } else {
-        rafId = null;
-        if (imgMain) imgMain.style.transform = "";
-        if (imgSecondary) {
-          imgSecondary.style.transform = "";
-          imgSecondary.style.boxShadow = "";
+        el.style.transform = `perspective(${conf.perspective || 1000}px) rotateX(${currentRotX}deg) rotateY(${currentRotY}deg) translate3d(${currentShiftX}px, ${currentShiftY}px, ${conf.translateZ || 0}px)`;
+
+        if (conf.conSombra) {
+          el.style.boxShadow = `${-currentShiftX * conf.sombraX}px ${-currentShiftY * conf.sombraY + conf.baseSombraY}px ${conf.sombraBlur}px ${conf.colorSombra}`;
         }
-        if (badge) {
-          badge.style.transform = "";
-          badge.style.boxShadow = "";
+
+        const diff = Math.abs(targetRotX - currentRotX) + Math.abs(targetRotY - currentRotY) + Math.abs(targetShiftX - currentShiftX);
+        if (estaEncima || diff > 0.04) {
+          rafId = requestAnimationFrame(animar);
+        } else {
+          rafId = null;
+          el.style.transform = "";
+          if (conf.conSombra) el.style.boxShadow = "";
         }
-      }
-    };
+      };
 
-    aboutMedia.addEventListener("mousemove", (e) => {
-      const rect = aboutMedia.getBoundingClientRect();
-      const nx = (e.clientX - rect.left) / rect.width - 0.5;
-      const ny = (e.clientY - rect.top) / rect.height - 0.5;
+      el.addEventListener("mousemove", (e) => {
+        e.stopPropagation();
+        const rect = el.getBoundingClientRect();
+        const nx = (e.clientX - rect.left) / rect.width - 0.5;
+        const ny = (e.clientY - rect.top) / rect.height - 0.5;
 
-      targetRotX = -ny * 16;
-      targetRotY = nx * 18;
-      targetShiftX = nx * 40; // Se va hacia los costados acompañando el cursor
-      targetShiftY = ny * 28;
+        targetRotX = -ny * conf.maxRotX;
+        targetRotY = nx * conf.maxRotY;
+        targetShiftX = nx * conf.maxShiftX;
+        targetShiftY = ny * conf.maxShiftY;
 
-      estaEncima = true;
-      if (!rafId) {
-        rafId = requestAnimationFrame(actualizarParallax);
-      }
+        estaEncima = true;
+        if (!rafId) {
+          rafId = requestAnimationFrame(animar);
+        }
+      });
+
+      el.addEventListener("mouseleave", (e) => {
+        e.stopPropagation();
+        targetRotX = 0;
+        targetRotY = 0;
+        targetShiftX = 0;
+        targetShiftY = 0;
+        estaEncima = false;
+        if (!rafId) {
+          rafId = requestAnimationFrame(animar);
+        }
+      });
+    }
+
+    // Foto de atrás: se mueve únicamente cuando el cursor pasa sobre ella
+    aplicarFisicaElemento(imgMain, {
+      maxRotX: 14,
+      maxRotY: 16,
+      maxShiftX: 24,
+      maxShiftY: 18,
+      perspective: 1100,
+      translateZ: 0,
+      factor: 0.10,
+      conSombra: true,
+      sombraX: 0.45,
+      sombraY: 0.45,
+      baseSombraY: 16,
+      sombraBlur: 36,
+      colorSombra: "rgba(36, 64, 51, 0.14)"
     });
 
-    aboutMedia.addEventListener("mouseleave", () => {
-      targetRotX = 0;
-      targetRotY = 0;
-      targetShiftX = 0;
-      targetShiftY = 0;
-      estaEncima = false;
-      if (!rafId) {
-        rafId = requestAnimationFrame(actualizarParallax);
-      }
+    // Foto de adelante: se mueve únicamente cuando el cursor pasa sobre ella
+    aplicarFisicaElemento(imgSecondary, {
+      maxRotX: 16,
+      maxRotY: 20,
+      maxShiftX: 32,
+      maxShiftY: 24,
+      perspective: 1000,
+      translateZ: 35,
+      factor: 0.12,
+      conSombra: true,
+      sombraX: 0.6,
+      sombraY: 0.6,
+      baseSombraY: 22,
+      sombraBlur: 48,
+      colorSombra: "rgba(36, 64, 51, 0.22)"
+    });
+
+    // Badge "4 Departamentos": se mueve únicamente cuando el cursor pasa sobre él
+    aplicarFisicaElemento(badge, {
+      maxRotX: 16,
+      maxRotY: 22,
+      maxShiftX: 28,
+      maxShiftY: 20,
+      perspective: 900,
+      translateZ: 45,
+      factor: 0.14,
+      conSombra: true,
+      sombraX: 0.5,
+      sombraY: 0.5,
+      baseSombraY: 15,
+      sombraBlur: 32,
+      colorSombra: "rgba(36, 64, 51, 0.16)"
     });
   }
 

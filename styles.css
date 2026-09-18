@@ -403,7 +403,12 @@ main[id] { scroll-margin-top: calc(var(--header-h) - 10px); }
   letter-spacing: -0.01em;
   color: #FFFFFF;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
-  transition: color .4s var(--ease), text-shadow .4s var(--ease);
+  cursor: pointer;
+  transition: color .4s var(--ease), text-shadow .4s var(--ease), opacity .2s var(--ease), transform .2s var(--ease);
+}
+.brand:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
 }
 .brand__mark {
   width: 26px;

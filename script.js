@@ -678,6 +678,22 @@ function iniciarNavegacion() {
       toggle.focus();
     }
   });
+  /* Volver arriba al tocar el botón del título (logo / marca) */
+  const botonesInicio = $$(".brand, a[href='#inicio']");
+  botonesInicio.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      abrirMenu(false);
+      window.scrollTo({
+        top: 0,
+        behavior: prefiereMenosMovimiento ? "auto" : "smooth"
+      });
+      if (window.history && window.history.pushState) {
+        window.history.pushState(null, "", window.location.pathname);
+      }
+    });
+  });
+
   window.matchMedia("(min-width: 1100px)").addEventListener("change", (e) => {
     if (e.matches) abrirMenu(false);
   });

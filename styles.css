@@ -200,21 +200,12 @@ main[id] { scroll-margin-top: calc(var(--header-h) - 10px); }
 }
 
 .eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: .85rem;
+  display: inline-block;
   font-size: .78rem;
   font-weight: 600;
   letter-spacing: .22em;
   text-transform: uppercase;
   color: var(--text-muted);
-}
-.eyebrow::before {
-  content: "";
-  width: 28px;
-  height: 1px;
-  background: currentColor;
-  opacity: .7;
 }
 
 .section-title {

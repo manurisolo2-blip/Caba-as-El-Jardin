@@ -2574,6 +2574,10 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
   grid-column: span 4;
 }
 
+.editorial-card--span-12 {
+  grid-column: span 12;
+}
+
 .editorial-card__frame {
   position: relative;
   display: block;
@@ -2586,6 +2590,11 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
   cursor: zoom-in;
   box-shadow: var(--sombra-xs);
   transition: box-shadow 0.4s var(--ease), transform 0.4s var(--ease);
+}
+
+.editorial-card--span-12 .editorial-card__frame {
+  aspect-ratio: 21 / 9;
+  min-height: 280px;
 }
 
 .editorial-card--span-7 .editorial-card__frame {
@@ -2665,15 +2674,17 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
   }
+  .editorial-card--span-12,
   .editorial-card--span-7,
   .editorial-card--span-5,
   .editorial-card--span-4 {
     grid-column: span 1;
   }
   .editorial-card--span-7:first-child,
-  .editorial-card--span-7:last-child {
+  .editorial-card--span-12 {
     grid-column: span 2;
   }
+  .editorial-card--span-12 .editorial-card__frame,
   .editorial-card--span-7 .editorial-card__frame,
   .editorial-card--span-5 .editorial-card__frame,
   .editorial-card--span-4 .editorial-card__frame {
@@ -2687,13 +2698,14 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
     grid-template-columns: 1fr;
     gap: 24px;
   }
+  .editorial-card--span-12,
   .editorial-card--span-7,
   .editorial-card--span-5,
   .editorial-card--span-4,
-  .editorial-card--span-7:first-child,
-  .editorial-card--span-7:last-child {
+  .editorial-card--span-7:first-child {
     grid-column: span 1;
   }
+  .editorial-card--span-12 .editorial-card__frame,
   .editorial-card--span-7 .editorial-card__frame,
   .editorial-card--span-5 .editorial-card__frame,
   .editorial-card--span-4 .editorial-card__frame {

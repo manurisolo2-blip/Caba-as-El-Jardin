@@ -259,8 +259,7 @@ const CONFIG = {
         { src: "images/cocina-1.jpg", alt: "Cocina equipada" },
         { src: "images/bano.jpg", alt: "Baño completo" },
         { src: "images/parrilla.jpg", alt: "Asador individual" },
-        { src: "images/parque-reposeras.jpg", alt: "Parque y reposeras" },
-        { src: "images/parque-alojamientos.jpg", alt: "Entorno natural arbolado" }
+        { src: "images/parque-reposeras.jpg", alt: "Parque y reposeras" }
       ],
 
       // FECHAS FIJAS OPCIONALES DE LA CABAÑA 3 (mismo formato que la Cabaña 1)

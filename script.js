@@ -645,9 +645,18 @@ function iniciarNavegacion() {
   let pendiente = false;
   const alHacerScroll = () => {
     pendiente = false;
-    const y = window.scrollY;
-    header.classList.toggle("is-scrolled", y > 50);
-    if (botonFlotante) botonFlotante.classList.toggle("is-visible", y > hero.offsetHeight * 0.6);
+    const about = $("#nosotros");
+    let fondoTapoHero = false;
+    if (about) {
+      // El fondo cubre el hero cuando la sección 'about' (#nosotros) alcanza la parte superior de la ventana
+      fondoTapoHero = about.getBoundingClientRect().top <= 60;
+    } else if (hero) {
+      fondoTapoHero = window.scrollY >= (hero.offsetHeight - 60);
+    } else {
+      fondoTapoHero = window.scrollY > 150;
+    }
+    header.classList.toggle("is-scrolled", fondoTapoHero);
+    if (botonFlotante) botonFlotante.classList.toggle("is-visible", fondoTapoHero);
   };
   window.addEventListener("scroll", () => {
     if (!pendiente) {
@@ -655,6 +664,7 @@ function iniciarNavegacion() {
       requestAnimationFrame(alHacerScroll);
     }
   }, { passive: true });
+  window.addEventListener("resize", alHacerScroll, { passive: true });
   alHacerScroll();
 
   /* Menú hamburguesa */

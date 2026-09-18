@@ -354,32 +354,26 @@ main[id] { scroll-margin-top: calc(var(--header-h) - 10px); }
   position: fixed;
   inset: 0 0 auto;
   z-index: 100;
-  height: var(--header-h);
-  background: transparent;
-  color: #FAF8F5;
-  transition: color .4s var(--ease), height .4s var(--ease);
-}
-
-/* Fondo translúcido que transiciona con scroll a --bg-base con borde tenue y sombra suave */
-.header::before {
-  content: "";
-  position: absolute;
-  inset: 0;
+  height: 70px;
   background: var(--bg-base);
   border-bottom: 1px solid var(--borde);
-  box-shadow: 0 4px 20px rgba(36, 64, 51, 0.05);
+  box-shadow: 0 4px 20px rgba(36, 64, 51, 0.06);
+  color: var(--text-main);
+  transform: translateY(-100%);
   opacity: 0;
-  transition: opacity .4s var(--ease);
+  pointer-events: none;
+  visibility: hidden;
+  transition: transform .35s cubic-bezier(0.2, 0.9, 0.25, 1),
+              opacity .25s var(--ease),
+              visibility .35s;
 }
 
-.header.is-scrolled {
-  --header-h: 70px;
-  color: var(--text-main);
-}
-.header.is-scrolled::before { opacity: 1; }
-.header.is-scrolled .brand {
-  color: var(--brand-forest);
-  text-shadow: none;
+.header.is-scrolled,
+.header.menu-abierto {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+  visibility: visible;
 }
 
 .header__inner {
@@ -401,10 +395,10 @@ main[id] { scroll-margin-top: calc(var(--header-h) - 10px); }
   font-weight: 600;
   line-height: 1;
   letter-spacing: -0.01em;
-  color: #FFFFFF;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+  color: var(--brand-forest);
+  text-shadow: none;
   cursor: pointer;
-  transition: color .4s var(--ease), text-shadow .4s var(--ease), opacity .2s var(--ease), transform .2s var(--ease);
+  transition: color .3s var(--ease), opacity .2s var(--ease), transform .2s var(--ease);
 }
 .brand:hover {
   opacity: 0.92;
@@ -442,10 +436,10 @@ main[id] { scroll-margin-top: calc(var(--header-h) - 10px); }
   padding: 6px 0;
   font-size: .93rem;
   letter-spacing: .02em;
-  color: #FAF8F5;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+  color: var(--text-main);
+  text-shadow: none;
   opacity: .95;
-  transition: color .4s var(--ease), text-shadow .4s var(--ease), opacity .3s;
+  transition: color .3s var(--ease), opacity .3s;
 }
 .nav__link::after {
   content: "";
@@ -460,14 +454,6 @@ main[id] { scroll-margin-top: calc(var(--header-h) - 10px); }
 .nav__link:hover,
 .nav__link.is-active {
   opacity: 1;
-  color: #FFFFFF;
-}
-.header.is-scrolled .nav__link {
-  color: var(--text-main);
-  text-shadow: none;
-}
-.header.is-scrolled .nav__link:hover,
-.header.is-scrolled .nav__link.is-active {
   color: var(--brand-forest);
 }
 .nav__link:hover::after,
@@ -499,8 +485,8 @@ main[id] { scroll-margin-top: calc(var(--header-h) - 10px); }
   background-color: var(--cta-terracotta);
   color: #FFFFFF;
   text-decoration: none;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 4px 14px rgba(184, 92, 56, 0.3);
+  border: none;
+  box-shadow: 0 4px 12px rgba(184, 92, 56, 0.25);
   transition: all 0.3s var(--ease);
   white-space: nowrap;
 }
@@ -513,13 +499,6 @@ main[id] { scroll-margin-top: calc(var(--header-h) - 10px); }
 .header__wa-btn .icon {
   width: 1.15em;
   height: 1.15em;
-}
-
-.header.is-scrolled .header__wa-btn {
-  background-color: var(--cta-terracotta);
-  color: #FFFFFF;
-  border-color: transparent;
-  box-shadow: 0 4px 12px rgba(184, 92, 56, 0.25);
 }
 
 @media (max-width: 768px) {
@@ -538,18 +517,14 @@ main[id] { scroll-margin-top: calc(var(--header-h) - 10px); }
   border: 0;
   border-radius: 50%;
   background: transparent;
-  color: #FFFFFF;
-  filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.4));
+  color: var(--text-main);
+  filter: none;
   cursor: pointer;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 5px;
-  transition: color .4s var(--ease), filter .4s var(--ease);
-}
-.header.is-scrolled .nav-toggle {
-  color: var(--text-main);
-  filter: none;
+  transition: color .4s var(--ease);
 }
 .nav-toggle__bar {
   display: block;
@@ -630,7 +605,7 @@ main[id] { scroll-margin-top: calc(var(--header-h) - 10px); }
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-block: calc(var(--header-h) + 12px) 32px;
+  padding-block: clamp(24px, 4vh, 40px);
   color: #FAF8F5;
   overflow: hidden;
 }

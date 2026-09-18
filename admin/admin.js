@@ -521,7 +521,7 @@ $("#btn-actualizar").addEventListener("click", cargarDatos);
    ========================================================================= */
 
 $("#filtro-cabana").innerHTML = opcionesCabanas(true, "Todas");
-$("#bloqueo-cabana").innerHTML = opcionesCabanas(false) + `<option value="todas">Las 3 cabañas</option>`;
+$("#bloqueo-cabana").innerHTML = opcionesCabanas(false) + `<option value="todas">Los 4 departamentos</option>`;
 $("#bloqueo-desde").min = hoyClave();
 $("#bloqueo-hasta").min = hoyClave();
 

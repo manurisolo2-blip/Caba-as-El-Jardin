@@ -862,6 +862,8 @@ main[id] { scroll-margin-top: calc(var(--header-h) - 10px); }
 .about__media {
   position: relative;
   padding: 0 14% 16% 0;
+  perspective: 1200px;
+  transform-style: preserve-3d;
 }
 .about__img {
   margin: 0;
@@ -869,15 +871,22 @@ main[id] { scroll-margin-top: calc(var(--header-h) - 10px); }
   border-radius: var(--radio-lg);
   background: var(--arena);
   box-shadow: var(--sombra);
+  transform-style: preserve-3d;
+  will-change: transform;
 }
 .about__img img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform 1.2s var(--ease);
+  pointer-events: none;
 }
 .about__img:hover img { transform: scale(1.03); }
-.about__img--main { aspect-ratio: 4 / 5; }
+.about__img--main {
+  aspect-ratio: 4 / 5;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
 .about__img--secondary {
   position: absolute;
   right: 0;
@@ -886,7 +895,9 @@ main[id] { scroll-margin-top: calc(var(--header-h) - 10px); }
   aspect-ratio: 1;
   border: 8px solid var(--bg-base);
   border-radius: var(--radio);
-  box-shadow: var(--sombra-lg);
+  box-shadow: 0 18px 45px rgba(36, 64, 51, 0.16);
+  transform-style: preserve-3d;
+  will-change: transform, box-shadow;
 }
 
 .about__badge {
@@ -900,7 +911,10 @@ main[id] { scroll-margin-top: calc(var(--header-h) - 10px); }
   border-radius: var(--radio);
   background: var(--bg-surface);
   border: 1px solid var(--borde);
-  box-shadow: var(--sombra);
+  box-shadow: 0 14px 32px rgba(36, 64, 51, 0.12);
+  transform-style: preserve-3d;
+  will-change: transform, box-shadow;
+  pointer-events: none;
 }
 .about__badge strong {
   font-family: var(--font-serif);
@@ -1893,12 +1907,12 @@ main[id] { scroll-margin-top: calc(var(--header-h) - 10px); }
   border-radius: 12px;
   padding: clamp(16px, 2vw, 22px);
   box-shadow: 0 2px 10px rgba(36, 64, 51, 0.03);
-  transition: transform .3s var(--ease), box-shadow .3s var(--ease), border-color .3s var(--ease);
+  transform-style: preserve-3d;
+  will-change: transform, box-shadow;
+  transition: transform .35s var(--ease), box-shadow .35s var(--ease), border-color .3s var(--ease);
 }
 .amenity-card:hover {
-  transform: translateY(-3px);
   border-color: rgba(36, 64, 51, 0.2);
-  box-shadow: 0 8px 24px rgba(36, 64, 51, 0.08);
 }
 
 .amenity-card__icon-wrap {
@@ -1912,6 +1926,8 @@ main[id] { scroll-margin-top: calc(var(--header-h) - 10px); }
   color: var(--brand-forest);
   margin-bottom: 12px;
   flex-shrink: 0;
+  transform-style: preserve-3d;
+  will-change: transform;
   transition: background-color .3s var(--ease), color .3s var(--ease);
 }
 .amenity-card:hover .amenity-card__icon-wrap {

@@ -1537,6 +1537,161 @@ function iniciarReviewsCardStack() {
 
 
 /* =========================================================================
+   10. TARJETAS 3D INTERACTIVAS (TILT & PARALLAX CON CURSOR)
+   ========================================================================= */
+
+function iniciarTarjetas3D() {
+  if (prefiereMenosMovimiento) return;
+  // Solo activar si el dispositivo cuenta con puntero preciso / mouse
+  if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+
+  /* 1. Composición de tarjetas en Sobre Nosotros (about__media) */
+  const aboutMedia = $(".about__media");
+  if (aboutMedia) {
+    const imgMain = $(".about__img--main", aboutMedia);
+    const imgSecondary = $(".about__img--secondary", aboutMedia);
+    const badge = $(".about__badge", aboutMedia);
+
+    let rafId = null;
+    let targetRotX = 0;
+    let targetRotY = 0;
+    let targetShiftX = 0;
+    let targetShiftY = 0;
+    let currentRotX = 0;
+    let currentRotY = 0;
+    let currentShiftX = 0;
+    let currentShiftY = 0;
+    let estaEncima = false;
+
+    const actualizarParallax = () => {
+      const factor = 0.12;
+      currentRotX += (targetRotX - currentRotX) * factor;
+      currentRotY += (targetRotY - currentRotY) * factor;
+      currentShiftX += (targetShiftX - currentShiftX) * factor;
+      currentShiftY += (targetShiftY - currentShiftY) * factor;
+
+      if (imgMain) {
+        imgMain.style.transform = `perspective(1200px) rotateX(${currentRotX * 0.75}deg) rotateY(${currentRotY * 0.75}deg) translate3d(${currentShiftX * 0.4}px, ${currentShiftY * 0.4}px, 0px)`;
+      }
+      if (imgSecondary) {
+        imgSecondary.style.transform = `perspective(1200px) rotateX(${currentRotX * 1.15}deg) rotateY(${currentRotY * 1.15}deg) translate3d(${currentShiftX * 1.25}px, ${currentShiftY * 1.25}px, 40px)`;
+        imgSecondary.style.boxShadow = `${-currentShiftX * 0.6}px ${-currentShiftY * 0.6 + 22}px 48px rgba(36, 64, 51, 0.20)`;
+      }
+      if (badge) {
+        badge.style.transform = `perspective(1200px) rotateX(${currentRotX * 0.9}deg) rotateY(${currentRotY * 0.9}deg) translate3d(${currentShiftX * 1.6}px, ${currentShiftY * 1.6}px, 65px)`;
+        badge.style.boxShadow = `${-currentShiftX * 0.5}px ${-currentShiftY * 0.5 + 16}px 36px rgba(36, 64, 51, 0.16)`;
+      }
+
+      const diff = Math.abs(targetRotX - currentRotX) + Math.abs(targetRotY - currentRotY) + Math.abs(targetShiftX - currentShiftX);
+      if (estaEncima || diff > 0.05) {
+        rafId = requestAnimationFrame(actualizarParallax);
+      } else {
+        rafId = null;
+        if (imgMain) imgMain.style.transform = "";
+        if (imgSecondary) {
+          imgSecondary.style.transform = "";
+          imgSecondary.style.boxShadow = "";
+        }
+        if (badge) {
+          badge.style.transform = "";
+          badge.style.boxShadow = "";
+        }
+      }
+    };
+
+    aboutMedia.addEventListener("mousemove", (e) => {
+      const rect = aboutMedia.getBoundingClientRect();
+      const nx = (e.clientX - rect.left) / rect.width - 0.5;
+      const ny = (e.clientY - rect.top) / rect.height - 0.5;
+
+      targetRotX = -ny * 16;
+      targetRotY = nx * 18;
+      targetShiftX = nx * 40; // Se va hacia los costados acompañando el cursor
+      targetShiftY = ny * 28;
+
+      estaEncima = true;
+      if (!rafId) {
+        rafId = requestAnimationFrame(actualizarParallax);
+      }
+    });
+
+    aboutMedia.addEventListener("mouseleave", () => {
+      targetRotX = 0;
+      targetRotY = 0;
+      targetShiftX = 0;
+      targetShiftY = 0;
+      estaEncima = false;
+      if (!rafId) {
+        rafId = requestAnimationFrame(actualizarParallax);
+      }
+    });
+  }
+
+  /* 2. Tarjetas interactivas (.amenity-card, .dept-hour-card) */
+  const tarjetas = $$(".amenity-card, .dept-hour-card");
+  tarjetas.forEach((tarjeta) => {
+    let tarjetaRaf = null;
+    let tRotX = 0, tRotY = 0, tShiftX = 0, tShiftY = 0;
+    let cRotX = 0, cRotY = 0, cShiftX = 0, cShiftY = 0;
+    let activa = false;
+
+    const animarTarjeta = () => {
+      const f = 0.14;
+      cRotX += (tRotX - cRotX) * f;
+      cRotY += (tRotY - cRotY) * f;
+      cShiftX += (tShiftX - cShiftX) * f;
+      cShiftY += (tShiftY - cShiftY) * f;
+
+      tarjeta.style.transform = `perspective(900px) rotateX(${cRotX}deg) rotateY(${cRotY}deg) translate3d(${cShiftX}px, ${cShiftY}px, 12px)`;
+      tarjeta.style.boxShadow = `${-cShiftX * 0.8}px ${-cShiftY * 0.8 + 14}px 30px rgba(36, 64, 51, 0.10)`;
+
+      const icon = tarjeta.querySelector(".amenity-card__icon-wrap, .dept-hour-icon");
+      if (icon) {
+        icon.style.transform = `translate3d(${cShiftX * 0.5}px, ${cShiftY * 0.5}px, 20px)`;
+      }
+
+      const d = Math.abs(tRotX - cRotX) + Math.abs(tRotY - cRotY);
+      if (activa || d > 0.05) {
+        tarjetaRaf = requestAnimationFrame(animarTarjeta);
+      } else {
+        tarjetaRaf = null;
+        tarjeta.style.transform = "";
+        tarjeta.style.boxShadow = "";
+        if (icon) icon.style.transform = "";
+      }
+    };
+
+    tarjeta.addEventListener("mousemove", (e) => {
+      const rect = tarjeta.getBoundingClientRect();
+      const nx = (e.clientX - rect.left) / rect.width - 0.5;
+      const ny = (e.clientY - rect.top) / rect.height - 0.5;
+
+      tRotX = -ny * 12;
+      tRotY = nx * 14;
+      tShiftX = nx * 14; // Movimiento lateral según cursor
+      tShiftY = ny * 10;
+
+      activa = true;
+      if (!tarjetaRaf) {
+        tarjetaRaf = requestAnimationFrame(animarTarjeta);
+      }
+    });
+
+    tarjeta.addEventListener("mouseleave", () => {
+      tRotX = 0;
+      tRotY = 0;
+      tShiftX = 0;
+      tShiftY = 0;
+      activa = false;
+      if (!tarjetaRaf) {
+        tarjetaRaf = requestAnimationFrame(animarTarjeta);
+      }
+    });
+  });
+}
+
+
+/* =========================================================================
    11. INICIO
    ========================================================================= */
 
@@ -1548,4 +1703,5 @@ iniciarCabanas();
 iniciarGaleria();
 iniciarSelectorConsulta();
 iniciarReviewsCardStack();
+iniciarTarjetas3D();
 iniciarAnimaciones();

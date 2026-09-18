@@ -2052,6 +2052,103 @@ function iniciarTarjetas3D() {
 
 
 /* =========================================================================
+   10.7 MOVIMIENTO Y PARALLAX INTERACTIVO DEL HERO
+   ========================================================================= */
+
+function iniciarMovimientoHero() {
+  const hero = $("#inicio");
+  if (!hero || prefiereMenosMovimiento) return;
+
+  const media = $(".hero__media", hero);
+  const content = $(".hero__content", hero);
+  const ribbon = $(".hero__context-ribbon", hero);
+
+  let targetX = 0, targetY = 0;
+  let currentX = 0, currentY = 0;
+  let animId = null;
+  let ratonSobreHero = false;
+
+  const animarParallax = () => {
+    const f = 0.055;
+    currentX += (targetX - currentX) * f;
+    currentY += (targetY - currentY) * f;
+
+    // Desplazamiento sutil opuesto en la capa de fondo
+    if (media) {
+      media.style.transform = `translate3d(${-currentX * 22}px, ${-currentY * 16}px, 0)`;
+    }
+
+    // Desplazamiento y perspectiva tridimensional en el contenido principal
+    if (content) {
+      const scrollY = window.scrollY;
+      const translateY = scrollY > 0 ? scrollY * 0.26 + currentY * 12 : currentY * 12;
+      content.style.transform = `perspective(1100px) rotateX(${-currentY * 4.5}deg) rotateY(${currentX * 5.5}deg) translate3d(${currentX * 14}px, ${translateY}px, 0)`;
+    }
+
+    // El ribbon tiene una capa adicional flotante de profundidad
+    if (ribbon) {
+      ribbon.style.transform = `translate3d(${currentX * 8}px, ${currentY * 6}px, 20px)`;
+    }
+
+    const diff = Math.abs(targetX - currentX) + Math.abs(targetY - currentY);
+    if (ratonSobreHero || diff > 0.001) {
+      animId = requestAnimationFrame(animarParallax);
+    } else {
+      animId = null;
+      if (media) media.style.transform = "";
+      if (ribbon) ribbon.style.transform = "";
+      if (content && window.scrollY === 0) content.style.transform = "";
+    }
+  };
+
+  hero.addEventListener("mousemove", (e) => {
+    const rect = hero.getBoundingClientRect();
+    targetX = (e.clientX - rect.left) / rect.width - 0.5;
+    targetY = (e.clientY - rect.top) / rect.height - 0.5;
+    ratonSobreHero = true;
+    if (!animId) {
+      animId = requestAnimationFrame(animarParallax);
+    }
+  }, { passive: true });
+
+  hero.addEventListener("mouseleave", () => {
+    targetX = 0;
+    targetY = 0;
+    ratonSobreHero = false;
+    if (!animId) {
+      animId = requestAnimationFrame(animarParallax);
+    }
+  });
+
+  // Parallax y desvanecimiento suave con el scroll mientras el telón (about) sube
+  let pendienteScroll = false;
+  const alHacerScrollHero = () => {
+    pendienteScroll = false;
+    const scrollY = window.scrollY;
+    const heroH = hero.offsetHeight || window.innerHeight;
+    if (scrollY <= heroH + 60) {
+      const progreso = Math.min(1, Math.max(0, scrollY / (heroH * 0.85)));
+      if (content) {
+        content.style.opacity = String(Math.max(0, 1 - progreso * 1.35));
+        if (!ratonSobreHero) {
+          content.style.transform = `translate3d(0, ${scrollY * 0.26}px, 0)`;
+        }
+      }
+    } else if (content) {
+      content.style.opacity = "0";
+    }
+  };
+
+  window.addEventListener("scroll", () => {
+    if (!pendienteScroll) {
+      pendienteScroll = true;
+      requestAnimationFrame(alHacerScrollHero);
+    }
+  }, { passive: true });
+}
+
+
+/* =========================================================================
    11. INICIO
    ========================================================================= */
 
@@ -2064,4 +2161,5 @@ iniciarGaleria();
 iniciarSelectorConsulta();
 iniciarReviewsCardStack();
 iniciarTarjetas3D();
+iniciarMovimientoHero();
 iniciarAnimaciones();

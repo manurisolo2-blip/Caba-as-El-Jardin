@@ -618,16 +618,20 @@ main[id] { scroll-margin-top: calc(var(--header-h) - 10px); }
 
 .hero__media {
   position: absolute;
-  inset: 0;
+  inset: -5%;
   z-index: -2;
   background: var(--brand-forest);
+  overflow: hidden;
+  will-change: transform;
+  pointer-events: none;
 }
 .hero__img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transform: scale(1.06);
-  animation: heroZoom 16s var(--ease) forwards;
+  transform: scale(1.05);
+  animation: heroBreeze 24s ease-in-out infinite alternate;
+  will-change: transform;
 }
 
 .hero__overlay {
@@ -635,6 +639,7 @@ main[id] { scroll-margin-top: calc(var(--header-h) - 10px); }
   inset: 0;
   z-index: -1;
   background: linear-gradient(180deg, rgba(28, 42, 36, 0.4) 0%, rgba(28, 42, 36, 0.75) 100%);
+  pointer-events: none;
 }
 
 .hero__content {
@@ -643,6 +648,8 @@ main[id] { scroll-margin-top: calc(var(--header-h) - 10px); }
   align-items: center;
   text-align: center;
   max-width: 960px;
+  will-change: transform, opacity;
+  transform-style: preserve-3d;
 }
 .hero__content > * {
   animation: fadeUp 1.1s var(--ease) both;
@@ -752,12 +759,18 @@ main[id] { scroll-margin-top: calc(var(--header-h) - 10px); }
   font-weight: 500;
   letter-spacing: .01em;
   box-shadow: 0 6px 24px rgba(0, 0, 0, 0.15);
+  will-change: transform;
+  transition: transform .35s var(--ease);
 }
 .hero__ribbon-item {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   white-space: nowrap;
+  transition: transform .25s var(--ease);
+}
+.hero__ribbon-item:hover {
+  transform: translateY(-2px);
 }
 .hero__ribbon-icon {
   font-size: 1.1rem;
@@ -4639,6 +4652,20 @@ select.field__control {
    ========================================================================= */
 @keyframes heroZoom {
   to { transform: scale(1); }
+}
+@keyframes heroBreeze {
+  0% {
+    transform: scale(1.05) translate3d(0, 0, 0);
+  }
+  35% {
+    transform: scale(1.10) translate3d(-1.2%, -0.8%, 0);
+  }
+  70% {
+    transform: scale(1.07) translate3d(1%, -1.4%, 0);
+  }
+  100% {
+    transform: scale(1.09) translate3d(-0.6%, -0.4%, 0);
+  }
 }
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(22px); }

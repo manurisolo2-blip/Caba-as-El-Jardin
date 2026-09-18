@@ -162,8 +162,15 @@ $("#login-form").addEventListener("submit", async (e) => {
   const error = $("#login-error");
   const boton = $("#login-boton");
 
+  const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   if (!email || !password) {
     error.textContent = "Ingresá el correo y la contraseña.";
+    error.hidden = false;
+    return;
+  }
+
+  if (!EMAIL_REGEX.test(email)) {
+    error.textContent = "Ingresá un formato de correo electrónico válido.";
     error.hidden = false;
     return;
   }

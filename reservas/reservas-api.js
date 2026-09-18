@@ -44,7 +44,16 @@
     if (!window.supabase || typeof window.supabase.createClient !== "function") {
       throw crearError("SIN_LIBRERIA", "No se pudo cargar la librería de Supabase");
     }
-    if (!cliente) cliente = window.supabase.createClient(url, clave);
+    if (!cliente) {
+      cliente = window.supabase.createClient(url, clave, {
+        auth: {
+          storage: typeof window !== "undefined" && window.sessionStorage ? window.sessionStorage : undefined,
+          persistSession: true,
+          autoRefreshToken: true,
+          detectSessionInUrl: false
+        }
+      });
+    }
     return cliente;
   }
 

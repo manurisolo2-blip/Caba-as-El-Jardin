@@ -1195,11 +1195,33 @@ section[id]:not(#inicio):not(#contenido):not(#top) {
   flex-direction: column;
 }
 
+.dept-video-badge {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  margin-bottom: 12px;
+  border-radius: 999px;
+  background-color: rgba(36, 64, 51, 0.08);
+  color: var(--brand-forest);
+  font-family: var(--font-sans);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  border: 1px solid rgba(36, 64, 51, 0.12);
+}
+
+.dept-video-badge__icon {
+  font-size: 14px;
+  line-height: 1;
+}
+
 .dept-video-wrap {
   position: relative;
   width: 100%;
   aspect-ratio: 16 / 9;
-  border-radius: 10px;
+  border-radius: 12px;
   overflow: hidden;
   background-color: var(--brand-forest);
   box-shadow: 0 8px 24px rgba(36, 64, 51, 0.12);
@@ -1412,7 +1434,7 @@ section[id]:not(#inicio):not(#contenido):not(#top) {
 /* Selector Rápido de Consulta (Generador de WhatsApp) */
 .quick-wa-widget {
   grid-column: 1 / -1;
-  background: #FFFFFF;
+  background: #EFE9DE;
   border: 1.5px solid rgba(36, 64, 51, 0.12);
   border-radius: 12px;
   padding: clamp(16px, 2.5vw, 24px);
@@ -3271,6 +3293,67 @@ select.field__control {
   gap: clamp(40px, 6vw, 90px);
 }
 .location__info > p { color: var(--text-muted); }
+
+/* Bloque 'Distancias a Pie' en Ubicación */
+.location-distances {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 20px 0 22px;
+}
+
+.distance-pill {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  background-color: #EFE9DE; /* arena suave */
+  border: 1px solid rgba(36, 64, 51, 0.08);
+  box-shadow: 0 2px 8px rgba(36, 64, 51, 0.04);
+  transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease), border-color 0.25s var(--ease);
+}
+
+.distance-pill:hover {
+  transform: translateX(4px);
+  box-shadow: 0 4px 14px rgba(36, 64, 51, 0.08);
+  border-color: rgba(36, 64, 51, 0.18);
+}
+
+.distance-pill__icon {
+  font-size: 1.25rem;
+  line-height: 1;
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(36, 64, 51, 0.07);
+}
+
+.distance-pill__text {
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+  line-height: 1.4;
+  color: var(--text-main);
+}
+
+.distance-pill__text strong {
+  color: var(--brand-forest);
+  font-weight: 600;
+}
+
+@media (max-width: 480px) {
+  .distance-pill {
+    border-radius: 14px;
+    padding: 10px 14px;
+    gap: 10px;
+  }
+  .distance-pill__text {
+    font-size: 0.88rem;
+  }
+}
 
 /* Badge de Google en Ubicación */
 .google-badge {

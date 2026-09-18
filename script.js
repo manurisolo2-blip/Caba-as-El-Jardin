@@ -1493,11 +1493,9 @@ function iniciarSelectorConsulta() {
 
     let mensaje;
     if (checkin && checkout) {
-      const fIngreso = formatearFechaLegible(checkin);
-      const fSalida = formatearFechaLegible(checkout);
-      mensaje = `Hola Ignacio, te contacto desde la web de Cabañas El Jardín. Quería consultar disponibilidad para ingresar el ${fIngreso} y salir el ${fSalida} para ${guests} pasajeros. ¡Gracias!`;
+      mensaje = `Hola Ignacio, te escribo desde la web de Cabañas El Jardín. Quería consultar disponibilidad para ingresar el ${checkin} y salir el ${checkout} para ${guests} pasajeros.`;
     } else {
-      mensaje = "Hola Ignacio, te contacto desde la web de Cabañas El Jardín. Quería consultar disponibilidad y tarifas para los departamentos de 2 ambientes.";
+      mensaje = `Hola Ignacio, te escribo desde la web de Cabañas El Jardín. Quería consultar disponibilidad para los departamentos de 2 ambientes para ${guests} pasajeros.`;
     }
 
     const url = `https://wa.me/5491132618849?text=${encodeURIComponent(mensaje)}`;

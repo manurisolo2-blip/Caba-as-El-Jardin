@@ -672,9 +672,11 @@ function iniciarNavegacion() {
   let pendiente = false;
   const alHacerScroll = () => {
     pendiente = false;
-    const esScrolled = window.scrollY > 50;
-    header.classList.toggle("is-scrolled", esScrolled);
-    if (botonFlotante) botonFlotante.classList.toggle("is-visible", window.scrollY > 250);
+    const heroH = hero ? hero.offsetHeight : window.innerHeight;
+    const headerH = header ? header.offsetHeight : 70;
+    const pasoElHero = window.scrollY >= (heroH - headerH - 10);
+    header.classList.toggle("is-scrolled", pasoElHero);
+    if (botonFlotante) botonFlotante.classList.toggle("is-visible", window.scrollY > 350);
   };
   window.addEventListener("scroll", () => {
     if (!pendiente) {

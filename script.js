@@ -687,20 +687,71 @@ function iniciarNavegacion() {
       toggle.focus();
     }
   });
-  /* Volver arriba al tocar el botón del título (logo / marca) */
-  const botonesInicio = $$(".brand, a[href='#inicio']");
-  botonesInicio.forEach((btn) => {
-    btn.addEventListener("click", (e) => {
+  /* Volver arriba de todo al tocar el botón del logo o "Volver arriba" */
+  function irArribaDelTodo(e) {
+    if (e) {
       e.preventDefault();
-      abrirMenu(false);
+      e.stopPropagation();
+    }
+    abrirMenu(false);
+
+    const comportamiento = prefiereMenosMovimiento ? "auto" : "smooth";
+
+    // 1. Scroll suave al pixel 0 absoluto (top: 0, left: 0)
+    try {
       window.scrollTo({
         top: 0,
-        behavior: prefiereMenosMovimiento ? "auto" : "smooth"
+        left: 0,
+        behavior: comportamiento
       });
-      if (window.history && window.history.pushState) {
-        window.history.pushState(null, "", window.location.pathname);
+    } catch (_) {
+      window.scrollTo(0, 0);
+    }
+
+    if (document.documentElement) {
+      try {
+        document.documentElement.scrollTo({ top: 0, left: 0, behavior: comportamiento });
+      } catch (_) {
+        document.documentElement.scrollTop = 0;
       }
-    });
+    }
+
+    if (document.body) {
+      try {
+        document.body.scrollTo({ top: 0, left: 0, behavior: comportamiento });
+      } catch (_) {
+        document.body.scrollTop = 0;
+      }
+    }
+
+    // 2. Limpiar hash de ancla de la URL
+    if (window.history && window.history.pushState) {
+      window.history.pushState(null, "", window.location.pathname);
+    }
+
+    // 3. Respaldo para asegurar que se llegue al pixel 0 exacto sin quedar a mitad de camino
+    if (!prefiereMenosMovimiento) {
+      setTimeout(() => {
+        if (window.scrollY > 0 && window.scrollY < 120) {
+          window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+          document.documentElement.scrollTop = 0;
+          document.body.scrollTop = 0;
+        }
+      }, 700);
+    }
+  }
+
+  const botonesInicio = $$(".brand, a[href='#inicio'], a[href='#top'], .footer__top, #btn-volver-arriba, [data-volver-arriba]");
+  botonesInicio.forEach((btn) => {
+    btn.addEventListener("click", irArribaDelTodo);
+  });
+
+  // Delegación global en el documento para garantizar la captura de cualquier clic
+  document.addEventListener("click", (e) => {
+    const btnArriba = e.target.closest(".footer__top, #btn-volver-arriba, [data-volver-arriba], a[href='#top']");
+    if (btnArriba) {
+      irArribaDelTodo(e);
+    }
   });
 
   window.matchMedia("(min-width: 1100px)").addEventListener("change", (e) => {

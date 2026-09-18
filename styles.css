@@ -158,6 +158,12 @@ ul { margin: 0; padding: 0; list-style: none; }
 section[id],
 main[id] { scroll-margin-top: calc(var(--header-h) - 10px); }
 
+#inicio,
+#contenido,
+#top {
+  scroll-margin-top: 0 !important;
+}
+
 ::selection { background: var(--bg-surface); color: var(--brand-forest); }
 
 :focus-visible {
@@ -4506,6 +4512,7 @@ select.field__control {
   color: #EFE9DE;
   text-decoration: none;
   transition: color 0.3s;
+  cursor: pointer;
 }
 
 .footer__top:hover { color: #FAF8F5; }

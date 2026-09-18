@@ -209,6 +209,10 @@ section[id]:not(#inicio):not(#contenido):not(#top) {
   white-space: nowrap;
 }
 
+.u-nowrap {
+  white-space: nowrap;
+}
+
 .skip-link {
   position: fixed;
   top: 12px; left: 12px;
@@ -1454,21 +1458,7 @@ section[id]:not(#inicio):not(#contenido):not(#top) {
 }
 
 .quick-wa-widget__header {
-  margin-bottom: 14px;
-}
-
-.quick-wa-widget__badge {
-  display: inline-block;
-  padding: 4px 10px;
-  border-radius: 4px;
-  background: rgba(36, 64, 51, 0.08);
-  color: var(--brand-forest);
-  font-family: var(--font-sans);
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  margin-bottom: 6px;
+  margin-bottom: 16px;
 }
 
 .quick-wa-widget__title {
@@ -1477,14 +1467,15 @@ section[id]:not(#inicio):not(#contenido):not(#top) {
   font-weight: 600;
   color: var(--brand-forest);
   margin: 0;
-  line-height: 1.2;
+  line-height: 1.25;
 }
 
 .quick-wa-fields {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 12px;
-  margin-bottom: 14px;
+  margin-bottom: 16px;
+  align-items: start;
 }
 
 .quick-wa-field {
@@ -1494,54 +1485,54 @@ section[id]:not(#inicio):not(#contenido):not(#top) {
 }
 
 .quick-wa-label {
+  display: block;
   font-family: var(--font-sans);
   font-size: 12px;
   font-weight: 600;
   color: var(--text-muted);
+  line-height: 1.35;
+  min-height: 34px;
 }
 
-.quick-wa-input,
-.quick-wa-select {
-  width: 100%;
-  padding: 10px 14px;
-  border: 1px solid rgba(36, 64, 51, 0.18);
-  border-radius: 8px;
-  background: var(--bg-base);
-  color: var(--text-main);
-  font-family: var(--font-sans);
-  font-size: 14px;
-  transition: border-color 0.25s var(--ease), box-shadow 0.25s var(--ease);
-}
-
-.quick-wa-input:focus,
-.quick-wa-select:focus {
-  outline: none;
-  border-color: var(--brand-forest);
-  box-shadow: 0 0 0 3px rgba(36, 64, 51, 0.12);
-  background: #FFFFFF;
-}
-
-/* Envoltorio e iconos de fecha personalizada */
-.custom-date-wrap {
+.custom-date-wrap,
+.quick-wa-select-wrap {
   position: relative;
   display: flex;
   align-items: center;
   width: 100%;
+  height: 46px;
 }
 
+.quick-wa-input,
+.quick-wa-select,
 .custom-date-input {
   width: 100%;
-  padding: 10px 38px 10px 14px;
+  height: 46px;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0 38px 0 14px;
   border: 1.5px solid rgba(36, 64, 51, 0.16);
   border-radius: 8px;
-  background: var(--bg-base);
+  background-color: var(--bg-base);
   color: var(--text-main);
   font-family: var(--font-sans);
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 500;
   cursor: pointer;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
+  line-height: 43px;
   transition: border-color 0.25s var(--ease), box-shadow 0.25s var(--ease), background-color 0.25s var(--ease);
+}
+
+.quick-wa-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding: 0 32px 0 12px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23244033' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
 }
 
 .custom-date-input::placeholder {
@@ -1549,17 +1540,19 @@ section[id]:not(#inicio):not(#contenido):not(#top) {
   opacity: 0.7;
 }
 
-.custom-date-input:hover {
+.custom-date-input:hover,
+.quick-wa-select:hover {
   border-color: var(--brand-forest);
-  background: #FFFFFF;
+  background-color: #FFFFFF;
 }
 
 .custom-date-input.is-active,
-.custom-date-input:focus {
+.custom-date-input:focus,
+.quick-wa-select:focus {
   outline: none;
   border-color: var(--brand-forest);
   box-shadow: 0 0 0 3px rgba(36, 64, 51, 0.12);
-  background: #FFFFFF;
+  background-color: #FFFFFF;
 }
 
 .custom-date-icon {
@@ -1963,7 +1956,10 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
 @media (max-width: 680px) {
   .quick-wa-fields {
     grid-template-columns: 1fr;
-    gap: 10px;
+    gap: 12px;
+  }
+  .quick-wa-label {
+    min-height: auto;
   }
 }
 

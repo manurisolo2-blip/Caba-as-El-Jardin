@@ -749,110 +749,155 @@
           </div>
         </div>
 
-        <div class="reviews-grid">
-          <!-- Reseña 1 -->
-          <article class="review-card">
-            <header class="review-card__header">
-              <div class="review-card__user">
-                <span class="review-card__avatar">V</span>
-                <div>
-                  <h4 class="review-card__name">Valentina</h4>
-                  <span class="review-card__meta">
-                    <svg class="icon review-card__g" aria-hidden="true"><use href="#i-google"></use></svg>
-                    Reseña en Google Maps
-                  </span>
-                </div>
-              </div>
-              <div class="review-card__stars" aria-label="5 de 5 estrellas">
-                <svg class="icon star-fill" aria-hidden="true"><use href="#i-star"></use></svg>
-                <svg class="icon star-fill" aria-hidden="true"><use href="#i-star"></use></svg>
-                <svg class="icon star-fill" aria-hidden="true"><use href="#i-star"></use></svg>
-                <svg class="icon star-fill" aria-hidden="true"><use href="#i-star"></use></svg>
-                <svg class="icon star-fill" aria-hidden="true"><use href="#i-star"></use></svg>
-              </div>
-            </header>
-            <blockquote class="review-card__body">
-              “El dueño muy atento, dispuesto a contestar todas mis consultas y a ofrecer lo que esté al alcance para ofrecernos mayor comodidad. A su vez, la cabaña espectacular, equipada con lo necesario y con una ubicación inmejorable.”
-            </blockquote>
-          </article>
+        <!-- Contenedor Card Stack 3D interactivo -->
+        <div class="reviews-card-stack" id="reviews-card-stack" aria-label="Carrusel interactivo de reseñas en abanico">
+          <div class="reviews-card-stack__glow-top" aria-hidden="true"></div>
+          <div class="reviews-card-stack__glow-bottom" aria-hidden="true"></div>
 
-          <!-- Reseña 2 -->
-          <article class="review-card">
-            <header class="review-card__header">
-              <div class="review-card__user">
-                <span class="review-card__avatar">Y</span>
-                <div>
-                  <h4 class="review-card__name">Yanina</h4>
-                  <span class="review-card__meta">
-                    <svg class="icon review-card__g" aria-hidden="true"><use href="#i-google"></use></svg>
-                    Reseña en Google Maps
-                  </span>
-                </div>
-              </div>
-              <div class="review-card__stars" aria-label="5 de 5 estrellas">
-                <svg class="icon star-fill" aria-hidden="true"><use href="#i-star"></use></svg>
-                <svg class="icon star-fill" aria-hidden="true"><use href="#i-star"></use></svg>
-                <svg class="icon star-fill" aria-hidden="true"><use href="#i-star"></use></svg>
-                <svg class="icon star-fill" aria-hidden="true"><use href="#i-star"></use></svg>
-                <svg class="icon star-fill" aria-hidden="true"><use href="#i-star"></use></svg>
-              </div>
-            </header>
-            <blockquote class="review-card__body">
-              “La ubicación es excelente, no movés el auto para ir a la playa. Las instalaciones están impecables, muy limpio y bien mantenido. Un lugar hermoso para descansar.”
-            </blockquote>
-          </article>
+          <div class="reviews-card-stack__stage" id="reviews-stack-stage" tabindex="0" role="region" aria-roledescription="carrusel 3d de reseñas">
+            <div class="reviews-card-stack__track" id="reviews-stack-track">
+              <!-- Reseña 1 -->
+              <article class="review-card review-card--stack" data-stack-index="0">
+                <header class="review-card__header">
+                  <div class="review-card__user">
+                    <span class="review-card__avatar">V</span>
+                    <div>
+                      <h4 class="review-card__name">Valentina</h4>
+                      <span class="review-card__meta">
+                        <svg class="icon review-card__g" aria-hidden="true"><use href="#i-google"></use></svg>
+                        Reseña en Google Maps
+                      </span>
+                    </div>
+                  </div>
+                  <div class="review-card__stars" aria-label="5 de 5 estrellas">
+                    <svg class="icon star-fill" aria-hidden="true"><use href="#i-star"></use></svg>
+                    <svg class="icon star-fill" aria-hidden="true"><use href="#i-star"></use></svg>
+                    <svg class="icon star-fill" aria-hidden="true"><use href="#i-star"></use></svg>
+                    <svg class="icon star-fill" aria-hidden="true"><use href="#i-star"></use></svg>
+                    <svg class="icon star-fill" aria-hidden="true"><use href="#i-star"></use></svg>
+                  </div>
+                </header>
+                <blockquote class="review-card__body">
+                  “El dueño muy atento, dispuesto a contestar todas mis consultas y a ofrecer lo que esté al alcance para ofrecernos mayor comodidad. A su vez, la cabaña espectacular, equipada con lo necesario y con una ubicación inmejorable.”
+                </blockquote>
+              </article>
 
-          <!-- Reseña 3 -->
-          <article class="review-card">
-            <header class="review-card__header">
-              <div class="review-card__user">
-                <span class="review-card__avatar">M</span>
-                <div>
-                  <h4 class="review-card__name">Mariano R.</h4>
-                  <span class="review-card__meta">
-                    <svg class="icon review-card__g" aria-hidden="true"><use href="#i-google"></use></svg>
-                    Reseña en Google Maps
-                  </span>
-                </div>
-              </div>
-              <div class="review-card__stars" aria-label="5 de 5 estrellas">
-                <svg class="icon star-fill" aria-hidden="true"><use href="#i-star"></use></svg>
-                <svg class="icon star-fill" aria-hidden="true"><use href="#i-star"></use></svg>
-                <svg class="icon star-fill" aria-hidden="true"><use href="#i-star"></use></svg>
-                <svg class="icon star-fill" aria-hidden="true"><use href="#i-star"></use></svg>
-                <svg class="icon star-fill" aria-hidden="true"><use href="#i-star"></use></svg>
-              </div>
-            </header>
-            <blockquote class="review-card__body">
-              “Excelente lugar para ir en familia. El parque y los juegos son hermosos para los chicos, cada cabaña tiene su asador individual y la playa está a escasos metros. Volveremos siempre.”
-            </blockquote>
-          </article>
+              <!-- Reseña 2 -->
+              <article class="review-card review-card--stack" data-stack-index="1">
+                <header class="review-card__header">
+                  <div class="review-card__user">
+                    <span class="review-card__avatar">Y</span>
+                    <div>
+                      <h4 class="review-card__name">Yanina</h4>
+                      <span class="review-card__meta">
+                        <svg class="icon review-card__g" aria-hidden="true"><use href="#i-google"></use></svg>
+                        Reseña en Google Maps
+                      </span>
+                    </div>
+                  </div>
+                  <div class="review-card__stars" aria-label="5 de 5 estrellas">
+                    <svg class="icon star-fill" aria-hidden="true"><use href="#i-star"></use></svg>
+                    <svg class="icon star-fill" aria-hidden="true"><use href="#i-star"></use></svg>
+                    <svg class="icon star-fill" aria-hidden="true"><use href="#i-star"></use></svg>
+                    <svg class="icon star-fill" aria-hidden="true"><use href="#i-star"></use></svg>
+                    <svg class="icon star-fill" aria-hidden="true"><use href="#i-star"></use></svg>
+                  </div>
+                </header>
+                <blockquote class="review-card__body">
+                  “La ubicación es excelente, no movés el auto para ir a la playa. Las instalaciones están impecables, muy limpio y bien mantenido. Un lugar hermoso para descansar.”
+                </blockquote>
+              </article>
 
-          <!-- Reseña 4 -->
-          <article class="review-card">
-            <header class="review-card__header">
-              <div class="review-card__user">
-                <span class="review-card__avatar">C</span>
-                <div>
-                  <h4 class="review-card__name">Carolina G.</h4>
-                  <span class="review-card__meta">
-                    <svg class="icon review-card__g" aria-hidden="true"><use href="#i-google"></use></svg>
-                    Reseña en Google Maps
-                  </span>
-                </div>
-              </div>
-              <div class="review-card__stars" aria-label="5 de 5 estrellas">
-                <svg class="icon star-fill" aria-hidden="true"><use href="#i-star"></use></svg>
-                <svg class="icon star-fill" aria-hidden="true"><use href="#i-star"></use></svg>
-                <svg class="icon star-fill" aria-hidden="true"><use href="#i-star"></use></svg>
-                <svg class="icon star-fill" aria-hidden="true"><use href="#i-star"></use></svg>
-                <svg class="icon star-fill" aria-hidden="true"><use href="#i-star"></use></svg>
-              </div>
-            </header>
-            <blockquote class="review-card__body">
-              “Paz absoluta entre los pinos y el mar. Las cabañas son amplias, cómodas y súper luminosas. La calidez en la atención y la cercanía al mar hacen que la estadía sea perfecta.”
-            </blockquote>
-          </article>
+              <!-- Reseña 3 -->
+              <article class="review-card review-card--stack" data-stack-index="2">
+                <header class="review-card__header">
+                  <div class="review-card__user">
+                    <span class="review-card__avatar">M</span>
+                    <div>
+                      <h4 class="review-card__name">Mariano R.</h4>
+                      <span class="review-card__meta">
+                        <svg class="icon review-card__g" aria-hidden="true"><use href="#i-google"></use></svg>
+                        Reseña en Google Maps
+                      </span>
+                    </div>
+                  </div>
+                  <div class="review-card__stars" aria-label="5 de 5 estrellas">
+                    <svg class="icon star-fill" aria-hidden="true"><use href="#i-star"></use></svg>
+                    <svg class="icon star-fill" aria-hidden="true"><use href="#i-star"></use></svg>
+                    <svg class="icon star-fill" aria-hidden="true"><use href="#i-star"></use></svg>
+                    <svg class="icon star-fill" aria-hidden="true"><use href="#i-star"></use></svg>
+                    <svg class="icon star-fill" aria-hidden="true"><use href="#i-star"></use></svg>
+                  </div>
+                </header>
+                <blockquote class="review-card__body">
+                  “Excelente lugar para ir en familia. El parque y los juegos son hermosos para los chicos, cada cabaña tiene su asador individual y la playa está a escasos metros. Volveremos siempre.”
+                </blockquote>
+              </article>
+
+              <!-- Reseña 4 -->
+              <article class="review-card review-card--stack" data-stack-index="3">
+                <header class="review-card__header">
+                  <div class="review-card__user">
+                    <span class="review-card__avatar">C</span>
+                    <div>
+                      <h4 class="review-card__name">Carolina G.</h4>
+                      <span class="review-card__meta">
+                        <svg class="icon review-card__g" aria-hidden="true"><use href="#i-google"></use></svg>
+                        Reseña en Google Maps
+                      </span>
+                    </div>
+                  </div>
+                  <div class="review-card__stars" aria-label="5 de 5 estrellas">
+                    <svg class="icon star-fill" aria-hidden="true"><use href="#i-star"></use></svg>
+                    <svg class="icon star-fill" aria-hidden="true"><use href="#i-star"></use></svg>
+                    <svg class="icon star-fill" aria-hidden="true"><use href="#i-star"></use></svg>
+                    <svg class="icon star-fill" aria-hidden="true"><use href="#i-star"></use></svg>
+                    <svg class="icon star-fill" aria-hidden="true"><use href="#i-star"></use></svg>
+                  </div>
+                </header>
+                <blockquote class="review-card__body">
+                  “Paz absoluta entre los pinos y el mar. Las cabañas son amplias, cómodas y súper luminosas. La calidez en la atención y la cercanía al mar hacen que la estadía sea perfecta.”
+                </blockquote>
+              </article>
+
+              <!-- Reseña 5 -->
+              <article class="review-card review-card--stack" data-stack-index="4">
+                <header class="review-card__header">
+                  <div class="review-card__user">
+                    <span class="review-card__avatar">G</span>
+                    <div>
+                      <h4 class="review-card__name">Gonzalo M.</h4>
+                      <span class="review-card__meta">
+                        <svg class="icon review-card__g" aria-hidden="true"><use href="#i-google"></use></svg>
+                        Reseña en Google Maps
+                      </span>
+                    </div>
+                  </div>
+                  <div class="review-card__stars" aria-label="5 de 5 estrellas">
+                    <svg class="icon star-fill" aria-hidden="true"><use href="#i-star"></use></svg>
+                    <svg class="icon star-fill" aria-hidden="true"><use href="#i-star"></use></svg>
+                    <svg class="icon star-fill" aria-hidden="true"><use href="#i-star"></use></svg>
+                    <svg class="icon star-fill" aria-hidden="true"><use href="#i-star"></use></svg>
+                    <svg class="icon star-fill" aria-hidden="true"><use href="#i-star"></use></svg>
+                  </div>
+                </header>
+                <blockquote class="review-card__body">
+                  “Excelente atención de Ignacio. La ubicación respecto a la playa y al centro es ideal. Todo muy prolijo, cómodo y seguro. Súper recomendable para descansar.”
+                </blockquote>
+              </article>
+            </div>
+          </div>
+
+          <!-- Controles de navegación -->
+          <div class="reviews-card-stack__controls">
+            <button type="button" class="reviews-card-stack__btn" id="reviews-stack-prev" aria-label="Reseña anterior">
+              <svg class="icon" aria-hidden="true"><use href="#i-chev-left"></use></svg>
+            </button>
+            <div class="reviews-card-stack__dots" id="reviews-stack-dots"></div>
+            <button type="button" class="reviews-card-stack__btn" id="reviews-stack-next" aria-label="Siguiente reseña">
+              <svg class="icon" aria-hidden="true"><use href="#i-chev-right"></use></svg>
+            </button>
+          </div>
         </div>
 
         <div class="reviews-footer">

@@ -1325,6 +1325,192 @@ function iniciarArcPreloaderHero() {
 
 
 /* =========================================================================
+   10.6 RESEÑAS: CARD STACK 3D EN ABANICO
+   ========================================================================= */
+
+function iniciarReviewsCardStack() {
+  const container = $("#reviews-card-stack");
+  if (!container) return;
+
+  const stage = $("#reviews-stack-stage");
+  const track = $("#reviews-stack-track");
+  const cards = Array.from(track ? track.querySelectorAll(".review-card--stack") : []);
+  const prevBtn = $("#reviews-stack-prev");
+  const nextBtn = $("#reviews-stack-next");
+  const dotsContainer = $("#reviews-stack-dots");
+
+  if (!cards.length) return;
+
+  const total = cards.length;
+  let active = 0;
+  let autoTimer = null;
+  let isHovering = false;
+
+  function calcularGeometria() {
+    const isMobile = window.innerWidth <= 640;
+    const cardWidth = isMobile ? Math.min(380, window.innerWidth - 40) : 500;
+    const overlap = isMobile ? 0.65 : 0.48;
+    const spreadDeg = isMobile ? 24 : 42;
+    const depthPx = isMobile ? 80 : 120;
+    const maxVisible = 5;
+    const maxOffset = Math.floor(maxVisible / 2);
+    const cardSpacing = Math.round(cardWidth * (1 - overlap));
+    const stepDeg = maxOffset > 0 ? spreadDeg / maxOffset : 0;
+    const tiltXDeg = isMobile ? 6 : 10;
+    const activeScale = 1.02;
+    const inactiveScale = isMobile ? 0.94 : 0.92;
+    const activeLiftPx = isMobile ? 12 : 20;
+
+    return { cardSpacing, stepDeg, depthPx, tiltXDeg, activeScale, inactiveScale, activeLiftPx, maxOffset };
+  }
+
+  function signedOffset(i, act, len) {
+    const raw = i - act;
+    if (len <= 1) return raw;
+    const alt = raw > 0 ? raw - len : raw + len;
+    return Math.abs(alt) < Math.abs(raw) ? alt : raw;
+  }
+
+  // Generar botones de puntos (dots)
+  if (dotsContainer) {
+    dotsContainer.innerHTML = "";
+    cards.forEach((_, idx) => {
+      const dot = document.createElement("button");
+      dot.type = "button";
+      dot.className = `reviews-card-stack__dot${idx === 0 ? " is-active" : ""}`;
+      dot.setAttribute("aria-label", `Ver reseña ${idx + 1}`);
+      dot.addEventListener("click", () => irA(idx));
+      dotsContainer.appendChild(dot);
+    });
+  }
+
+  function actualizarPosiciones() {
+    const geo = calcularGeometria();
+
+    cards.forEach((card, i) => {
+      const off = signedOffset(i, active, total);
+      const abs = Math.abs(off);
+      const visible = abs <= geo.maxOffset;
+
+      if (!visible) {
+        card.style.opacity = "0";
+        card.style.pointerEvents = "none";
+        card.style.transform = `translate3d(calc(-50% + ${off * 200}px), 60px, -400px) scale(0.8)`;
+        card.classList.remove("is-active");
+        return;
+      }
+
+      card.style.pointerEvents = "auto";
+      const isActive = off === 0;
+
+      const rotateZ = off * geo.stepDeg;
+      const x = off * geo.cardSpacing;
+      const y = abs * 8;
+      const z = -abs * geo.depthPx;
+      const scale = isActive ? geo.activeScale : geo.inactiveScale;
+      const lift = isActive ? -geo.activeLiftPx : 0;
+      const rotateX = isActive ? 0 : geo.tiltXDeg;
+      const zIndex = 100 - abs;
+
+      card.style.zIndex = zIndex;
+      card.style.opacity = "1";
+      card.style.transform = `translate3d(calc(-50% + ${x}px), ${y + lift}px, ${z}px) rotateZ(${rotateZ}deg) rotateX(${rotateX}deg) scale(${scale})`;
+
+      card.classList.toggle("is-active", isActive);
+    });
+
+    if (dotsContainer) {
+      const dots = Array.from(dotsContainer.querySelectorAll(".reviews-card-stack__dot"));
+      dots.forEach((dot, idx) => {
+        dot.classList.toggle("is-active", idx === active);
+      });
+    }
+  }
+
+  function irA(idx) {
+    active = ((idx % total) + total) % total;
+    actualizarPosiciones();
+    reiniciarAutoplay();
+  }
+
+  function siguiente() {
+    irA(active + 1);
+  }
+
+  function anterior() {
+    irA(active - 1);
+  }
+
+  if (prevBtn) prevBtn.addEventListener("click", anterior);
+  if (nextBtn) nextBtn.addEventListener("click", siguiente);
+
+  cards.forEach((card, idx) => {
+    card.addEventListener("click", () => {
+      if (active !== idx) irA(idx);
+    });
+  });
+
+  if (stage) {
+    stage.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        anterior();
+      } else if (e.key === "ArrowRight") {
+        e.preventDefault();
+        siguiente();
+      }
+    });
+
+    // Soporte de arrastre táctil y ratón
+    let startX = 0;
+    let isDragging = false;
+
+    function onTouchStart(e) {
+      startX = e.touches ? e.touches[0].clientX : e.clientX;
+      isDragging = true;
+    }
+
+    function onTouchEnd(e) {
+      if (!isDragging) return;
+      isDragging = false;
+      const endX = e.changedTouches ? e.changedTouches[0].clientX : e.clientX;
+      const diff = endX - startX;
+      if (diff > 45) anterior();
+      else if (diff < -45) siguiente();
+    }
+
+    stage.addEventListener("touchstart", onTouchStart, { passive: true });
+    stage.addEventListener("touchend", onTouchEnd, { passive: true });
+    stage.addEventListener("mousedown", onTouchStart);
+    stage.addEventListener("mouseup", onTouchEnd);
+  }
+
+  function reiniciarAutoplay() {
+    clearInterval(autoTimer);
+    if (prefiereMenosMovimiento || isHovering) return;
+    autoTimer = setInterval(siguiente, 3800);
+  }
+
+  container.addEventListener("mouseenter", () => {
+    isHovering = true;
+    clearInterval(autoTimer);
+  });
+
+  container.addEventListener("mouseleave", () => {
+    isHovering = false;
+    reiniciarAutoplay();
+  });
+
+  window.addEventListener("resize", () => {
+    actualizarPosiciones();
+  });
+
+  actualizarPosiciones();
+  reiniciarAutoplay();
+}
+
+
+/* =========================================================================
    11. INICIO
    ========================================================================= */
 
@@ -1335,4 +1521,5 @@ iniciarNavegacion();
 iniciarCabanas();
 iniciarGaleria();
 iniciarSelectorConsulta();
+iniciarReviewsCardStack();
 iniciarAnimaciones();

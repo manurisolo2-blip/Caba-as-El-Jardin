@@ -1481,7 +1481,7 @@ function iniciarSelectorConsulta() {
       checkoutInput.dataset.iso = dateToIso(fecha);
 
       const noches = calcularNoches(fechaIngreso, fechaSalida);
-      stepPill.textContent = `✓ Estadía confirmada`;
+      stepPill.textContent = "Estadía confirmada";
       rangeInfo.textContent = `${noches} ${noches === 1 ? 'noche' : 'noches'} (${formatearDisplay(fechaIngreso)} al ${formatearDisplay(fechaSalida)})`;
       renderizarCalendario();
 

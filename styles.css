@@ -842,8 +842,15 @@ section[id]:not(#inicio):not(#contenido):not(#top) {
   transform: translateY(-2px);
 }
 .hero__ribbon-icon {
-  font-size: 1.1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   line-height: 1;
+}
+.hero__ribbon-icon svg {
+  width: 17px;
+  height: 17px;
+  stroke: currentColor;
 }
 .hero__ribbon-divider {
   width: 1px;
@@ -1235,8 +1242,14 @@ section[id]:not(#inicio):not(#contenido):not(#top) {
 }
 
 .dept-video-badge__icon {
-  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
   line-height: 1;
+}
+.dept-video-badge__icon svg {
+  width: 15px;
+  height: 15px;
+  stroke: currentColor;
 }
 
 .dept-video-wrap {
@@ -1458,8 +1471,16 @@ section[id]:not(#inicio):not(#contenido):not(#top) {
 }
 
 .dept-hour-icon {
-  font-size: 1.45rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--brand-forest);
   line-height: 1;
+}
+.dept-hour-icon svg {
+  width: 22px;
+  height: 22px;
+  stroke: currentColor;
 }
 
 .dept-hour-text {
@@ -2686,9 +2707,16 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
 }
 
 .predio-spec-card__icon {
-  font-size: 1.8rem;
-  line-height: 1;
+  display: flex;
+  align-items: center;
   margin-bottom: 14px;
+  color: #D67A4F;
+  line-height: 1;
+}
+.predio-spec-card__icon svg {
+  width: 28px;
+  height: 28px;
+  stroke: currentColor;
 }
 
 .predio-spec-card__title {
@@ -2789,10 +2817,14 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
   border-radius: 50%;
   background: rgba(214, 122, 79, 0.2);
   color: #D67A4F;
-  font-size: 11px;
-  font-weight: 700;
   flex: none;
   margin-top: 2px;
+}
+.exclusion-icon svg {
+  width: 9px;
+  height: 9px;
+  stroke: currentColor;
+  stroke-width: 2.5;
 }
 
 @media (max-width: 960px) {
@@ -3515,7 +3547,6 @@ select.field__control {
 }
 
 .distance-pill__icon {
-  font-size: 1.25rem;
   line-height: 1;
   flex: none;
   display: grid;
@@ -3524,6 +3555,11 @@ select.field__control {
   height: 32px;
   border-radius: 50%;
   background: rgba(36, 64, 51, 0.07);
+}
+.distance-pill__icon svg {
+  width: 16px;
+  height: 16px;
+  stroke: var(--brand-forest);
 }
 
 .distance-pill__text {
@@ -4175,9 +4211,16 @@ select.field__control {
 }
 
 .family-policy-box__icon {
-  font-size: 1.4rem;
+  display: inline-flex;
+  align-items: center;
+  color: #962D22;
   line-height: 1;
   flex-shrink: 0;
+}
+.family-policy-box__icon svg {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
 }
 
 .family-policy-box__title {
@@ -5199,8 +5242,21 @@ select.field__control {
 }
 
 .tldr-item__icon {
-  font-size: 1.6rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  background: rgba(36, 64, 51, 0.08);
+  color: #244033;
+  flex: none;
   line-height: 1;
+}
+.tldr-item__icon svg {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
 }
 
 .tldr-item__title {

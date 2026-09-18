@@ -3212,8 +3212,13 @@ select.field__control {
   flex: none;
 }
 .google-badge__icon .icon {
-  width: 18px;
-  height: 18px;
+  width: 17px;
+  height: 22px;
+}
+.icon--maps {
+  width: 15px;
+  height: 20px;
+  flex: none;
 }
 .google-badge__content {
   display: flex;

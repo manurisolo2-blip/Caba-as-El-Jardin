@@ -17,10 +17,38 @@
 
 "use strict";
 
-
 /* =========================================================================
-   1. CONFIGURACIÓN
+   CONTROL DE ENTRADA DIRECTA AL HERO (TOP 0)
    ========================================================================= */
+
+if ("scrollRestoration" in history) {
+  history.scrollRestoration = "manual";
+}
+
+if (window.location.hash) {
+  try {
+    history.replaceState(null, "", window.location.pathname + window.location.search);
+  } catch (_) {}
+}
+
+function forzarScrollAlHero() {
+  try {
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+  } catch (_) {
+    window.scrollTo(0, 0);
+  }
+  if (document.documentElement) document.documentElement.scrollTop = 0;
+  if (document.body) document.body.scrollTop = 0;
+}
+
+forzarScrollAlHero();
+window.addEventListener("DOMContentLoaded", forzarScrollAlHero);
+window.addEventListener("load", () => {
+  forzarScrollAlHero();
+  requestAnimationFrame(forzarScrollAlHero);
+  setTimeout(forzarScrollAlHero, 60);
+  setTimeout(forzarScrollAlHero, 200);
+});
 
 const CONFIG = {
 
@@ -1567,8 +1595,16 @@ function iniciarArcPreloaderHero() {
 
   if (prefiereMenosMovimiento || yaVisto) {
     preloader.classList.add("is-done");
+    forzarScrollAlHero();
+    document.documentElement.classList.add("pagina-lista");
     return;
   }
+
+  // Bloquear scroll físico durante la cortina para evitar movimientos accidentales
+  let preloaderScrollBloqueado = false;
+  bloquearScroll(true);
+  preloaderScrollBloqueado = true;
+  forzarScrollAlHero();
 
   const saludos = cfg.saludos || [
     "Calma.",
@@ -1594,13 +1630,22 @@ function iniciarArcPreloaderHero() {
       if (window.sessionStorage) window.sessionStorage.setItem(storageKey, "done");
     } catch (e) {}
 
+    if (preloaderScrollBloqueado) {
+      preloaderScrollBloqueado = false;
+      bloquearScroll(false);
+    }
+    forzarScrollAlHero();
+    document.documentElement.classList.add("pagina-lista");
+
     if (inmediato) {
       preloader.classList.add("is-done");
+      forzarScrollAlHero();
     } else {
       preloader.style.transition = "opacity 0.25s ease-out";
       preloader.style.opacity = "0";
       setTimeout(() => {
         preloader.classList.add("is-done");
+        forzarScrollAlHero();
       }, 260);
     }
   }

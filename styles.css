@@ -113,11 +113,22 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
   scrollbar-gutter: stable;
   -webkit-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+html.pagina-lista {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html,
+  html.pagina-lista {
+    scroll-behavior: auto !important;
+  }
 }
 
 body {
@@ -4942,6 +4953,7 @@ select.field__control {
   pointer-events: auto;
   user-select: none;
   background: transparent;
+  touch-action: none;
 }
 
 .arc-preloader.is-done {

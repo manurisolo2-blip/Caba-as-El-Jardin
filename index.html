@@ -471,10 +471,40 @@
             </div>
             <p class="dept-video-caption">Mirá el recorrido en video del departamento de 2 ambientes (Unidad 122).</p>
 
-            <button class="btn btn--outline btn--sm dept-gallery-btn" type="button" data-ver-cabana="1">
-              <svg class="icon" aria-hidden="true"><use href="#i-camera"></use></svg>
-              <span>Ver galería de fotos de la unidad</span>
-            </button>
+            <!-- Minigalería de fotos de la unidad -->
+            <div class="dept-minigallery" aria-label="Fotos del departamento">
+              <div class="dept-minigallery__head">
+                <span class="dept-minigallery__title">Fotos de la unidad</span>
+                <span class="dept-minigallery__hint">Clic para ampliar</span>
+              </div>
+
+              <div class="dept-minigallery__grid">
+                <button type="button" class="dept-minigallery__item" data-dept-foto aria-label="Ampliar foto: Dormitorio matrimonial">
+                  <img src="images/dormitorio-1.jpg" alt="Dormitorio principal con cama matrimonial" loading="lazy" width="260" height="180">
+                  <span class="dept-minigallery__caption">Dormitorio</span>
+                </button>
+
+                <button type="button" class="dept-minigallery__item" data-dept-foto aria-label="Ampliar foto: Estar comedor y cama marinera">
+                  <img src="images/comedor-1.jpg" alt="Estar comedor y cama marinera" loading="lazy" width="260" height="180">
+                  <span class="dept-minigallery__caption">Estar comedor</span>
+                </button>
+
+                <button type="button" class="dept-minigallery__item" data-dept-foto aria-label="Ampliar foto: Cocina completa equipada">
+                  <img src="images/cocina-1.jpg" alt="Cocina completa equipada" loading="lazy" width="260" height="180">
+                  <span class="dept-minigallery__caption">Cocina</span>
+                </button>
+
+                <button type="button" class="dept-minigallery__item" data-dept-foto aria-label="Ampliar foto: Deck con parrilla individual">
+                  <img src="images/parrilla.jpg" alt="Deck privado con parrilla individual" loading="lazy" width="260" height="180">
+                  <span class="dept-minigallery__caption">Deck y parrilla</span>
+                </button>
+              </div>
+
+              <button class="btn btn--outline btn--sm dept-gallery-btn" type="button" data-ver-cabana="1">
+                <svg class="icon" aria-hidden="true"><use href="#i-camera"></use></svg>
+                <span>Ver todas las fotos y detalles de la unidad</span>
+              </button>
+            </div>
           </div>
 
           <!-- Columna Ficha Detallada del Departamento -->

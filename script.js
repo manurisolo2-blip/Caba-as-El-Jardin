@@ -986,8 +986,25 @@ function iniciarCabanas() {
     atraparFoco(e, modal.el);
   });
 
-  /* Botones "Ver cabaña" y "Consultar disponibilidad" */
+  /* Botones "Ver cabaña", fotos de la minigalería y "Consultar disponibilidad" */
   document.addEventListener("click", (e) => {
+    const fotoItem = e.target.closest("[data-dept-foto]");
+    if (fotoItem) {
+      const img = $("img", fotoItem);
+      const cabana1 = CONFIG.cabanas.find((c) => c.id === 1) || CONFIG.cabanas[0];
+      if (cabana1 && cabana1.fotos && cabana1.fotos.length) {
+        const fotos = cabana1.fotos.map((f) => ({
+          src: f.src,
+          alt: f.alt,
+          titulo: `${cabana1.nombre} · ${f.alt}`
+        }));
+        const srcBusqueda = img ? img.getAttribute("src") : "";
+        const idx = fotos.findIndex((f) => f.src === srcBusqueda);
+        abrirLightbox(fotos, idx !== -1 ? idx : 0);
+      }
+      return;
+    }
+
     const botonVer = e.target.closest("[data-ver-cabana]");
     if (botonVer) {
       abrirModalCabana(botonVer.dataset.verCabana);

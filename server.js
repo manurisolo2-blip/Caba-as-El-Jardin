@@ -23,43 +23,67 @@ const MIME_TYPES = {
   '.otf': 'font/otf'
 };
 
+function encontrarArchivo(urlPath) {
+  let cleanPath = urlPath.replace(/^\/+/, '');
+  if (!cleanPath) cleanPath = 'index.html';
+
+  const roots = [
+    __dirname,
+    process.cwd(),
+    path.resolve('.'),
+    path.resolve(__dirname, '.')
+  ];
+
+  for (const root of roots) {
+    const candidate = path.join(root, cleanPath);
+    try {
+      if (fs.existsSync(candidate)) {
+        const stats = fs.statSync(candidate);
+        if (stats.isDirectory()) {
+          const indexCandidate = path.join(candidate, 'index.html');
+          if (fs.existsSync(indexCandidate)) return indexCandidate;
+        } else {
+          return candidate;
+        }
+      }
+    } catch (_) {}
+  }
+  return null;
+}
+
 const server = http.createServer((req, res) => {
-  let safeUrl = decodeURIComponent(req.url.split('?')[0]);
+  let safeUrl = decodeURIComponent((req.url || '/').split('?')[0]);
   if (safeUrl === '/' || safeUrl === '') safeUrl = '/index.html';
 
-  const normalizedPath = path.normalize(safeUrl).replace(/^(\.\.[\/\\])+/, '');
-  const filePath = path.join(__dirname, normalizedPath);
+  const targetFile = encontrarArchivo(safeUrl);
 
-  fs.stat(filePath, (err, stats) => {
-    if (err) {
-      res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
-      return res.end(`404 No encontrado: ${safeUrl}`);
+  if (!targetFile) {
+    res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
+    return res.end(`404 No encontrado: ${safeUrl}`);
+  }
+
+  fs.readFile(targetFile, (readErr, data) => {
+    if (readErr) {
+      res.writeHead(500, { 'Content-Type': 'text/plain; charset=utf-8' });
+      return res.end(`Error al leer archivo: ${safeUrl}`);
     }
 
-    let targetFile = filePath;
-    if (stats.isDirectory()) {
-      targetFile = path.join(filePath, 'index.html');
-    }
+    const ext = path.extname(targetFile).toLowerCase();
+    const contentType = MIME_TYPES[ext] || 'application/octet-stream';
 
-    fs.readFile(targetFile, (readErr, data) => {
-      if (readErr) {
-        res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
-        return res.end(`404 No encontrado: ${safeUrl}`);
-      }
-
-      const ext = path.extname(targetFile).toLowerCase();
-      const contentType = MIME_TYPES[ext] || 'application/octet-stream';
-
-      res.writeHead(200, {
-        'Content-Type': contentType,
-        'Cache-Control': 'no-cache, no-store, must-revalidate',
-        'Access-Control-Allow-Origin': '*'
-      });
-      res.end(data);
+    res.writeHead(200, {
+      'Content-Type': contentType,
+      'Cache-Control': ext === '.html' ? 'no-cache, must-revalidate' : 'public, max-age=86400',
+      'Access-Control-Allow-Origin': '*'
     });
+    res.end(data);
   });
 });
 
-server.listen(PORT, () => {
-  console.log(`Servidor local activo en: http://localhost:${PORT}/`);
-});
+if (require.main === module) {
+  server.listen(PORT, () => {
+    console.log(`Servidor local activo en: http://localhost:${PORT}/`);
+  });
+}
+
+module.exports = server;

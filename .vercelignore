@@ -1,6 +1,3 @@
-# Ignorar servidor de desarrollo local en Vercel
-server.js
-
 # Ignorar metadatos y documentacion
 .claude
 .gemini

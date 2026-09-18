@@ -1,5 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Manrope:wght@400;500;600&display=swap');
 
+/* Fuente Grifter Bold local */
+@font-face {
+  font-family: 'Grifter';
+  src: url('fonts/grifterbold.otf') format('opentype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* =========================================================================
    styles.css
    -------------------------------------------------------------------------
@@ -38,8 +47,9 @@
   --cta-terracotta: #B85C38;       /* Terracota tostado para botones principales de acción */
   --cta-terracotta-hover: #A04E2E; /* Tono de interacción hover */
 
-  /* Tipografías */
-  --font-serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  /* Tipografías: Grifter Bold para todos los títulos */
+  --font-serif: "Grifter", "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --font-title: "Grifter", "Cormorant Garamond", sans-serif;
   --font-sans: "Manrope", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 
   /* Bordes suaves tonales (reemplaza bordes duros de 1px en gris genérico) */

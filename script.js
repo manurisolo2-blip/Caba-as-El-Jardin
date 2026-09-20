@@ -88,7 +88,7 @@ const CONFIG = {
   telefonoPrincipal: "(011) 15-3261-8849",
   telefonoSecundario: "(011) 15-3261-6765",
   whatsappSecundario: "5491132616765",
-  facebook: "https://facebook.com/eljardi",
+  facebook: "https://www.facebook.com/eljardin1/",
 
   /* -----------------------------------------------------------------------
      WHATSAPP

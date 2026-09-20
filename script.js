@@ -103,10 +103,11 @@ const CONFIG = {
      En "reserva" se reemplazan solos: {cabana}, {entrada}, {salida},
      {noches}, {personas} y {nombre}. */
   mensajesWhatsapp: {
-    general: "Hola Ignacio, te contacto desde la web de Cabañas El Jardín. Quería consultar disponibilidad y tarifas para los departamentos de 2 ambientes.",
-    cabana: "Hola Ignacio, te contacto desde la web de Cabañas El Jardín. Quería consultar disponibilidad y tarifas para los departamentos de 2 ambientes.",
-    reserva: "Hola Ignacio, te contacto desde la web de Cabañas El Jardín. Quería consultar disponibilidad y tarifas para los departamentos de 2 ambientes.",
-    directo: "Hola Ignacio, te contacto desde la web de Cabañas El Jardín. Quería consultar disponibilidad y tarifas para los departamentos de 2 ambientes."
+    general: "Hola, te contacto desde la web de Cabañas El Jardín. Quería consultar disponibilidad y tarifas para los departamentos de 2 ambientes.",
+    cabana: "Hola, te contacto desde la web de Cabañas El Jardín. Quería consultar disponibilidad y tarifas para los departamentos de 2 ambientes.",
+    reserva: "Hola, te contacto desde la web de Cabañas El Jardín. Quería consultar disponibilidad y tarifas para los departamentos de 2 ambientes.",
+    directo: "Hola, te contacto desde la web de Cabañas El Jardín. Quería consultar disponibilidad y tarifas para los departamentos de 2 ambientes.",
+    alternativo: "Hola Ignacio, te contacto desde la web de Cabañas El Jardín. Quería consultar disponibilidad y tarifas para los departamentos de 2 ambientes."
   },
 
   /* -----------------------------------------------------------------------
@@ -549,6 +550,10 @@ function enlaceWhatsApp(mensaje) {
   return `https://wa.me/${String(CONFIG.whatsapp).trim()}?text=${encodeURIComponent(mensaje)}`;
 }
 
+function enlaceWhatsAppSecundario(mensaje) {
+  return `https://wa.me/${String(CONFIG.whatsappSecundario).trim()}?text=${encodeURIComponent(mensaje)}`;
+}
+
 function aplicarDatosGenerales() {
   $$("[data-nombre-complejo]").forEach((el) => { el.textContent = CONFIG.nombreComplejo; });
   document.title = `${CONFIG.nombreComplejo} | Cabañas en Valeria del Mar, Buenos Aires`;
@@ -560,6 +565,10 @@ function aplicarDatosGenerales() {
 
   $$('[data-whatsapp="directo"]').forEach((enlace) => {
     enlace.href = enlaceWhatsApp(CONFIG.mensajesWhatsapp.directo);
+  });
+
+  $$('[data-whatsapp="alternativo"]').forEach((enlace) => {
+    enlace.href = enlaceWhatsAppSecundario(CONFIG.mensajesWhatsapp.alternativo);
   });
 
   $$("[data-instagram]").forEach((enlace) => {
@@ -1553,12 +1562,12 @@ function iniciarSelectorConsulta() {
 
     let mensaje;
     if (checkin && checkout) {
-      mensaje = `Hola Ignacio, te escribo desde la web de Cabañas El Jardín. Quería consultar disponibilidad para ingresar el ${checkin} y salir el ${checkout} para ${guests} pasajeros.`;
+      mensaje = `Hola, te escribo desde la web de Cabañas El Jardín. Quería consultar disponibilidad para ingresar el ${checkin} y salir el ${checkout} para ${guests} pasajeros.`;
     } else {
-      mensaje = `Hola Ignacio, te escribo desde la web de Cabañas El Jardín. Quería consultar disponibilidad para los departamentos de 2 ambientes para ${guests} pasajeros.`;
+      mensaje = `Hola, te escribo desde la web de Cabañas El Jardín. Quería consultar disponibilidad para los departamentos de 2 ambientes para ${guests} pasajeros.`;
     }
 
-    const url = `https://wa.me/5491132618849?text=${encodeURIComponent(mensaje)}`;
+    const url = `https://wa.me/${String(CONFIG.whatsapp).trim()}?text=${encodeURIComponent(mensaje)}`;
     window.open(url, "_blank", "noopener,noreferrer");
   }
 
